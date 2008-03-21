@@ -1,0 +1,9 @@
+Switch the loops to loop over j first, then i.
+	Before optimization: 26 average FPS
+	After optimization:  22 average FPS
+
+Remove divisions from inner loops.
+	Before optimization: 26 average FPS
+	After optimization:  31 average FPS
+
+

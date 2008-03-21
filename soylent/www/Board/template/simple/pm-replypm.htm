@@ -1,0 +1,40 @@
+<script language='JavaScript'>
+
+  <!--
+  function bbcode(which) {
+  document.forum.message.value = document.forum.message.value + which;
+  }
+  //-->
+</script>
+<a href="index.php">{TITLE}</a> &#187; <a href="PM.php">{LANG-TITLE}</a> &#187; {LANG-REPLYPM}<br><br>
+<form method="post" action="PM.php?action=reply_process" name="forum">
+<table border="0" bgcolor="{BORDER}" align="center" width="100%" cellpadding="1" cellspacing="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-REPLYPM}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{BBCODE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-USERNAME}</td>
+<td class="td" width="80%">{USERNAME}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-TO}</td>
+<td class="td" width="80%"><input type="text" name="send" value="{TO}" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-SUBJECT}</td>
+<td class="td" width="80%">{SUBJECT}</td>
+</tr>
+<tr>
+<td class="td" bgcolor="{TABLE2}" align="center" width="20%">{SMILES}<br>
+<a href="#" OnClick="open_win('smiles.php');return false;">{LANG-SMILES}</a></td>
+<td class="td" bgcolor="{TABLE1}" width="80%"><textarea name="message" rows="5" cols="90" wrap="soft" class="text"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td"><input type="submit" value="{LANG-SENDPM}" class="submit"></td>
+</tr>
+</table>
+<input type="hidden" name="subject" value="{SUBJECT}">
+</form>

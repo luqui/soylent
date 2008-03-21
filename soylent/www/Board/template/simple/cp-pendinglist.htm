@@ -1,0 +1,25 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-GROUPPENDINGLIST}<br><br>
+{LANG-TEXT}<br><br>
+
+<table width="100%" align="center" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<th colspan="5" class="td">::{LANG-PENDINGLIST}::</th></tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">&nbsp;</td><td class="td" width="20%">&nbsp;</td><td class="td" width="20%" align="center">{LANG-USERNAME}</td><td class="td" width="20%" align="center">{LANG-POSTCOUNT}</td><td class="td" width="20%" align="center">{LANG-REGISTRATIONDATE}</td>
+</tr>
+{PENDINGLIST}
+</table><br>
+
+<form method="post" action="CP.php?action=group_adduser">
+<table width="100%" align="center" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<th colspan="2" class="td">::{LANG-ADDUSERTOGROUP}::</th></tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-USERNAME}</td>
+<td class="td" width="50%"><input type="text" name="user" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td align="center" colspan="2" class="td"><input type="submit" value="{LANG-SUBMIT}" class="submit"></td></tr>
+</table>
+<input type="hidden" name="id" value="{ID}">
+</form>

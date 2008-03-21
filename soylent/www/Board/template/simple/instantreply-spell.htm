@@ -1,0 +1,36 @@
+<br>
+<script language='JavaScript'>
+
+  <!--
+  function bbcode(which) {
+  document.forum.reply_post.value = document.forum.reply_post.value + which;
+  }
+  //-->
+</script>
+<form method="post" action="Process.php?mode=Reply&amp;bid={BID}&amp;tid={TID}" name="forum">
+<table border="0" bgcolor="{BORDER}" align="center" width="80%" cellpadding="1" cellspacing="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-INSTANTREPLY}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{BBCODE}</td>
+</tr>
+<tr>
+<td class="td" bgcolor="{TABLE1}" align="center" width="10%">{SMILES}<br>
+<a href="#" OnClick="open_win('smiles.php');return false;">{LANG-SMILES}</a></td>
+<td class="td" bgcolor="{TABLE1}" width="90%">
+<textarea title="spellcheck_icons" accesskey="spell/spell_checker.php" id="spell_checker1" name="reply_post" class="text_box" rows="5" cols="90" wrap="soft"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="10%">{LANG-OPTIONS}</td>
+<td class="td" width="90%"><input type="checkbox" name="subscribe" value="yes" class="text">{NOTIFY}<br>
+<input type="checkbox" name="no_smile" value="1" class="text">{LANG-DISABLESMILES}<br>
+<input type="checkbox" name="no_bbcode" value="1" class="text">{LANG-DISABLEBBCODE}<br></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">
+<input type="hidden" name="page" value="{PAGE}">
+<input type="submit" value="{LANG-REPLY}" class="submit"></td>
+</tr>
+</table>
+</form>

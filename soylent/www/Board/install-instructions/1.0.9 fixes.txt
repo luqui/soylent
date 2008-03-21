@@ -1,0 +1,12 @@
+What's New with v1.0.9?
+
+*Patched up XSS exploit found on search.php(gator)
+*Fixed html tag cleaning where html tags would only get parse for one option only when editing a topic or post.
+*Fixed bug where username would be decided based on what was entered in the cookie instead of the db.
+
+What to upload?
+
+CP.php
+edit.php
+header.php
+Search.php

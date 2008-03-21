@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>{TITLE}  - {PAGETITLE}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="template/simple/style.css">
+<link rel="stylesheet" type="text/css" href="template/simple/spell_checker.css">
+<script type="text/javascript">
+var interval = 5; // interval in seconds
+var fadeSpeed = 40; // fade speed, the lower the speed the faster the fade.  40 is normal.
+</script>
+<script type="text/javascript" src="template/simple/ticker_functions.js"></script>
+<script type="JavaScript">
+<!-- Begin
+function doAIM() {
+var action;
+var msg = document.frmAIM.txtMessage.value;
+var newMsg = "";
+var charSpec = "N";
+var specials = "&? @%";
+for(var i = 0; i < msg.length; i++) {
+for(var q = 0; q < specials.length; q++) {
+if(msg.charAt(i) == specials.charAt(q)) {
+charSpec = "Y";
+break;
+} else {
+charSpec = "N";
+   }
+}
+if(charSpec == "Y") {
+newMsg += "+";
+} else {
+newMsg += msg.charAt(i);
+   }
+}
+action = "aim:goim?screenname=";
+action += document.frmAIM.txtName.value;
+action += "&message=";
+action += newMsg;
+document.frmAIM.action = action;
+document.frmAIM.submit();
+}
+//  End -->
+</script>
+<script language="JavaScript" type="text/javascript">
+<!--
+function open_win(what_link){
+var the_url = "color_picker.php"
+var the_x = 640;
+var the_y = 350;
+the_x -= 0;
+the_y -= 0;
+var how_wide = screen.availWidth;
+var how_high = screen.availHeight;
+if(what_link != ""){the_url=what_link;}
+var the_toolbar = "no";
+var the_addressbar = "no";
+var the_directories = "no";
+var the_statusbar = "no";
+var the_menubar = "no";
+var the_scrollbars = "yes";
+var the_do_resize =  "no";
+var the_copy_history = "no";
+top_pos = (how_high/2) -  (the_y/2);
+left_pos = (how_wide/2) -  (the_x/2);
+if (window.outerWidth ){
+var option = "toolbar="+the_toolbar+",location="+the_addressbar+",directories="+the_directories+",status="+the_statusbar+",menubar="+the_menubar+",scrollbars="+the_scrollbars+",resizable="+the_do_resize+",outerWidth="+the_x+",outerHeight="+the_y+",copyhistory="+the_copy_history+",left="+left_pos+",top="+top_pos;
+site=open(the_url, "DisplayWindow", option);
+var Opera = (navigator.userAgent.indexOf('Opera') != -1);
+if(Opera){
+site.resizeTo(the_x,the_y);
+site.moveTo(0,0);
+}
+}
+else
+{
+var option = "toolbar="+the_toolbar+",location="+the_addressbar+",directories="+the_directories+",status="+the_statusbar+",menubar="+the_menubar+",scrollbars="+the_scrollbars+",resizable="+the_do_resize+",Width="+the_x+",Height="+the_y+",copyhistory="+the_copy_history+",left="+left_pos+",top="+top_pos;
+site=open('', "DisplayWindow", option);
+site.location=the_url;
+if(site.open){site.focus();return false;}
+site.resizeTo(the_x,the_y);
+}
+}
+// -->
+</script>
+<script type="text/javascript">
+<!--
+/* Coded by Travis Beckham
+   http://www.squidfingers.com | http://www.podlob.com
+   version date: 06/02/03
+   If want to use this code, feel free to do so, but please leave this message intact. */
+
+// Node Functions
+
+if(!window.Node){
+  var Node = {ELEMENT_NODE : 1, TEXT_NODE : 3};
+}
+
+function checkNode(node, filter){
+  return (filter == null || node.nodeType == Node[filter] || node.nodeName.toUpperCase() == filter.toUpperCase());
+}
+
+function getChildren(node, filter){
+  var result = new Array();
+  var children = node.childNodes;
+  for(var i = 0; i < children.length; i++){
+    if(checkNode(children[i], filter)) result[result.length] = children[i];
+  }
+  return result;
+}
+
+function getChildrenByElement(node){
+  return getChildren(node, "ELEMENT_NODE");
+}
+
+function getFirstChild(node, filter){
+  var child;
+  var children = node.childNodes;
+  for(var i = 0; i < children.length; i++){
+    child = children[i];
+    if(checkNode(child, filter)) return child;
+  }
+  return null;
+}
+
+function getFirstChildByText(node){
+  return getFirstChild(node, "TEXT_NODE");
+}
+
+function getNextSibling(node, filter){
+  for(var sibling = node.nextSibling; sibling != null; sibling = sibling.nextSibling){
+    if(checkNode(sibling, filter)) return sibling;
+  }
+  return null;
+}
+function getNextSiblingByElement(node){
+        return getNextSibling(node, "ELEMENT_NODE");
+}
+
+// Menu Functions & Properties
+
+var activeMenu = null;
+
+function showMenu() {
+  if(activeMenu){
+    activeMenu.className = "";
+    getNextSiblingByElement(activeMenu).style.display = "none";
+  }
+  if(this == activeMenu){
+    activeMenu = null;
+  } else {
+    this.className = "active";
+    getNextSiblingByElement(this).style.display = "block";
+    activeMenu = this;
+  }
+  return false;
+}
+
+function initMenu(){
+  var menus, menu, text, a, i;
+  menus = getChildrenByElement(document.getElementById("menu"));
+  for(i = 0; i < menus.length; i++){
+    menu = menus[i];
+    text = getFirstChildByText(menu);
+    a = document.createElement("a");
+    menu.replaceChild(a, text);
+    a.appendChild(text);
+    a.href = "#";
+    a.onclick = showMenu;
+    a.onfocus = function(){this.blur()};
+  }
+}
+
+if(document.createElement) window.onload = initMenu;
+//-->
+</script>
+<script src="spell/cpaint/cpaint2.inc.compressed.js" type="text/javascript"></script>
+<script src="spell/js/spell_checker_compressed.js" type="text/javascript"></script>
+</head>
+<body bgcolor="{BGCOLOR}" text="{TEXTCOLOR}" link="{LINKCOLOR}" vlink="{VLINKCOLOR}">

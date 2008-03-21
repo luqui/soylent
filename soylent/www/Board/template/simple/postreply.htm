@@ -1,0 +1,44 @@
+<script language='JavaScript'>
+
+  <!--
+  function bbcode(which) {
+  document.forum.reply_post.value = document.forum.reply_post.value + which;
+  }
+  //-->
+</script>
+<a href="index.php">{TITLE}</a> &#187; {LANG-TITLE}<br><br>
+
+<table border="0" bgcolor="{BORDER}" align="center" width="100%" cellpadding="1" cellspacing="1">
+<tr bgcolor="{TABLE1}">
+<td class="td" align="center">{LANG-POSTINGRULES}</td>
+</tr>
+<tr bgcolor="{TABLE2}" align="center">
+<td class="td">{LANG-ALLOWHTML}: <b>{ALLOWHTML}</b> &nbsp;|&nbsp;{LANG-ALLOWSMILES}: <b>{ALLOWSMILES}</b> &nbsp;|&nbsp;{LANG-ALLOWBBCODE}: <b>{ALLOWBBCODE}</b> &nbsp;|&nbsp;{LANG-ALLOWIMG}: <b>{ALLOWIMG}</b></td>
+</tr>
+</table><br>
+<form method="post" action="Process.php?mode=Reply&amp;bid={BID}&amp;tid={TID}" name="forum">
+<table border="0" bgcolor="{BORDER}" align="center" width="100%" cellpadding="1" cellspacing="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-TITLE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{BBCODE}</td>
+</tr>
+<tr>
+<td class="td" bgcolor="{TABLE2}" align="center" width="20%">{SMILES}<br>
+<a href="#" OnClick="open_win('smiles.php');return false;">{LANG-SMILES}</a></td>
+<td class="td" bgcolor="{TABLE1}" align="center" width="80%"><textarea name="reply_post" rows="5" cols="90" wrap="soft" class="text"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-OPTIONS}</td>
+<td class="td" width="80%"><input type="checkbox" name="subscribe" value="yes" class="text">{NOTIFY}<br>
+<input type="checkbox" name="no_smile" value="1" class="text">{LANG-DISABLESMILES}<br>
+<input type="checkbox" name="no_bbcode" value="1" class="text">{LANG-DISABLEBBCODE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">
+<input type="hidden" name="page" value="{PAGE}">
+<input type="submit" value="{LANG-REPLY}" class="submit"></td>
+</tr>
+</table>
+</form>

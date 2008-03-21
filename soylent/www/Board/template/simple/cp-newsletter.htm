@@ -1,0 +1,20 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-NEWSLETTER}<br><br>
+{LANG-TEXT}<br><br>
+<form action="CP.php?action=mail_send" method="post">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-NEWSLETTER}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-SUBJECT}</td>
+<td class="td" width="50%"><input type="text" name="subject" class="text" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-MESSAGE}</td>
+<td class="td" width="50%"><textarea name="mail_message" rows="10" cols="80" wrap="soft" class="text"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-SENDNEWSLETTER}" class="submit"></td>
+</tr>
+</table>
+</form>

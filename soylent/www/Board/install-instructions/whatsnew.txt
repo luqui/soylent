@@ -1,0 +1,43 @@
+Whats New With Version 1.0?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FIXED:
+~~~~~~~~~
+*Fixed bug in where you couldn't unlock a topic
+*Fixed bug in where only one subscribed topic would appear
+*Fixed bug in where user wasn't notified about new PM's
+*Fixed bug with permissions
+*Fixed bug in where editing a topic had some incorrect values
+*Fixed bug in where you couldnt assign moderators
+*Fixed bug in where you got a post not exist errowhen editing a post/topic
+*Fixed bug in where data that doesn't point to anything anymore didn't get removed.
+*Fixed bug in where a guest could access the edit page
+*Fixed bug in pruning system
+*Fixed bug in user pruner system
+*Fixed a couple of errors on avatar format checking
+*Fixed bug in where you couldn't delete anything off the banlist.
+*Fixed small bug with template system
+*Fixed error with register system that allows multiple accounts.
+~~~~~~~~~
+
+ADDED:
+~~~~~~~~~
+*Added an option to have public logins
+*Added an option to disable smiles & bbcode in posts
+*Added new BBcode options
+*Added Access rules to make users earn access to items like pm posting, profile viewing, group membership and avatar usage
+*Added an option to have a Jr. Admin as well as have special banned groups.
+*Added a report to moderator form to report any post or topics.
+*Added an option to send out emails by SMTP.
+~~~~~~~~~
+
+MODIFIED:
+~~~~~~~~~
+*Improved the ordering system for the boards & categories.
+*Improved the board policy system.
+*Improved the pruning system
+*Improved the group feature
+*Improved the anti-injection function to better clean variables without killing out data needed.
+*upgraded spell-checker script used for this program.
+*adjusted the way the style is called.
+*improved image verify system, much more spam-proof.
+~~~~~~~~~

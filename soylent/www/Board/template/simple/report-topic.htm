@@ -1,0 +1,31 @@
+<a href="index.php">{TITLE}</a> &#187; {LANG-TITLE}<br><br>
+{LANG-TEXT}<br>
+<form method="post" action="report.php?mode=report_topic">
+<table width="100%" align="center" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td" width="50%">{LANG-TITLE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-REPORTEDBY}</td>
+<td class="td" width="50%">{USERNAME}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-REASON}</td>
+<td class="td" width="50%"><select name="reason" class="text">
+<option value="spampost">{LANG-SPAMPOST}
+<option value="fightpost">{LANG-FIGHTPOST}
+<option value="advert">{LANG-ADVERT}
+<option value="userproblems">{LANG-USERPROBLEMS}
+<option value="other">{LANG-OTHER}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-MESSAGE}</td>
+<td class="td" width="50%"><textarea name="msg" rows="5" cols="80" class="text"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td"><input type="submit" name="submit" value="{LANG-SUBMIT}" class="submit"></td>
+</tr>
+</table>
+<input type="hidden" name="tid" value="{TID}">
+</form>

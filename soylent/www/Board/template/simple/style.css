@@ -1,0 +1,116 @@
+BODY {
+        SCROLLBAR-FACE-COLOR: #EDF0F7;
+        SCROLLBAR-HIGHLIGHT-COLOR: #C4C8D4;
+        SCROLLBAR-SHADOW-COLOR: #EDF0F7;
+        SCROLLBAR-3DLIGHT-COLOR: #0066CC;
+        SCROLLBAR-ARROW-COLOR:  #C4C8D4;
+        SCROLLBAR-TRACK-COLOR: #ffffff;
+        SCROLLBAR-DARKSHADOW-COLOR: #0066CC;
+font-family: verdana;
+font-size: 8pt;
+}
+#tic
+{
+	/* enter any styles for the ticker below */
+	font-size:0.85em;
+	padding:3px;
+	width:700px;
+	line-height:20px;
+	
+}
+#tic * /*this will hide all children tags */
+{
+	font-size: 8pt;
+	font-family: verdana;
+	margin:0px;
+	padding:0px;
+	display:none;
+}
+#tic a, #tic b, #tic i, #tic u, #tic img  /* add more tags to this list if you wish to display them inside the children */
+{
+	display:inline;
+}
+
+.td{
+font-family: verdana;
+font-size: 8pt;
+}
+.submit {
+background-color: #EDF0F7;
+border-color:  #0066CC;
+border-style: solid;
+border-width: thin;
+color: #000000;
+font-family: vandana;
+font-size: 8pt;
+}
+.text {
+background-color: #EDF0F7;
+border-color: #0066CC;
+border-style: solid;
+border-width: thin;
+color: #000000;
+font-family: vandana;
+font-size: 8pt;
+}
+ul#menu {
+  width: 200px;
+  list-style-type: none;
+  border-top: solid 1px #0066CC;
+  margin: 0;
+  padding: 0;
+}
+
+ul#menu ol {
+  display: none;
+  text-align: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px;
+}
+
+ul#menu li, 
+  ul#menu a {
+  font-family: verdana, sans-serif;
+  font-size: 11px;
+  color: #000000;
+}
+
+ul#menu li {
+  border-bottom: solid 1px #0066CC;
+  line-height: 15px;
+}
+
+ul#menu ol li {
+  border-bottom: none;
+}
+
+ul#menu ol li:before {
+  content: "- ";
+}
+
+ul#menu a {
+  text-decoration: none;
+  outline: none;
+}
+
+ul#menu a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+ul#menu a.active {
+  color: #000000;
+}
+A:link {
+        COLOR: #000000; TEXT-DECORATION: none
+}
+A:active {
+        COLOR: #000000; TEXT-DECORATION: none
+}
+A:visited {
+        COLOR: #000000; TEXT-DECORATION: none
+}
+A:hover {
+        COLOR: #000000; TEXT-DECORATION: underline;
+}

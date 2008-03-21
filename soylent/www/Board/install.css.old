@@ -1,0 +1,45 @@
+BODY {
+        SCROLLBAR-FACE-COLOR: #EDF0F7;
+        SCROLLBAR-HIGHLIGHT-COLOR: #C4C8D4;
+        SCROLLBAR-SHADOW-COLOR: #EDF0F7;
+        SCROLLBAR-3DLIGHT-COLOR: #0066CC;
+        SCROLLBAR-ARROW-COLOR:  #C4C8D4;
+        SCROLLBAR-TRACK-COLOR: #ffffff;
+        SCROLLBAR-DARKSHADOW-COLOR: #0066CC;
+font-family: verdana;
+font-size: 8pt;
+}
+.td{
+font-family: verdana;
+font-size: 8pt;
+}
+.submit {
+background-color: #EDF0F7;
+border-color:  #0066CC;
+border-style: solid;
+border-width: thin;
+color: #000000;
+font-family: vandana;
+font-size: 8pt;
+}
+.text {
+background-color: #EDF0F7;
+border-color: #0066CC;
+border-style: solid;
+border-width: thin;
+color: #000000;
+font-family: vandana;
+font-size: 8pt;
+}
+A:link {
+        COLOR: #000000; TEXT-DECORATION: none
+}
+A:active {
+        COLOR: #000000; TEXT-DECORATION: none
+}
+A:visited {
+        COLOR: #000000; TEXT-DECORATION: none
+}
+A:hover {
+        COLOR: #000000; TEXT-DECORATION: underline;
+}

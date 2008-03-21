@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+ <head>
+  <title>Soylent Software</title>
+ </head>
+ <body bgcolor="#003300" style="margin-top: 0in; margin-bottom: 0in">
+  <center>
+ 	 <div style="width: 80%; height: 50%; background: #003300">
+	  <table border="0" width="100%" cellpadding="0" cellspacing="0">
+			 <tr>
+			 	<td width="10%" valign="top">
+				 <a href="bugs">
+			    <img src="bug.jpg" height=64 alt="Bug Tracker" style="border:none" />
+				 </a>
+				 <!-- <a href="bugs/wiki/GuestBook">
+				  <img src="guestbook.jpg" height=64 alt="Guestbook" style="border:none" />
+				 </a> -->
+				 <a href="http://luqui.org/blog">
+				  <img src="lukeblog.jpg" height=64 alt="Luke's Blog" style="border:none" />
+				 </a>
+				 <a href="http://namaste.soylentsoft.net">
+				  <img src="namasteblog.jpg" height=64 alt="Namaste's Blog" style="border:none" />
+				 </a>
+				</td>
+				<td width="80%" valign="center" align="center">
+					<img src="SoylentLogo.jpg" width=333 alt="Soylent Software"/>
+				</td>
+				<td width="10%" valign="top" align="right">
+				<!This table element keeps the logo centered.>				
+				</td>
+			 </tr>
+		</table>
+
+    <center>
+		 <div style="width: 100%; background: white">
+      <table border="0" width="100%" cellpadding="0" cellspacing="0">
+			 <tr>
+			 	<td width="50%" valign="top">
+			   <img src="LeftShoulder.jpg" alt="" height="40" width="43" border="0" />
+				</td>
+				<td width="50%" valign="top" align="right">
+				  <img src="RightShoulder.jpg" alt="" height="40" width="43" border="0"/>
+				</td>
+			 </tr>
+			</table>
+			<center>
+		<b>Do you like our games?</b>
+<!-- Paypal donation form -->
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHXwYJKoZIhvcNAQcEoIIHUDCCB0wCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAYmmMe7suZS98xxtXcBwWG7ErSKCWk2anHIn1VBszo59WaoktpVGVPqTE4wwGoDGmmD0sM9pTMu/I7EQLOTGrlFdodv1dGn6l7sn8vyCI5y2FfUPlrf9i0oatoqroCi9OMUYebdkxS8t0zbobLVMMYuQkspyB9ium8c+EgknZOLjELMAkGBSsOAwIaBQAwgdwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIaK6XJ6Ok5uGAgbg7E2j7YOzFs99Oip93t+GUHuzN3doH5jSaj8sJ7wwG9FdkeE3QFxZHfP9kb8CBtLGMt3/xCKuIyDV0aQpy7Yrzwv+v2mWOb/ttiUNbFBQ2ZjSZaXx8TfxetrCDajBD3ksxyaqc4GZ3G9lToXzKkM6pyg0tg9e6de5pY2m65yXpXlFZioxe94A0s2Amzm4zcmWbdKTU0rvGmDUD/42ktpRNFQzZRYjWJAI2MNyq0r+k+rBY10PoZba/oIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxNVowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowggGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMDYwMzMxMTk0NjM2WjAjBgkqhkiG9w0BCQQxFgQU7t5DLyor0xnAS42jtuocCfQAOecwDQYJKoZIhvcNAQEBBQAEgYApPwk9uViBztxBDEETkCQ1ejiarsoOTVT3aM+tWyrQAmrIIASThcZKpRno925UmpsV3ymlinj6yjXYFNhzMMC7Myfj7RgIb2dMP9hf9WQptoOi7G4wK4KRLxghWfW7Ly30fWA75guxYoFhMWp6qdjcQsteEHLDAaxcgezqa0aGCg==-----END PKCS7-----
+">
+</form>
+<!-- End Paypal donation form -->
+
+  <!-- Updates Section -->
+ 		 <hr align="center" width="66%" size="1" color="#003300"><br><br>
+		  <table border="0" width="100%" cellspacing="25%" align="center" style="margin-top: -40px" >
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+         <font size=+2><b>Updates</b></font><br />
+				 <p><b>8/16/2007:</b> Namaste posted a forum entry about the present and future of Soylent Software <a href="http://soylentsoft.net/Board/viewtopic.php?bid=1&tid=8">here</a>.</p>
+ 			  </td>
+		 	 </tr>
+       <tr>
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+				 <p><b>3/9/2007:</b> We added a <a href="/Board">Forum</a> section.  Although it is very primitive, it is working, and is the best place to offer feedback, suggestions, and the like about our games.</p>
+ 			  </td>
+		 	 </tr>
+       <tr>
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+				 <p><b>2/21/2007:</b> I uploaded an installer for the GPU accelerated version of Ichor. This
+				 version still needs a lot of work, but some people wanted to see it. The sandbox
+				 mode isn't a game yet and the single-player mode breaks if you get too far.
+				 The duel mode is pretty solid, but needs a little more work. It will also only run on nVidia
+				 cards. -Namaste</p>
+ 			  </td>
+		 	 </tr>
+      </table>
+
+ <!-- Minesweeper Infinity -->
+		 <hr align="center" width="66%" size="1" color="#003300"><br><br>
+		  <table border="0" width="100%" cellspacing="25%" align="center" style="margin-top: -40px" >
+       <tr>
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+         <font size=+2><b>Minesweeper Infinity</b> (Beta)</font><br />
+				 Download for <b>FREE</b> -
+         <i><a href="minesweeper_infinity.zip">Windows</a>,
+         <a href="minesweeper_infinity.tar.gz">Linux x86</a></i><br />
+         updated: <!--UPDATE-MINESWEEPER--><br />
+ 
+ 				 <p>Minesweeper Infinity is an advanced version of the classic Minesweeper.
+				 It has numerous excellent features, including the ability to produce only 
+				 solvable puzzles. Anybody who likes Minesweeper will love Minesweeper Infinity.
+				 Please download it and give it a try.</p>
+        </td>
+ 
+ 
+ <!-- This is to make the first part only take up half a page -->
+        <td width="50%" valign="top" align="right">
+         <img src="MSIScreenshot.jpg" alt="MSI Screenshot" width = 402>
+        </td>
+       </tr>
+      </table>
+			
+ <!-- Ichor -->			
+	<hr align="center" width="66%" size="1" color="#003300">
+	  <table border="0" width="100%" cellspacing="25%" align="center">
+       <tr>
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+		 <font size=+2><b>Ichor</b> (Beta)</font><br />
+				 Download for <b>FREE</b> - <br />
+		  New nVidia GPU Accelerated Version: 
+			<i><a href="IchorInstallerGPU.exe">Windows</a></i> <br />
+		  Old CPU Version: <i><a href="IchorInstaller.exe">Windows</a>,
+		   <a href="ichor-0.1.tar.gz">Source</a></i><br />
+		 updated: 2/21/2007
+ 
+		 <p>Ichor is an action game based in fluid dynamics. 
+		 Each player floats around the screen, trying to engulf his opponent
+		 with his own color.</p>
+		 <p><b>Note:</b> The GPU accelerated version of this game requires a GeForce
+		  6800 or better and only works on nVidia video cards for the time being. 
+			The CPU version of this game requires at least a 3GHz Pentium 4 or 
+			equivalent.</p>
+        </td>
+ 
+ 
+ <!-- This is to make the first part only take up half a page -->
+        <td width="50%" valign="top" align="right">
+		 <img src="IchorScreenshot.JPG" alt="Ichor Screenshot" width=402>
+        </td>
+       </tr>
+      </table>
+			
+ <!-- Telegnosis -->			
+	<hr align="center" width="66%" size="1" color="#003300">
+	  <table border="0" width="100%" cellspacing="25%" align="center">
+       <tr>
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+		 <font size=+2><b>Telegnosis</b> (Beta)</font><br />
+				 Download for <b>FREE</b> -
+		  <i><a href="Telegnosis.zip">Windows</a></i><br />
+		 updated: <!--UPDATE-TELEGNOSIS--><br />
+ 
+		 <p>Telegnosis is a multiplayer, turn-based strategy game.  The
+                    core gameplay comes from choosing what information to reveal
+                    to your opponents, exchanging it for the risk of your
+                    moves' success.</p>
+        </td>
+ 
+ 
+ <!-- This is to make the first part only take up half a page -->
+        <td width="50%" valign="top" align="right">
+		 <img src="TelegnosisScreenshot.jpg" alt="Telegnosis Screenshot" width=402>
+        </td>
+       </tr>
+      </table>
+
+ <!-- Galactic Flotsam -->			
+		<hr align="center" width="66%" size="1" color="#003300">
+			<table border="0" width="100%" cellspacing="25%" align="center">
+       <tr>
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+		 <font size=+2><b>Galactic Flotsam</b> (Beta)</font><br />
+				 Download for <b>FREE</b> -
+		  <i><a href="GFInstaller.exe">Windows</a></i><br />
+		 updated: 2/13/2007
+ 
+		 <p>Galactic Flotsam is a strategy game which uses cellular automata
+		 instead of more traditional weapons and structures. Each player builds a
+		 library of useful patterns, which can then be used in battle. A player
+		 is victorious once he has infiltrated his opponent's three bases.</p>
+        </td>
+ 
+ <!-- This is to make the first part only take up half a page -->
+        <td width="50%" valign="top" align="right">
+		 <img src="GFScreenshot.jpg" alt="GF Screenshot" width=402>
+        </td>
+       </tr>
+      </table>			
+			
+ <!-- Strange -->
+		<hr align="center" width="66%" size="1" color="#003300">
+			<table border="0" width="100%" cellspacing="25%" align="center">
+       <tr>
+        <td width="50%" valign="top" align="center" style="text-align: justify">
+		 <font size=+2><b>Strange</b> (Beta)</font><br />
+				 Download for <b>FREE</b> -
+		  <i><a href="StrangeInstaller.exe">Windows</a></i><br />
+		 updated: 10/17/2006
+ 
+		 <p>Strange is a musical toy. It uses the position of shapes to generate sounds.
+		 Shapes are generated using an Iterated Function System.</p>
+        </td>				
+				
+<!-- This is to make the first part only take up half a page -->
+        <td width="50%" valign="top" align="right">
+		 <img src="StrangeScreenshot.JPG" alt="Strange Screenshot" width=402>
+        </td>
+       </tr>
+      </table>
+			
+			</center>
+     </div>
+     <p>
+      <font color="#aaaaaa">
+      Games and page content Copyright &copy; 2006 Soylent Software LLP.
+      All rights reserved.
+     </font>
+     </p>
+		 <!-- Start of StatCounter Code -->
+         <script type="text/javascript" language="javascript">
+				  var sc_project=1314836; 
+					var sc_invisible=0; 
+					var sc_partition=9; 
+					var sc_security="d6f6ab3c"; 
+ 				 </script>
+
+				 <script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c10.statcounter.com/counter.php?sc_project=1314836&amp;java=0&amp;security=d6f6ab3c&amp;invisible=0" alt="counter hit make" border="0" /></a> </noscript>
+			<!-- End of StatCounter Code -->
+    </center>
+   </div>
+  </center>
+	
+	
+ </body>
+</html>

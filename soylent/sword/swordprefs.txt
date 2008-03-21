@@ -1,0 +1,38 @@
+NVT_1.0
+/ScreenMode=Split
+AudioEnabled=false
+Beginner_SinglePlayerPrefs==
+	DeathTarget=4
+	PlaybackFiles==
+		Count=9
+		PlaybackFile1=SinglePlayerFiles/angled up
+		PlaybackFile2=SinglePlayerFiles/diagonal blocking
+		PlaybackFile3=SinglePlayerFiles/block then diagonal
+		PlaybackFile4=SinglePlayerFiles/advancing vert
+		PlaybackFile5=SinglePlayerFiles/vertical
+		PlaybackFile6=SinglePlayerFiles/horizontal
+		PlaybackFile7=SinglePlayerFiles/justsittingthere
+		PlaybackFile8=SinglePlayerFiles/whatever
+		PlaybackFile9=SinglePlayerFiles/advancing vert 2
+FullScreen=false
+Player1Stance=HiltCentricRel
+Player2Stance=WristStance
+ScreenMode=Player1
+SinglePlayer=true
+SinglePlayerPrefs==
+	DeathTarget=4
+	PlaybackFiles==
+		/PlaybackFile1=SinglePlayerFiles/justsittingthere
+		Count=9
+		PlaybackFile1=SinglePlayerFiles/diag up vert down
+		PlaybackFile2=SinglePlayerFiles/whatever
+		PlaybackFile3=SinglePlayerFiles/zorro
+		PlaybackFile4=SinglePlayerFiles/advancing vert 2
+		PlaybackFile5=SinglePlayerFiles/wristspin
+		PlaybackFile6=SinglePlayerFiles/spazzercle
+		PlaybackFile7=SinglePlayerFiles/quick horiz
+		PlaybackFile8=SinglePlayerFiles/circles
+		PlaybackFile9=SinglePlayerFiles/chopchop
+SplitScreen=true
+Stereo3d=false
+UseInputNexus=true

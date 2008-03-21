@@ -1,0 +1,144 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-SETTINGS}<br><br>
+<form method="post" action="CP.php?action=settings_process">
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-SETTINGS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-BOARDNAME}</td>
+<td class="td"><input type="text" name="board_name" size="30" value="{BOARDNAME}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-SITEADDRESS}&nbsp;<b>({LANG-SITEADDESSTXT})</b></td>
+<td class="td"><input type="text" name="site_address" size="30" value="{SITEADDRESS}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-BOARDSTATUS}</td>
+<td class="td">{BOARDSTATUS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-OFFMSG}</td>
+<td class="td"><textarea name="off_msg" rows="3" cols="50" wrap="soft" class="text">{OFFMSG}</textarea></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-BOARDADDRESS}&nbsp;<b>({LANG-BOARDADDRESSTXT})</b></td>
+<td class="td"><input type="text" name="board_address" size="30" value="{BOARDADDRESS}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-BOARDEMAIL}</td>
+<td class="td"><input type="text" name="board_email" size="30" value="{BOARDEMAIL}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-ANNOUNCEMENTSTATUS}</td>
+<td class="td">{ANNOUNCEMENTSTATUS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-ANNOUNCEMENT}<br><b>({LANG-ANNOUNCERULE})</b></td>
+<td class="td"><textarea name="announce_msg" rows="3" cols="50" wrap="soft" class="text">{ANNOUNCEMENT}</textarea></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-DEFAULTSTYLE}</td>
+<td class="td">{DEFAULTSTYLE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-DEFAULTLANGUAGE}</td>
+<td class="td">{DEFAULTLANGUAGE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-TOSSTAT}</td>
+<td class="td">{TOSSTAT}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-TOS}</td>
+<td class="td"><textarea name="term_msg" rows="3" cols="50" wrap="soft" class="text">{TOS}</textarea></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-GZIP}&nbsp;<b>({LANG-GZIPREQ})</b></td>
+<td class="td">{GZIP}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-IMGVERT}&nbsp;<b>({LANG-GDREQ})</b></td>
+<td class="td">{IMGVERT}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-SPELLCHECKER}&nbsp;<b>({LANG-PSPELL})</b></td>
+<td class="td">{SPELLCHECKER}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-PMQUOTA}</td>
+<td class="td"><input type="text" name="pm_quota" size="5" value="{PMQUOTA}" maxlength="4" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-ACTIVE-TYPE}</td>
+<td class="td">{ACTIVE-TYPE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-TIMEZONE}</td>
+<td class="td">{TIMEZONE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-TIMEFORMAT}&nbsp;<b>({LANG-TIMERULE})</b></td>
+<td class="td"><input type="text" name="default_time" size="30" value="{TIMEFORMAT}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-COOKIEOPTIONS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-COOKIEDOMAIN}&nbsp;<b>({LANG-COOKIEDOMAINTXT})</b></td>
+<td class="td"><input type="text" name="cookie_domain" size="30"value="{COOKIEDOMAIN}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-COOKIEPATH}&nbsp;<b>({LANG-COOKIEPATHTXT})</b></td>
+<td class="td"><input type="text" name="cookie_path" size="30" value="{COOKIEPATH}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-COOKIESECURE}&nbsp;<b>({LANG-SSL})</b></td>
+<td class="td">{COOKIESECURE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-USEROPTIONS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-PMACCESS}</td>
+<td class="td"><input type="text" name="pm_access" size="5" value="{PMACCESS}" class="text" maxlength="4"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-PROFILEVIEW}</td>
+<td class="td"><input type="text" name="profile_view" size="5" value="{PROFILEVIEW}" class="text" maxlength="4"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-GROUPMEMBERSHIP}</td>
+<td class="td"><input type="text" name="group_membership" size="5" value="{GROUPMEMBERSHIP}" class="text" maxlength="4"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-AVATARUSAGE}</td>
+<td class="td"><input type="text" name="avatar_usage" size="5" value="{AVATARUSAGE}" class="text" maxlength="4"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-MAILOPTIONS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-MAILTYPE}</td>
+<td class="td">{MAILTYPE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-HOST}</td>
+<td class="td"><input type="text" name="smtp_host" size="30" value="{HOST}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-PORT}</td>
+<td class="td"><input type="text" name="smtp_port" size="5" value="{PORT}" class="text" maxlength="4"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-USERNAME}</td>
+<td class="td"><input type="text" name="smtp_user" size="30" value="{USERNAME}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{LANG-PASSWORD}</td>
+<td class="td"><input type="text" name="smtp_pass" size="30" value="{PASSWORD}" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td"><input type="submit" Value="{LANG-SAVESETTINGS}" class="submit"></td>
+</tr>
+<table>
+</form>

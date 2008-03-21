@@ -1,0 +1,177 @@
+---------------------------------------------------------------------
+Sword project ideas
+---------------------------------------------------------------------
+
+hemisphere of wrist motion 
+	oriented more toward center instead of moving so much.
+
+
+---------------------------------------------------------------------
+
+alternative 4 axis scheme.
+	- one axis alters the hilt pos relative to the tip.
+		- tip remains in the same pos while hilt moves around.
+	- other axis moves tip around.
+
+---------------------------------------------------------------------
+
+in-game control mapper.
+	draw names of all the available commands, with their assigned controls.
+	controls can be selected
+		mouse or tabbing.
+	when selected, hit enter to go into map-control mode.
+		waits N seconds for a control to be active.
+		takes 'most active' control. 
+		or something like that.
+		if negative part of axis, then axis will be reversed.
+	
+use guichan?
+	want scrollability for lots of commands.
+	want tree for multiple controls per command.
+	
+optional:
+	enforce one command per control.
+	
+---------------------------------------------------------------------
+
+mapping from joystick to player.
+	the problem: 
+		if you plug in multiple controllers, game controller can be renamed.
+		then you have to remap the whole thing to use it in multiplayer.
+	might be mitigated by faster in-game mapping using actual controls.
+	idea is to map the game control to generic player controls.
+	then a specific instance of the game control maps to a specific player instance.
+	at this time there is no grouping of player commands or game controller controls.
+	all commands and controls are mapped on a 1-to-1 basis.
+	
+maybe keep the flexibility of the current system, but dynamically generate it??
+	that way you could still do things like map controls from multiple game controllers 
+	to a single player, or vice versa.
+
+---------------------------------------------------------------------
+
+keep a record of wins and losses against the different prerecorded 
+robots.  Rank them according to their difficulty.  Have a large database 
+of moves.
+
+Based on player wins and losses, present the player with a tougher or easier
+opponent.  Tweak the algorithm so you get opponents that are challenging but
+not frustrating.  
+
+---------------------------------------------------------------------
+
+pros and cons of gameplay as of 2007-02-11
+
+- momentum is not much of a factor.
+- very much a fencing style game.
+- pressure on different parts of the blade get different results, 
+this is realistic.
+- very difficult to repeat successful actions.
+	- hard to judge distance.
+	- motion is too fast?
+	- complex controls
+	- controls are very sensitive
+	- sweet spot to push on opponent's sword is small.
+		- need to use the 'forte' to push on the opponent's 'foible'
+	- swords 'eel out' of pressure situations easily.  
+		- if I'm pushing on the opponent's sword, it will collapse, then 
+		'snap back' on the other side of my sword.
+
+goals:
+	I'd like to see more of a slashing rather than fencing style of gameplay.
+		- require hard hits rather than glancing blows.
+		- more momentum, a long swing more effective than just pushing.
+		- a more loose, swing-y feel to the motion.
+	Somehow, I'd like to get the feel of a force based motion system, but with the
+	intuitive feel of a 1 to 1 mapping system.
+		
+
+---------------------------------------------------------------------
+
+proximity indicator
+	to help with the problem of telling when you are in range for a 
+	block or strike.  Maybe use sword color or draw a range sphere or 
+	something.  
+
+---------------------------------------------------------------------
+
+prefs file with input method specs for players.
+	- specify default stance, secondary stances for each player.
+	- when gestures are available, allow specifying those.
+	- good for experimenting with different combinations of inputs.
+
+	NVThing lNvtPrefs;
+
+	ifstream lIfs("prefs.txt");
+	if (lIfs.is_open())
+		lIfs >> lNvtPrefs;
+	else
+	{
+		// make a default prefs setup.
+		//SetupDefaultPrefs(lNvtPrefs);
+		ofstream lOfs("prefs.txt");
+		lOfs << lNvtPrefs;
+	}
+
+//void SetupDefaultPrefs(NVThing &aNvt)
+//{
+//	NVThing *lNvt = new NVThing;
+//	lNvt->Add(
+//	aNvt.
+//}
+
+---------------------------------------------------------------------
+
+according to wikipedia, there are 3 types of sword attacks:
+	thrust
+	strike
+	cut
+
+What's interesting to me is the difference between the strike and the 
+cut.  According to wikipedia, "swords intended for slashing, i.e., with 
+blades ground to a sharpened edge, have been curved with the radius of 
+curvature equal to the distance from the swordman's body at which it 
+was to be used."  So a cutting or slashing attack would drag the sword
+along the body, doing cutting damage, and the curvature of the sword 
+helps with this.  
+
+Anyway, regardless of the shape of the sword, the idea is to make the 
+damage from the 3 types of strikes be different.  
+
+---------------------------------------------------------------------
+
+deactivate sword control on a fatal strike, so that both players don't 
+die every time.  Means there should be a death-and-reset concept.
+
+---------------------------------------------------------------------
+
+arm strikes seem to be a big part of the katas I watched.  Arm strikes
+could allow for a fatal hit without having to get to extreme close range as we 
+do now.
+
+---------------------------------------------------------------------
+Completed Items
+---------------------------------------------------------------------
+
+damage based on strike force.  currently a tap is as good as a hard 
+strike; change this.  This might improve gameplay by allowing you to 
+get inside your opponents guard and be ok with a glancing hit.  Maybe 
+even realistic if the player is assumed to be armored.
+	implemented 'touch' state, where the player turns yellow.
+
+---------------------------------------------------------------------
+
+score display
+	go first with text on screen.
+
+---------------------------------------------------------------------
+
+single player game.
+	consists of a series of 'robots', which are just prerecorded moves.
+	you have to beat each robot by reaching N kills before it does.
+	once you beat all the 'bots, you win!
+	score is your victories and 'bot victories.
+		yellow touches scored too, separately.
+
+---------------------------------------------------------------------
+

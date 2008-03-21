@@ -1,0 +1,40 @@
+<script language='JavaScript'>
+
+  <!--
+  function bbcode(which) {
+  document.forum.re_post.value = document.forum.re_post.value + which;
+  }
+  //-->
+</script>
+<a href="index.php">{TITLE}</a> &#187; {LANG-TITLE}<br><br>
+
+<form method="post" action="edit.php?mode=edit_topic&bid={BID}&tid={TID}" name="forum">
+<table border="0" bgcolor="{BORDER}" align="center" width="100%" cellpadding="1" cellspacing="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-TITLE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{BBCODE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-USERNAME}</td>
+<td class="td" width="80%">{USERNAME}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-TOPIC}</td>
+<td class="td" width="80%"><input type="text" name="topic" value="{TOPIC}" class="text" size="30"></td>
+</tr>
+<tr>
+<td class="td" bgcolor="{TABLE2}" align="center" width="20%">{SMILES}<br>
+<a href="#" OnClick="open_win('smiles.php');return false;">{LANG-SMILES}</a></td>
+<td class="td" bgcolor="{TABLE1}" align="center" width="80%"><textarea name="post" rows="5" cols="90" wrap="soft" class="text">{BODY}</textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-OPTIONS}</td>
+<td class="td" width="80%">{POST-TYPE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td"><input type="submit" value="{LANG-EDITTOPIC}" class="submit"></td>
+</tr>
+</table>
+</form>

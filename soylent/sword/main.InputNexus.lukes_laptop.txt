@@ -1,0 +1,391 @@
+ActiveCommands
+	Command0
+	Player 1 - Block Stance
+	Command1
+	Player 1 - Jab Stance
+	Command2
+	Player 1 - MeatSack Back
+	Command3
+	Player 1 - MeatSack Forward
+	Command4
+	Player 1 - MeatSack Left
+	Command5
+	Player 1 - MeatSack Right
+	Command6
+	Player 1 - Sword Down
+	Command7
+	Player 1 - Sword Right
+	Command8
+	Quit
+	Command9
+	Toggle full screen view
+	Count
+	10
+	InputSource0
+	Mouse 1 Button 2
+	InputSource1
+	Mouse 1 Button 1
+	InputSource2
+	s
+	InputSource3
+	w
+	InputSource4
+	a
+	InputSource5
+	d
+	InputSource6
+	Mouse 1 Y Axis
+	InputSource7
+	Mouse 1 X Axis
+	InputSource8
+	ESCAPE
+	InputSource9
+	f
+AvailableCommands
+	Command0
+	Player 1 - horizontal-block
+	Command1
+	Player 1 - vertical-block
+	Command10
+	Player 1 - MeatSack Left
+	Command11
+	Player 1 - MeatSack Right
+	Command12
+	Player 2 - horizontal-block
+	Command13
+	Player 2 - vertical-block
+	Command14
+	Player 2 - Jab Stance
+	Command15
+	Player 2 - Block Stance
+	Command16
+	Player 2 - Sword Left
+	Command17
+	Player 2 - Sword Right
+	Command18
+	Player 2 - Sword Up
+	Command19
+	Player 2 - Sword Down
+	Command2
+	Player 1 - Jab Stance
+	Command20
+	Player 2 - MeatSack Forward
+	Command21
+	Player 2 - MeatSack Back
+	Command22
+	Player 2 - MeatSack Left
+	Command23
+	Player 2 - MeatSack Right
+	Command24
+	Quit
+	Command25
+	Toggle full screen view
+	Command3
+	Player 1 - Block Stance
+	Command4
+	Player 1 - Sword Left
+	Command5
+	Player 1 - Sword Right
+	Command6
+	Player 1 - Sword Up
+	Command7
+	Player 1 - Sword Down
+	Command8
+	Player 1 - MeatSack Forward
+	Command9
+	Player 1 - MeatSack Back
+	Count
+	26
+InputSources
+	Count
+	145
+	InputSource0
+	Mouse 1 Button 2
+	InputSource1
+	Mouse 1 Button 1
+	InputSource10
+	POWER
+	InputSource100
+	UNDERSCORE
+	InputSource101
+	CARET
+	InputSource102
+	RIGHTBRACKET
+	InputSource103
+	BACKSLASH
+	InputSource104
+	LEFTBRACKET
+	InputSource105
+	AT	
+	InputSource106
+	QUESTION
+	InputSource107
+	GREATER
+	InputSource108
+	EQUALS
+	InputSource109
+	LESS
+	InputSource11
+	MENU
+	InputSource110
+	SEMICOLON
+	InputSource111
+	COLON
+	InputSource112
+	9
+	InputSource113
+	8
+	InputSource114
+	7
+	InputSource115
+	6
+	InputSource116
+	5
+	InputSource117
+	4
+	InputSource118
+	3
+	InputSource119
+	2
+	InputSource12
+	BREAK
+	InputSource120
+	1
+	InputSource121
+	0
+	InputSource122
+	SLASH
+	InputSource123
+	PERIOD
+	InputSource124
+	MINUS
+	InputSource125
+	COMMA
+	InputSource126
+	PLUS
+	InputSource127
+	ASTERISK
+	InputSource128
+	RIGHTPAREN
+	InputSource129
+	LEFTPAREN
+	InputSource13
+	SYSREQ
+	InputSource130
+	QUOTE
+	InputSource131
+	AMPERSAND
+	InputSource132
+	DOLLAR
+	InputSource133
+	HASH
+	InputSource134
+	QUOTEDBL
+	InputSource135
+	EXCLAIM
+	InputSource136
+	SPACE
+	InputSource137
+	ESCAPE
+	InputSource138
+	PAUSE
+	InputSource139
+	RETURN
+	InputSource14
+	PRINT
+	InputSource140
+	CLEAR
+	InputSource141
+	TAB
+	InputSource142
+	BACKSPACE
+	InputSource143
+	FIRST
+	InputSource144
+	UNKNOWN
+	InputSource15
+	HELP
+	InputSource16
+	COMPOSE
+	InputSource17
+	MODE
+	InputSource18
+	RSUPER
+	InputSource19
+	LSUPER
+	InputSource2
+	Mouse 1 Y Axis
+	InputSource20
+	LMETA
+	InputSource21
+	RMETA
+	InputSource22
+	LALT
+	InputSource23
+	RALT
+	InputSource24
+	LCTRL
+	InputSource25
+	RCTRL
+	InputSource26
+	LSHIFT
+	InputSource27
+	RSHIFT
+	InputSource28
+	SCROLLOCK
+	InputSource29
+	CAPSLOCK
+	InputSource3
+	Mouse 1 X Axis
+	InputSource30
+	NUMLOCK
+	InputSource31
+	F15
+	InputSource32
+	F14
+	InputSource33
+	F13
+	InputSource34
+	F12
+	InputSource35
+	F11
+	InputSource36
+	F10
+	InputSource37
+	F9
+	InputSource38
+	F8
+	InputSource39
+	F7
+	InputSource4
+	Mouse 0 Button 2
+	InputSource40
+	F6
+	InputSource41
+	F5
+	InputSource42
+	F4
+	InputSource43
+	F3
+	InputSource44
+	F2
+	InputSource45
+	F1
+	InputSource46
+	PAGEDOWN
+	InputSource47
+	PAGEUP
+	InputSource48
+	END
+	InputSource49
+	HOME
+	InputSource5
+	Mouse 0 Button 1
+	InputSource50
+	INSERT
+	InputSource51
+	LEFT
+	InputSource52
+	RIGHT
+	InputSource53
+	DOWN
+	InputSource54
+	UP
+	InputSource55
+	KP_EQUALS
+	InputSource56
+	KP_ENTER
+	InputSource57
+	KP_PLUS
+	InputSource58
+	KP_MINUS
+	InputSource59
+	KP_MULTIPLY
+	InputSource6
+	Mouse 0 Y Axis
+	InputSource60
+	KP_DIVIDE
+	InputSource61
+	KP_PERIOD
+	InputSource62
+	KP9
+	InputSource63
+	KP8
+	InputSource64
+	KP7
+	InputSource65
+	KP6
+	InputSource66
+	KP5
+	InputSource67
+	KP4
+	InputSource68
+	KP3
+	InputSource69
+	KP2
+	InputSource7
+	Mouse 0 X Axis
+	InputSource70
+	KP1
+	InputSource71
+	KP0
+	InputSource72
+	DELETE
+	InputSource73
+	z
+	InputSource74
+	y
+	InputSource75
+	x
+	InputSource76
+	w
+	InputSource77
+	v
+	InputSource78
+	u
+	InputSource79
+	t
+	InputSource8
+	UNDO
+	InputSource80
+	s
+	InputSource81
+	r
+	InputSource82
+	q
+	InputSource83
+	p
+	InputSource84
+	o
+	InputSource85
+	n
+	InputSource86
+	m
+	InputSource87
+	l
+	InputSource88
+	k
+	InputSource89
+	j
+	InputSource9
+	EURO
+	InputSource90
+	i
+	InputSource91
+	h
+	InputSource92
+	g
+	InputSource93
+	f
+	InputSource94
+	e
+	InputSource95
+	d
+	InputSource96
+	c
+	InputSource97
+	b
+	InputSource98
+	a
+	InputSource99
+	BACKQUOTE

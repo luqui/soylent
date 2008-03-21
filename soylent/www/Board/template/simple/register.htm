@@ -1,0 +1,86 @@
+<a href="index.php">{TITLE}</a> &#187; {LANG-TITLE}<br><br>
+{LANG-TEXT}
+
+<form method="post" action="register.php?action=process">
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-TITLE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-EMAIL}</td>
+<td class="td" width="50%"><input name="email" type="text" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-USERNAME}&nbsp;<b>({LANG-RULE})</b></td>
+<td class="td" width="50%"><input name="username" type="text" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-PASSWORD}</td>
+<td class="td" width="50%"><input name="password" type="password" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-CORNFIRMPASSWORD}</td>
+<td class="td" width="50%"><input name="vert_password" type="password" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TIME}</td>
+<td class="td" width="50%">{TIME}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TIMEFORMAT}&nbsp;<b>{LANG-TIMEINFO}</b></td>
+<td class="td" width="50%"><input type="text" name="time_format" value="{TIMEFORMAT}" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-PMNOTIFY}</td>
+<td class="td" width="50%"><input type="radio" name="pm_notice" value="Yes" class="text">{LANG-YES} <input type="radio" name="pm_notice" value="No" class="text">{LANG-NO}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-SHOWEMAIL}</td>
+<td class="td" width="50%"><input type="radio" name="show_email" value="0" class="text">{LANG-YES} <input type="radio" name="show_email" value="1" class="text">{LANG-NO}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-STYLE}</td>
+<td class="td" width="50%">{STYLE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-LANGUAGE}</td>
+<td class="td" width="50%">{LANGUAGE}</td>
+</tr>
+{SECURITY-IMAGE}
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-OPTIONAL}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-MSN}</td>
+<td class="td" width="50%"><input type="text" name="msn_messenger" class="text" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-AOL}</td>
+<td class="td" width="50%"><input type="text" name="aol_messenger" class="text" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-YIM}</td>
+<td class="td" width="50%"><input type="text" name="yim" class="text" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-ICQ}</td>
+<td class="td" width="50%"><input type="text" name="icq" class="text" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-LOCATION}</td>
+<td class="td" width="50%"><input type="text" name="location" class="text" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-SIG}</td>
+<td class="td" width="50%"><textarea name="sig" rows="5" cols="40" class="text"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-WWW}</td>
+<td class="td" width="50%"><input type="text" name="site" class="text" size="30"></td>
+</tr>
+{TOS}
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" VALUE="{SUBMIT}" class="submit"></td>
+</tr>
+</table>
+</form>

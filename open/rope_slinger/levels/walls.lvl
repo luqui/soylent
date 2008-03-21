@@ -1,0 +1,20 @@
+left   0
+bottom 0
+right  40
+top    30
+
+p1     2  15
+p2     38 15
+
+gravity 14
+
+ropes 3
+
+gunspeed 3
+
+boxes 5
+box    0 -30 1 30
+box    39 -30 40 30
+box    0 29 40 30
+box    1 13 3 14
+box    37 13 39 14

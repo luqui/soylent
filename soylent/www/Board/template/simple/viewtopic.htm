@@ -1,0 +1,19 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="viewboard.php?bid={BID}">{LANG-TITLE}</a> &#187; {LANG-TOPIC}<br><br>
+{PAGENATION}<br>
+{REPLYLINK}<br>
+<p class="td"><a href="print.php?bid={BID}&amp;tid={TID}">{LANG-PRINT}</a></p>
+{POLL}<br>
+<table border="0" bgcolor="{BORDER}" width="100%" cellpadding="1" cellspacing="1">
+{MENU}
+<tr>
+<td colspan="2" bgcolor="{TABLE1}" class="td">{SUBJECT} - {LANG-POSTED}: {TOPIC-DATE}</td>
+</tr><tr>
+<td width="15%" bgcolor="{TABLE1}" valign="top" class="td"><b>{AUTHOR}</b><br><i>{RANK}</i><br>{RANKICON}<br><br><img src="{AVATAR}"><br><br>{LANG-POSTCOUNT}: {POSTCOUNT}</td>
+<td width="85%" valign="top" bgcolor="{TABLE2}"  class="td">{TOPIC}<br><br>{SIGNATURE}</td>
+</tr><tr>
+<td colspan="2" align="right" bgcolor="{TABLE1}" class="td"><a href="Profile.php?mode=view&amp;user={AUTHOR}"><img src="template/simple/images/profile.gif" border="0"></a>&nbsp;<a href="PM.php?action=write&amp;user={AUTHOR}"><img src="template/simple/images/pm.gif" border="0"></a>&nbsp;<a href="report.php?mode=topic&amp;tid={TID}"><img src="template/simple/images/report.gif" border="0"></a></td>
+</tr>
+</table><br>
+{REPLY}
+{MODERATORTOOL}
+<br>{BOARD-POLICY}<br>

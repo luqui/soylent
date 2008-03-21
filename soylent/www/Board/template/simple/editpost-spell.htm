@@ -1,0 +1,33 @@
+<script language='JavaScript'>
+
+  <!--
+  function bbcode(which) {
+  document.forum.reply_post.value = document.forum.reply_post.value + which;
+  }
+  //-->
+</script>
+<a href="index.php">{TITLE}</a> &#187; {LANG-TITLE}<br><br>
+
+<form method="post" action="edit.php?mode=edit_post&bid={BID}&tid={tid}&pid={PID}" name="forum">
+<table border="0" bgcolor="{BORDER}" align="center" width="100%" cellpadding="1" cellspacing="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-TITLE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{BBCODE}</td>
+</tr>
+<tr>
+<td class="td" bgcolor="{TABLE2}" align="center" width="20%">{SMILES}<br>
+<a href="#" OnClick="open_win('smiles.php');return false;">{LANG-SMILES}</a></td>
+<td class="td" bgcolor="{TABLE1}" width="80%">
+<textarea title="spellcheck_icons" accesskey="spell/spell_checker.php" id="spell_checker1" name="reply_post" class="text_box" rows="5" cols="90" wrap="soft"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" width="20%">{LANG-OPTIONS}</td>
+<td class="td" width="80%">{OPTIONS}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td"><input type="submit" value="{LANG-EDITTOPIC}" class="submit"></td>
+</tr>
+</table>
+</form>

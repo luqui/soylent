@@ -1,0 +1,118 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-ADDBOARD}<br><br>
+{LANG-TEXT}<br><br>
+<form method="post" action="CP.php?action=board_add_process">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-ADDBOARD}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BOARDNAME}</td>
+<td class="td" width="50%"><input type="text" name="board_name" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-DESCRIPTION}</td>
+<td class="td" width="50%"><textarea name="description" rows="3" cols="50" wrap="soft" class="text"></textarea></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-BOARDPERMISSION}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-READACCESS}</td>
+<td class="td" width="50%"><select name="readaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2">{LANG-ACCESS-ADMINSMODS}
+<option value="3" selected>{LANG-ACCESS-REG}
+<option value="0">{LANG-ACCESS-ALL}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-WRITEACCESS}</td>
+<td class="td" width="50%"><select name="writeaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2">{LANG-ACCESS-ADMINSMODS}
+<option value="3" selected>{LANG-ACCESS-REG}
+<option value="4">{LANG-ACCESS-NONE}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-REPLYACCESS}</td>
+<td class="td" width="50%"><select name="replyaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2">{LANG-ACCESS-ADMINSMODS}
+<option value="3" selected>{LANG-ACCESS-REG}
+<option value="4">{LANG-ACCESS-NONE}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-VOTEACCESS}</td>
+<td class="td" width="50%"><select name="voteaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2">{LANG-ACCESS-ADMINSMODS}
+<option value="3" selected>{LANG-ACCESS-REG}
+<option value="4">{LANG-ACCESS-NONE}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-POLLACCESS}</td>
+<td class="td" width="50%"><select name="pollaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2">{LANG-ACCESS-ADMINSMODS}
+<option value="3" selected>{LANG-ACCESS-REG}
+<option value="4">{LANG-ACCESS-NONE}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-EDITACCESS}</td>
+<td class="td" width="50%"><select name="editaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2">{LANG-ACCESS-ADMINSMODS}
+<option value="3" selected>{LANG-ACCESS-REG}
+<option value="4">{LANG-ACCESS-NONE}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-DELETEACCESS}</td>
+<td class="td" width="50%"><select name="deleteaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2">{LANG-ACCESS-ADMINSMODS}
+<option value="3" selected>{LANG-ACCESS-REG}
+<option value="4">{LANG-ACCESS-NONE}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-IMPORTANTACCESS}</td>
+<td class="td" width="50%"><select name="importantaccess" class="text">
+<option value="1">{LANG-ACCESS-ADMINS}
+<option value="2" selected>{LANG-ACCESS-ADMINSMODS}
+<option value="3">{LANG-ACCESS-REG}
+<option value="4">{LANG-ACCESS-NONE}
+</select></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-BOARDSETTINGS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-CATEGORY}</td>
+<td class="td" width="50%">{CATEGORY}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-HTML}</td>
+<td class="td" width="50%"><input type="radio" name="html" value="1">{LANG-ON} <input type="radio" name="html" value="0">{LANG-OFF}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BBCODE}</td>
+<td class="td" width="50%"><input type="radio" name="bbcode" value="1">{LANG-ON} <input type="radio" name="bbcode" value="0">{LANG-OFF}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-SMILE}</td>
+<td class="td" width="50%"><input type="radio" name="smiles" value="1">{LANG-ON} <input type="radio" name="smiles" value="0">{LANG-OFF}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-IMG}</td>
+<td class="td" width="50%"><input type="radio" name="img" value="1">{LANG-ON} <input type="radio" name="img" value="0">{LANG-OFF}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-SUBMIT}" class="submit"></td>
+</tr>
+</table>
+</form>

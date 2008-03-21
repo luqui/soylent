@@ -1,0 +1,1781 @@
+<?
+ob_start();
+define('IN_EBB', true);
+include "config.php";
+include "function.php";
+//Database connection DO NOT TOUCH!
+$db_connection = mysql_connect ($DB_HOST, $DB_USER, $DB_PASS) or die ('Could not connect to MySQL:<br>' . mysql_error());
+mysql_select_db ($DB_NAME) or die ('Could not Select Database:<br>' . mysql_error());
+?>
+<html>
+<head>
+<title>Elite Bulletin Board v1.0.1 - Install File</title>
+<link rel="stylesheet" type="text/css" href="install.css">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#000000">
+<?
+  switch ($_GET['step'])  {
+  case 'install_1':
+echo "<b>Step 1:</b>&nbsp;Database Setup<br><br>";
+#create tables for this program.
+echo "Adding tables to database:<br><br>";
+//ebb_banlist
+$tabadd1 = mysql_query ("CREATE TABLE `ebb_banlist` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `ban_item` varchar(255) NOT NULL default '',
+  `ban_type` varchar(5) NOT NULL default '',
+  `match_type` varchar(8) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_blacklist
+$tabadd2 = mysql_query ("CREATE TABLE `ebb_blacklist` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `blacklisted_username` varchar(25) NOT NULL default '',
+  `match_type` varchar(8) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_board_access
+$tabadd3 = mysql_query("CREATE TABLE `ebb_board_access` (
+  `B_Read` tinyint(1) NOT NULL default '0',
+  `B_Post` tinyint(1) NOT NULL default '0',
+  `B_Reply` tinyint(1) NOT NULL default '0',
+  `B_Vote` tinyint(1) NOT NULL default '0',
+  `B_Poll` tinyint(1) NOT NULL default '0',
+  `B_Delete` tinyint(1) NOT NULL default '0',
+  `B_Edit` tinyint(1) NOT NULL default '0',
+  `B_Important` tinyint(1) NOT NULL default '0',
+  `B_id` mediumint(8) unsigned NOT NULL default '0'
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_board
+$tabadd4 = mysql_query ("CREATE TABLE `ebb_boards` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Board` varchar(50) NOT NULL default '',
+  `Description` tinytext NOT NULL,
+  `last_update` varchar(50) default NULL,
+  `Posted_User` varchar(25) default NULL,
+  `Post_Link` varchar(90) default NULL,
+  `Category` mediumint(8) unsigned NOT NULL default '0',
+  `HTML` tinyint(1) NOT NULL default '0',
+  `Smiles` tinyint(1) NOT NULL default '0',
+  `BBcode` tinyint(1) NOT NULL default '0',
+  `Image` tinyint(1) NOT NULL default '0',
+  `B_Order` tinyint(2) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_category
+$tabadd5 = mysql_query ("CREATE TABLE `ebb_category` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Name` varchar(50) NOT NULL default '',
+  `C_Order` tinyint(2) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_censor
+$tabadd6 = mysql_query ("CREATE TABLE `ebb_censor` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Original_Word` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_group_users
+$tabadd7 = mysql_query ("CREATE TABLE `ebb_group_users` (
+  `Username` varchar(25) NOT NULL default '',
+  `gid` mediumint(8) UNSIGNED NOT NULL default '0',
+  `Status` varchar(7) NOT NULL default ''
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_grouplist
+$tabadd8 = mysql_query ("CREATE TABLE `ebb_grouplist` (
+  `group_id` mediumint(8) UNSIGNED NOT NULL default '0',
+  `board_id` mediumint(8) UNSIGNED NOT NULL default '0'
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_groups
+$tabadd9 = mysql_query ("CREATE TABLE `ebb_groups` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Name` varchar(30) NOT NULL default '',
+  `Description` tinytext NOT NULL,
+  `Leader` varchar(25) NOT NULL default '',
+  `Enrollment` tinyint(1) NOT NULL default '0',
+  `Level` tinyint(1) NOT NULL default '0',
+  `Limitation` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_online
+$tabadd10 = mysql_query("CREATE TABLE `ebb_online` (
+  `Username` varchar(25) NOT NULL default '',
+  `ip` varchar(40) NOT NULL default '',
+  `time` varchar(40) NOT NULL default '',
+  `location` varchar(90) NOT NULL default ''
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_pm
+$tabadd11 = mysql_query ("CREATE TABLE `ebb_pm` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Subject` varchar(25) NOT NULL default '',
+  `Sender` varchar(25) NOT NULL default '',
+  `Reciever` varchar(25) NOT NULL default '',
+  `Message` text NOT NULL,
+  `Date` varchar(14) NOT NULL default '',
+  `Read_Status` char(3) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_pm_banlist
+$tabadd12 = mysql_query ("CREATE TABLE `ebb_pm_banlist` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Banned_User` varchar(25) NOT NULL default '',
+  `Ban_Creator` varchar(25) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_poll
+$tabadd13 = mysql_query ("CREATE TABLE `ebb_poll` (
+  `Poll_Option` varchar(50) NOT NULL default '',
+  `tid` varchar(20) NOT NULL default '',
+  `option_id` mediumint(8) unsigned NOT NULL auto_increment,
+  PRIMARY KEY  (`option_id`)
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_posts
+$tabadd14 = mysql_query ("CREATE TABLE `ebb_posts` (
+  `re_author` varchar(25) NOT NULL default '',
+  `pid` mediumint(8) unsigned NOT NULL auto_increment,
+  `tid` mediumint(8) unsigned NOT NULL default '0',
+  `bid` mediumint(8) unsigned NOT NULL default '0',
+  `Body` text NOT NULL,
+  `IP` varchar(40) NOT NULL default '',
+  `Original_Date` varchar(14) NOT NULL default '',
+  `disable_bbcode` tinyint(1) NOT NULL default '0',
+  `disable_smiles` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`pid`)
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_ranks
+$tabadd15 = mysql_query ("CREATE TABLE `ebb_ranks` (
+  `Name` varchar(50) NOT NULL default '',
+  `Post_req` mediumint(8) unsigned NOT NULL default '0',
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Star_Image` varchar(60) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_read
+$tabadd16 = mysql_query ("CREATE TABLE `ebb_read` (
+  `Board` mediumint(8) unsigned NOT NULL default '0',
+  `Topic` mediumint(8) unsigned NOT NULL default '0',
+  `user` varchar(25) NOT NULL default ''
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_settings
+$tabadd17 = mysql_query ("CREATE TABLE `ebb_settings` (
+  `Site_Title` varchar(50) NOT NULL default '',
+  `Site_Address` varchar(50) NOT NULL default '',
+  `Board_Status` tinyint(1) NOT NULL default '0',
+  `Board_Address` varchar(50) NOT NULL default '',
+  `Board_Email` varchar(255) NOT NULL default '',
+  `Off_Message` tinytext NOT NULL,
+  `Announcement_Status` tinyint(1) NOT NULL default '0',
+  `Announcements` tinytext NOT NULL,
+  `Default_Style` mediumint(8) unsigned NOT NULL default '0',
+  `Default_Language` varchar(50) NOT NULL default '',
+  `TOS_Status` tinyint(1) NOT NULL default '0',
+  `TOS_Rules` text NOT NULL,
+  `GZIP` tinyint(1) NOT NULL default '0',
+  `Image_Verify` tinyint(1) NOT NULL default '0',
+  `spell_checker` tinyint(1) NOT NULL default '0',
+  `PM_Quota` tinyint(255) NOT NULL default '0',
+  `activation` varchar(5) NOT NULL default '',
+  `Default_Zone` varchar(5) NOT NULL default '',
+  `Default_Time` varchar(14) NOT NULL default '',
+  `cookie_domain` varchar(50) NOT NULL default '',
+  `cookie_path` varchar(10) NOT NULL default '',
+  `cookie_secure` tinyint(1) NOT NULL default '0',
+  `PM_Access` tinyint(1) NOT NULL default '0',
+  `Profile_View` tinyint(1) NOT NULL default '0',
+  `Group_Membership` tinyint(1) NOT NULL default '0',
+  `Avatar_Usage` tinyint(1) NOT NULL default '0',
+  `mail_type` tinyint(1) NOT NULL default '0',
+  `smtp_server` varchar(255) NOT NULL default '',
+  `smtp_port` varchar(5) NOT NULL default '',
+  `smtp_user` varchar(255) NOT NULL default '',
+  `smtp_pass` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`Site_Title`)
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_smiles
+$tabadd18 = mysql_query ("CREATE TABLE `ebb_smiles` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `code` varchar(30) NOT NULL default '',
+  `img_name` varchar(80) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_style
+$tabadd19 = mysql_query ("CREATE TABLE `ebb_style` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Name` varchar(50) NOT NULL default '',
+  `Background` varchar(7) NOT NULL default '',
+  `Text` varchar(7) NOT NULL default '',
+  `Link` varchar(7) NOT NULL default '',
+  `VLink` varchar(7) NOT NULL default '',
+  `Table1` varchar(7) NOT NULL default '',
+  `Table2` varchar(7) NOT NULL default '',
+  `Font` varchar(50) NOT NULL default '',
+  `Border` varchar(7) NOT NULL default '',
+  `Images_Path` varchar(80) NOT NULL default '',
+  `Temp_Path` varchar(80) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_topic_watch
+$tabadd20 = mysql_query ("CREATE TABLE `ebb_topic_watch` (
+  `username` varchar(25) NOT NULL default '',
+  `tid` mediumint(8) unsigned NOT NULL default '0',
+  `status` varchar(6) NOT NULL default ''
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_topics
+$tabadd21 = mysql_query ("CREATE TABLE `ebb_topics` (
+  `author` varchar(25) NOT NULL default '',
+  `tid` mediumint(8) unsigned NOT NULL auto_increment,
+  `bid` mediumint(8) unsigned NOT NULL default '0',
+  `Topic` varchar(50) NOT NULL default '',
+  `Body` text NOT NULL,
+  `Type` varchar(5) NOT NULL default '',
+  `important` tinyint(1) NOT NULL default '0',
+  `IP` varchar(40) NOT NULL default '',
+  `Original_Date` varchar(14) NOT NULL default '',
+  `last_update` varchar(14) NOT NULL default '',
+  `Posted_User` varchar(25) NOT NULL default '',
+  `Post_Link` varchar(40) NOT NULL default '',
+  `Locked` tinyint(1) NOT NULL default '0',
+  `Views` mediumint(8) unsigned NOT NULL default '0',
+  `Question` varchar(50) NOT NULL default '',
+  `disable_bbcode` tinyint(1) NOT NULL default '0',
+  `disable_smiles` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`tid`)
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_users
+$tabadd22 = mysql_query ("CREATE TABLE `ebb_users` (
+  `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `Username` varchar(25) NOT NULL default '',
+  `Password` varchar(35) NOT NULL default '',
+  `Email` varchar(255) NOT NULL default '',
+  `Status` varchar(50) NOT NULL default '',
+  `last_visit` varchar(14) NOT NULL default '',
+  `PM_Notify` char(3) NOT NULL default '',
+  `Hide_Email` tinyint(1) NOT NULL default '0',
+  `MSN` varchar(50) NOT NULL default '',
+  `AOL` varchar(50) NOT NULL default '',
+  `Yahoo` varchar(50) NOT NULL default '',
+  `ICQ` varchar(50) NOT NULL default '',
+  `WWW` varchar(50) NOT NULL default '',
+  `Location` varchar(70) NOT NULL default '',
+  `Avatar` varchar(90) NOT NULL default '',
+  `Sig` tinytext NOT NULL,
+  `Time_format` varchar(14) NOT NULL default '',
+  `Time_Zone` varchar(5) NOT NULL default '',
+  `Date_Joined` varchar(50) NOT NULL default '',
+  `IP` varchar(40) NOT NULL default '',
+  `Style` mediumint(8) unsigned NOT NULL default '0',
+  `Language` varchar(50) NOT NULL default '',
+  `Post_Count` mediumint(8) unsigned NOT NULL default '0',
+  `last_post` varchar(50) NOT NULL default '',
+  `failed_attempts` tinyint(1) NOT NULL default '0',
+  `active` tinyint(1) NOT NULL default '0',
+  `act_key` varchar(32) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=1") or die("install had a problem adding the needed tables. check your config file and try again.");
+//ebb_votes
+$tabadd23 = mysql_query ("CREATE TABLE `ebb_votes` (
+  `Username` varchar(25) NOT NULL default '',
+  `tid` mediumint(8) unsigned NOT NULL default '0',
+  `Vote` varchar(255) NOT NULL default ''
+) TYPE=MyISAM") or die("install had a problem adding the needed tables. check your config file and try again.");
+//add in default data.
+echo "Tables Added.<br>Insert default data to needed tables:<br><br>";
+//insert ranks
+$ranks1 = mysql_query("INSERT INTO `ebb_ranks` (Name, Post_req, id, Star_Image) VALUES ('Noobie', '0', 1, 'newstar.gif')") or die("rank insert error");
+$ranks2 = mysql_query("INSERT INTO `ebb_ranks` (Name, Post_req, id, Star_Image) VALUES ('Jr. Member', '10', 2, 'juniorstar.gif')") or die("rank insert error");
+$ranks3 = mysql_query("INSERT INTO `ebb_ranks` (Name, Post_req, id, Star_Image) VALUES ('Member', '40', 3, 'memstar.gif')") or die("rank insert error");
+$ranks4 = mysql_query("INSERT INTO `ebb_ranks` (Name, Post_req, id, Star_Image) VALUES ('Full Member', '70', 4, 'fullstar.gif')") or die("rank insert error");
+$ranks5 = mysql_query("INSERT INTO `ebb_ranks` (Name, Post_req, id, Star_Image) VALUES ('Sr. Member', '140', 5, 'seniorstar.gif')") or die("rank insert error");
+$ranks6 = mysql_query("INSERT INTO `ebb_ranks` (Name, Post_req, id, Star_Image) VALUES ('Lord of the Board', '500', 6, 'lordstar.gif')") or die("rank insert error");
+//insert smiles
+$smiles1 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (1, ':S', 'confused.gif')") or die("smile insert error");
+$smiles2 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (2, '8)', 'cool.gif')") or die("smile insert error");
+$smiles3 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (3, ':D', 'grin.gif')") or die("smile insert error");
+$smiles4 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (4, ':@', 'mad.gif')") or die("smile insert error");
+$smiles5 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (5, ':|', 'ok.gif')") or die("smile insert error");
+$smiles6 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (6, ':oops:', 'oops.gif')") or die("smile insert error");
+$smiles7 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (7, ':(', 'sad.gif')") or die("smile insert error");
+$smiles8 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (8, '8O', 'shocked.gif')") or die("smile insert error");
+$smiles9 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (9, ':)', 'smile.gif')") or die("smile insert error");
+$smiles10 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (10, ':P', 'tongue.gif')") or die("smile insert error");
+$smiles11 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (11, ';)', 'wink.gif')") or die("smile insert error");
+$smiles12 = mysql_query("INSERT INTO `ebb_smiles` (id, code, img_name) VALUES (12, ':''(', 'cry.gif')") or die("smile insert error");
+//insert styles
+$style1 = mysql_query("INSERT INTO `ebb_style` (id, Name, Background, Text, Link, VLink, Table1, Table2, Font, Border, Images_Path, Temp_Path) VALUES (1, 'Simple', '#ffffff', '#000000', '#000000', '#000000', '#C4C8D4', '#EDF0F7', 'verdana', '#0066CC', 'template/simple/images', 'template/simple')") or die("style insert error");
+//finished.
+echo "Database setup complete. <a href=\"install.php?step=install_2\">step 2</a>";
+  break;
+  case 'install_2':
+$timezone = timezone_select();
+$style_select = style_select();
+$lang = lang_select();
+echo "<b>Step 2:</b>&nbsp;Board Settings<br><br>";
+echo "This is where you set the board's settings to make it function correctly.<br><br>";
+
+echo "<form method=\"post\" action=\"install.php?step=install_2b\">
+<table width=\"100%\" border=\"0\" bgcolor=\"#0066CC\" cellspacing=\"1\" cellpadding=\"1\">
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Board Settings</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Name</td>
+<td class=\"td\"><input type=\"text\" name=\"board_name\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Site Address&nbsp;<b>(example: http://mysite.com)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"site_address\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Status</td>
+<td class=\"td\"><input type=\"radio\" name=\"board_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"board_stat\" value=\"0\" class=\"text\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Off Message</td>
+<td class=\"td\"><textarea name=\"off_msg\" rows=\"3\" cols=\"50\" wrap=\"soft\" class=\"text\"></textarea></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Address&nbsp;<b>(example: http://mysite.com/board)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"board_address\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Email</td>
+<td class=\"td\"><input type=\"text\" name=\"board_email\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Announcement Status</td>
+<td class=\"td\"><input type=\"radio\" name=\"announce_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"announce_stat\" value=\"0\" class=\"text\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Announcement Message<br><b>(One announcement per line.)</b></td>
+<td class=\"td\"><textarea name=\"announce_msg\" rows=\"3\" cols=\"50\" wrap=\"soft\" class=\"text\"></textarea></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Style</td>
+<td class=\"td\">$style_select</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Language</td>
+<td class=\"td\">$lang</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Term Status</td>
+<td class=\"td\"><input type=\"radio\" name=\"term_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"term_stat\" value=\"0\" class=\"text\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Terms</td>
+<td class=\"td\"><textarea name=\"term_msg\" rows=\"3\" cols=\"50\" wrap=\"soft\" class=\"text\"></textarea></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">GZIP Compression&nbsp;<b>(require php 4 or higher to run it.)</b></td>
+<td class=\"td\"><input type=\"radio\" name=\"gzip_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"gzip_stat\" value=\"0\" class=\"text\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Security Image Verify&nbsp;<b>(GD enabled for low & freetype enabled for high.)</b></td>
+<td class=\"td\"><input type=\"radio\" name=\"imagevert_stat\" value=\"1\" class=\"text\">Low setting <input type=\"radio\" name=\"imagevert_stat\" value=\"2\" class=\"text\">High Setting <input type=\"radio\" name=\"imagevert_stat\" value=\"0\" class=\"text\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Spell Checker&nbsp;<b>(require PSPELL to be enabled.)</b></td>
+<td class=\"td\"><input type=\"radio\" name=\"spell_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"spell_stat\" value=\"0\" class=\"text\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">PM Quota</td>
+<td class=\"td\"><input type=\"text\" name=\"pm_quota\" size=\"5\" maxlength=\"4\" value=\"50\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Activation Type</td>
+<td class=\"td\"><input type=\"radio\" name=\"active_stat\" value=\"None\" class=\"text\">None <input type=\"radio\" name=\"active_stat\" value=\"User\" class=\"text\">User <input type=\"radio\" name=\"active_stat\" value=\"Admin\" class=\"text\">Admin</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Time Zone</td>
+<td class=\"td\">$timezone</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Time format&nbsp;<b>(select your time format by using the <a href=\"http://us2.php.net/manual/en/function.date.php\" target=\"_blank\" title=\"will open in new window\">date()</a> syntax from php.)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"default_time\" size=\"30\" value=\"M d Y g:i a\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\">Cookie Options</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Cookie Domain&nbsp;<b>(example: mysite.com or board.mysite.com)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"cookie_domain\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Cookie Path&nbsp;<b>(example: /board/)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"cookie_path\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Cookie Secure&nbsp;<b>(Must have SSL on your server to use this.)</b></td>
+<td class=\"td\"><input type=\"radio\" name=\"secure_stat\" value=\"1\" class=\"text\">Enable <input type=\"radio\" name=\"secure_stat\" value=\"0\" class=\"text\">Disable</td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\">User Access Options</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to access PM System</td>
+<td class=\"td\"><input type=\"text\" name=\"pm_access\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to display user's profile</td>
+<td class=\"td\"><input type=\"text\" name=\"profile_view\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to join a group</td>
+<td class=\"td\"><input type=\"text\" name=\"group_membership\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to use an avatar</td>
+<td class=\"td\"><input type=\"text\" name=\"avatar_usage\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\">Mail Settings</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Mail Type</td>
+<td class=\"td\"><input type=\"radio\" name=\"mail_type\" value=\"0\" class=\"text\">SMTP <input type=\"radio\" name=\"mail_type\" value=\"1\" class=\"text\">Mail() method</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Host</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_host\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Port</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_port\" size=\"5\" value=\"25\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Username</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_user\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Password</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_pass\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\"><input type=\"submit\" value=\"Save Settings\" class=\"submit\"></td>
+</tr>
+<table>
+</form>";
+  break;
+  case 'install_2b':
+//define form results.
+$board_name = anti_injection($_POST['board_name']);
+$site_address = anti_injection($_POST['site_address']);
+$board_stat = anti_injection($_POST['board_stat']);
+$off_msg = anti_injection($_POST['off_msg']);
+$board_address = anti_injection($_POST['board_address']);
+$board_email = anti_injection($_POST['board_email']);
+$announce_stat = anti_injection($_POST['announce_stat']);
+$announce_msg = anti_injection($_POST['announce_msg']);
+$dstyle = anti_injection($_POST['style']);
+$default_lang = anti_injection($_POST['default_lang']);
+$term_stat = anti_injection($_POST['term_stat']);
+$term_msg = anti_injection($_POST['term_msg']);
+$gzip_stat = anti_injection($_POST['gzip_stat']);
+$imagevert_stat = anti_injection($_POST['imagevert_stat']);
+$spell_stat = anti_injection($_POST['spell_stat']);
+$pm_quota = anti_injection($_POST['pm_quota']);
+$active_stat = anti_injection($_POST['active_stat']);
+$default_zone = anti_injection($_POST['time_zone']);
+$default_time = anti_injection($_POST['default_time']);
+$cookie_domain = anti_injection($_POST['cookie_domain']);
+$cookie_path = anti_injection($_POST['cookie_path']);
+$secure_stat = anti_injection($_POST['secure_stat']);
+$pm_access = anti_injection($_POST['pm_access']);
+$profile_view = anti_injection($_POST['profile_view']);
+$group_membership = anti_injection($_POST['group_membership']);
+$avatar_usage = anti_injection($_POST['avatar_usage']);
+$mail_type = anti_injection($_POST['mail_type']);
+$smtp_host = anti_injection($_POST['smtp_host']);
+$smtp_port = anti_injection($_POST['smtp_port']);
+$smtp_user = anti_injection($_POST['smtp_user']);
+$smtp_pass = anti_injection($_POST['smtp_pass']);
+//error checking.
+if ($board_name == ""){
+echo "You didn't set a name for the board.";
+exit();
+}
+if ($site_address == ""){
+echo "You didn't set a address to your website.";
+exit();
+}
+if (($board_stat == "Off") AND ($off_msg == "")){
+echo "You didn't set a off message.";
+exit();
+}
+if ($board_address == ""){
+echo "You didn't set the link for the board address.";
+exit();
+}
+if ($board_email == ""){
+echo "You didn't set an email address for the board.";
+exit();
+}
+if (($announce_stat == "On") AND ($announce_msg == "")){
+echo "You didn't place any announcements in the messagebox.";
+exit();
+}
+if ($dstyle == ""){
+echo "You didn't select a default style.";
+exit();
+}
+if ($default_lang == ""){
+echo "You didn't set a default language.";
+exit();
+}
+if (($term_stat == "On") AND ($term_msg == "")){
+echo "You didn't set any terms in the messagebox.";
+exit();
+}
+if ($gzip_stat == ""){
+echo "You didn't set the GZIP value.";
+exit();
+}
+if ($imagevert_stat == ""){
+echo "You didn't set the image verify value.";
+exit();
+}
+if ($spell_stat == ""){
+echo "You didn't set the spell check value.";
+exit();
+}
+if (($pm_quota == "") OR (!is_numeric($pm_quota))){
+echo "You didn't set a quota for the PM Inbox.";
+exit();
+}
+if($active_stat == ""){
+echo "You didn't set an activation type for the registration page.";
+exit();
+}
+if ($default_zone == ""){
+echo "You didn't set a default timezone.";
+exit();
+}
+if ($default_time == ""){
+echo "You didn't set a default time format.";
+exit();
+}
+if($cookie_domain == ""){
+echo "You didn't set a domain for the cookie.";
+exit();
+}
+if ($cookie_path == ""){
+echo "You didn't set a path for the cookie.";
+exit();
+}
+if ($secure_stat == ""){
+echo "You didn't set the secure value for the cookie.";
+exit();
+}
+if(strlen($board_name) > 50){
+echo "The Board name you wish to use is too long, please use a smaller name.";
+exit();
+}
+if(strlen($site_address) > 50){
+echo "The site address you entered is too long, please enter in a smaller link.";
+exit();
+}
+if(strlen($board_address) > 50){
+echo "The path to the board is too long, try to shorten it if possible.";
+exit();
+}
+if(strlen($board_email) > 255){
+echo "The email you entered is too long, please enter in a shorter one.";
+exit();
+}
+if(strlen($off_msg) > 255){
+echo "Your Off message reason is too long. Enter in a shorter reason.";
+exit();
+}
+if(strlen($announce_msg) > 255){
+echo "Your announcement is too long, please shorten it.";
+exit();
+}
+if(strlen($pm_quota) > 4){
+echo "Your PM Quota is set too high. Please set it to a lower number.";
+exit();
+}
+if(strlen($cookie_domain) > 50){
+echo "Your Domain for the cookie is too long, enter in a shorter domain. Remember: no http:// or anything else just the domain name.";
+exit();
+}
+if(strlen($cookie_path) > 50){
+echo "Your cookie path is too long. enter in a shorter one. Remember: /board/ will work just fine.";
+exit();
+}
+if($pm_access == ""){
+echo "No number was entered for the pm post rule.";
+exit();
+}
+if($profile_view == ""){
+echo "No number was entered for the profile rule.";
+exit();
+}
+if($group_membership == ""){
+echo "No number was entered for the group rule.";
+exit();
+}
+if($avatar_usage == ""){
+echo "No number was entered for the avatar rule.";
+exit();
+}
+if(strlen($pm_access) > 4){
+echo "The number you set for the pm rule is too high.";
+exit();
+}
+if(strlen($profile_view) > 4){
+echo "The number you set for the profile rule is too high.";
+exit();
+}
+if(strlen($group_membership) > 4){
+echo "The number you set for the group rule is too high.";
+exit();
+}
+if(strlen($avatar_usage) > 4){
+echo "The number you set for the avatar rule is too high.";
+exit();
+}
+if($mail_type == ""){
+echo "You did not select a mail method.";
+exit();
+}
+#check for smtp values.
+if($mail_type == 0){
+if($smtp_host == ""){
+echo "You did not enter the address to the smtp server.";
+exit();
+}
+if($smtp_port == ""){
+echo "No port was entered for the smtp server.";
+exit();
+}
+if($smtp_user == ""){
+echo "No username was entered for the smtp server.";
+exit();
+}
+if($smtp_pass == ""){
+echo "no password was entered for the smtp server.";
+exit();
+}
+if(strlen($smtp_host) > 255){
+echo "smtp server address is too long.";
+exit();
+}
+if(strlen($smtp_port) > 5){
+echo "smtp port number is too high.";
+exit();
+}
+if(strlen($smtp_user) > 255){
+echo "smtp username is too long.";
+exit();
+}
+if(strlen($smtp_pass) > 255){
+echo "smtp password is too long.";
+exit();
+}
+}
+//process query.
+mysql_query ("insert into ebb_settings (Site_Title, Site_Address, Board_Status, Board_Address, Board_Email, Off_Message, Announcement_Status, Announcements, Default_Style, Default_Language, TOS_Status, TOS_Rules, GZIP, Image_Verify, spell_checker, PM_Quota, activation, Default_Zone, Default_Time, cookie_domain, cookie_path, cookie_secure, PM_Access, Profile_View, Group_Membership, Avatar_Usage, mail_type, smtp_server, smtp_port, smtp_user, smtp_pass) values('$board_name', '$site_address', '$board_stat', '$board_address', '$board_email', '$off_msg', '$announce_stat', '$announce_msg', '$dstyle', '$default_lang', '$term_stat', '$term_msg', '$gzip_stat', '$imagevert_stat', '$spell_stat', '$pm_quota', '$active_stat', '$default_zone', '$default_time', '$cookie_domain', '$cookie_path', '$secure_stat', '$pm_access', '$profile_view', '$group_membership', '$avatar_usage', '$mail_type', '$smtp_host', '$smtp_port', '$smtp_user', '$smtp_pass')") or die('settings could not be saved.<br>'.mysql_error());
+echo "Settings were saved successfully! <a href=\"install.php?step=install_3\">Step 3</a>.";
+  break;
+  case 'install_3':
+echo "<b>Step 3:</b>&nbsp;Register Admin Account<br><br>";
+$timezone = timezone_select();
+$style_select = style_select();
+$lang = lang_select();
+echo "<form action=\"install.php?step=install_3b\" method=\"post\">
+<table width=\"100%\" border=\"0\" bgcolor=\"#0066CC\" cellspacing=\"1\" cellpadding=\"1\">
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Register</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Email</td>
+<td class=\"td\" width=\"50%\"><input name=\"email\" type=\"text\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Username&nbsp;<b>(Must contain only letters and numbers)</b></td>
+<td class=\"td\" width=\"50%\"><input name=\"username\" type=\"text\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Password</td>
+<td class=\"td\" width=\"50%\"><input name=\"password\" type=\"password\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Confirm Password</td>
+<td class=\"td\" width=\"50%\"><input name=\"vert_password\" type=\"password\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Timezone</td>
+<td class=\"td\" width=\"50%\">$timezone</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Time Format&nbsp;<b>(select your time format by using the <a href=\"http://us2.php.net/manual/en/function.date.php\" target=\"_blank\" title=\"will open in new window\">date()</a> syntax from php.)</b></td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"time_format\" value=\"M d Y g:i a\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Notify on new Private Messages</td>
+<td class=\"td\" width=\"50%\"><input type=\"radio\" name=\"pm_notice\" value=\"Yes\" class=\"text\">Yes <input type=\"radio\" name=\"pm_notice\" value=\"No\" class=\"text\">No</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Display Email to others</td>
+<td class=\"td\" width=\"50%\"><input type=\"radio\" name=\"show_email\" value=\"0\" class=\"text\">Yes <input type=\"radio\" name=\"show_email\" value=\"1\" class=\"text\">No</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Style</td>
+<td class=\"td\" width=\"50%\">$style_select</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Language</td>
+<td class=\"td\" width=\"50%\">$lang</td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Optional Stuff</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">MSN Messenger</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"msn_messenger\" class=\"text\" size=\"30\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">AOL Messenger</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"aol_messenger\" class=\"text\" size=\"30\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Yahoo Messenger</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"yim\" class=\"text\" size=\"30\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">ICQ Number</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\icq\" class=\"text\" size=\"30\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Location</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"location\" class=\"text\" size=\"30\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Signature</td>
+<td class=\"td\" width=\"50%\"><textarea name=\"sig\" rows=\"5\" cols=\"40\" class=\"text\"></textarea></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Website</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"site\" class=\"text\" size=\"30\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\"><input type=\"submit\" value=\"Submit\" class=\"submit\"></td>
+</tr>
+</table>
+</form>";
+  break;
+  case 'install_3b':
+//get values from form.
+$email = anti_injection($_POST['email']);
+$username = anti_injection($_POST['username']);
+$password = anti_injection($_POST['password']);
+$vert_password = anti_injection($_POST['vert_password']);
+$time_zone = anti_injection($_POST['time_zone']);
+$time_format = anti_injection($_POST['time_format']);
+$pm_notice = anti_injection($_POST['pm_notice']);
+$show_email = anti_injection($_POST['show_email']);
+$style = anti_injection($_POST['style']);
+$default_lang = anti_injection($_POST['default_lang']);
+$msn_messenger = anti_injection($_POST['msn_messenger']);
+$aol_messenger = anti_injection($_POST['aol_messenger']);
+$yim = anti_injection($_POST['yim']);
+$icq = anti_injection($_POST['icq']);
+$location = anti_injection($_POST['location']);
+$sig = anti_injection($_POST['sig']);
+$site = anti_injection($_POST['site']);
+$IP = $_SERVER['REMOTE_ADDR'];
+//do some error checking
+if ($style == ""){
+echo "You didn't select a style.";
+exit();
+}
+if ($default_lang == ""){
+echo "You didn't select a language.";
+exit();
+}
+if ($time_zone == ""){
+echo "You didn't select a timezone.";
+exit();
+}
+if ($time_format == ""){
+echo "You didn't set a format for the time.";
+exit();
+}
+if ($pm_notice == ""){
+echo "You didn't set the PM notify value.";
+exit();
+}
+if($show_email == ""){
+echo "You didn't tell us if you wish to hide your email address.";
+exit();
+}
+if ($username == ""){
+echo "You didn't set a username.";
+exit();
+}
+if ($email == ""){
+echo "You didn't set a email.";
+exit();
+}
+if ($password == ""){
+echo "You didn't set a password";
+exit();
+}
+if ($vert_password == ""){
+echo "You didn't confirm the password.";
+exit();
+}
+if (ereg('[^A-Za-z0-9]', $username)){
+echo "You entered a invalid character in the username.";
+exit();
+}
+if ($vert_password !== $password){
+echo "the passwords don't match.";
+exit();
+}
+if(strlen($username) > 25){
+echo "Your username is too long.";
+exit();
+}
+if(strlen($username) < 4){
+echo "Your Username is too short, you must have at least 5 characters.";
+exit();
+}
+if((strlen($vert_password) > 35) and (strlen($password) > 35)){
+echo "Your password is too long";
+exit();
+}
+if(strlen($email) > 255){
+echo "Your email address is too long.";
+exit();
+}
+if(strlen($sig) > 255){
+echo "Your signature is too long.";
+exit();
+}
+//create grouplist.
+mysql_query("INSERT INTO `ebb_groups` (id, Name, Description, Leader, Enrollment, Level) values(1, 'Administrator', 'These are the people who are in charge. They have full power over the board.', '$username', '1', '1')") or die("Grouplist error");
+mysql_query("INSERT INTO `ebb_groups` (id, Name, Description, Leader, Enrollment, Level) VALUES(2, 'Moderator', 'These are the people who help the administrators manage the board. They have minor power over the board.', '$username', '1', '2')") or die("Grouplist error");
+//process query.
+$time = time();
+$pass = md5($password);
+mysql_query("INSERT INTO ebb_users (Email, Username, Password, Date_Joined, Status, IP, MSN, AOL, Yahoo, ICQ, Location, Sig, WWW, Time_format, Time_Zone, PM_Notify, Hide_Email, Style, Language, active) VALUES('$email', '$username', '$pass', '$time', 'groupmember', '$IP', '$msn_messenger', '$aol_messenger', '$yim', '$icq', '$location', '$sig', '$site', '$time_format', '$time_zone', '$pm_notice', '$show_email', '$style', '$default_lang', '1')") or die(mysql_error());
+mysql_query("INSERT INTO ebb_group_users (Username, gid, Status) values('$username', '1', 'Active')") or die(mysql_error());
+echo "You have successfully registered an account. <a href=\"install.php?step=install_4\">step 4</a>.";
+  break;
+  case 'install_4':
+echo "<b>Step 4:</b>&nbsp;Create a Category<br><br>";
+echo "Now its time to get your board ready for posting. first create a category. You may make more after the install is finished.<BR><BR>";
+echo "<form method=\"post\" action=\"install.php?step=install_4b\">
+<table border=\"0\" width=\"100%\" bgcolor=\"#0066CC\" cellspacing=\"1\" cellpadding=\"1\">
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Add Category</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Category Name</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"category_name\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Category Order</td>
+<td class=\"td\" width=\"50%\">1</td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\"><input type=\"submit\" value=\"Add Category\" class=\"submit\"></td>
+</tr>
+</table>
+</form>";
+  break;
+  case 'install_4b':
+//grab form info
+$category_name = anti_injection($_POST['category_name']);
+if($category_name == ""){
+echo "You didn't name the category.";
+exit();
+}
+if(strlen($category_name) > 50){
+echo "The category name is too long.";
+exit();
+}
+$add_cat = mysql_query("insert into ebb_category values('1', '$category_name', '1')") or die('New category could not be added.<br>'. mysql_error());
+echo "New category was sucessfully added! <a href=\"install.php?step=install_5\">Step 5</a>";
+  break;
+  case 'install_5':
+$cat_select = category_select();
+echo "<b>Step 5:</b>&nbsp;Create a Message Board<br><br>
+Time to add at least one board so you may enjoy your board after this install.<br>";
+echo "<form method=\"post\" action=\"install.php?step=install_5b\">
+<table border=\"0\" width=\"100%\" bgcolor=\"#0066CC\" cellspacing=\"1\" cellpadding=\"1\">
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Add New Message board</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Board Name</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"board_name\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Description</td>
+<td class=\"td\" width=\"50%\"><textarea name=\"description\" rows=\"3\" cols=\"50\" wrap=\"soft\" class=\"text\"></textarea></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Board Permissions</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can Read this Board?</td>
+<td class=\"td\" width=\"50%\"><select name=\"readaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\">Level 2
+<option value=\"3\" selected>Registered Users
+<option value=\"0\">Everyone
+</select></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can Post in this Board?</td>
+<td class=\"td\" width=\"50%\"><select name=\"writeaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\">Level 2
+<option value=\"3\" selected>Registered Users
+<option value=\"4\">No One
+</select></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can Reply to topics?</td>
+<td class=\"td\" width=\"50%\"><select name=\"replyaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\">Level 2
+<option value=\"3\" selected>Registered Users
+<option value=\"4\">No One
+</select></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can vote on the polls?</td>
+<td class=\"td\" width=\"50%\"><select name=\"voteaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\">Level 2
+<option value=\"3\" selected>Registered Users
+<option value=\"4\">No One
+</select></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can create new polls?</td>
+<td class=\"td\" width=\"50%\"><select name=\"pollaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\">Level 2
+<option value=\"3\" selected>Registered Users
+<option value=\"4\">No One
+</select></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can edit topics?</td>
+<td class=\"td\" width=\"50%\"><select name=\"editaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\">Level 2
+<option value=\"3\" selected>Registered Users
+<option value=\"4\">No One
+</select></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can delete topics?</td>
+<td class=\"td\" width=\"50%\"><select name=\"deleteaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\">Level 2
+<option value=\"3\" selected>Registered Users
+<option value=\"4\">No One
+</select></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Who can post Important Topics?</td>
+<td class=\"td\" width=\"50%\"><select name=\"importantaccess\" class=\"text\">
+<option value=\"1\">Level 1
+<option value=\"2\" selected>Level 2
+<option value=\"3\">Registered Users
+<option value=\"4\">No One
+</select></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Board Settings</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Board Order</td>
+<td class=\"td\" width=\"50%\">1</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Category</td>
+<td class=\"td\" width=\"50%\">$cat_select</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">HTML</td>
+<td class=\"td\" width=\"50%\"><input type=\"radio\" name=\"html\" value=\"1\">On <input type=\"radio\" name=\"html\" value=\"0\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">BBCode</td>
+<td class=\"td\" width=\"50%\"><input type=\"radio\" name=\"bbcode\" value=\"1\">On <input type=\"radio\" name=\"bbcode\" value=\"0\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Smiles</td>
+<td class=\"td\" width=\"50%\"><input type=\"radio\" name=\"smiles\" value=\"1\">On <input type=\"radio\" name=\"smiles\" value=\"0\">Off</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">[img] Tag</td>
+<td class=\"td\" width=\"50%\"><input type=\"radio\" name=\"img\" value=\"1\">On <input type=\"radio\" name=\"img\" value=\"0\">Off</td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\"><input type=\"submit\" value=\"Add Board\" class=\"submit\"></td>
+</tr>
+</table>
+</form>";
+  break;
+  case 'install_5b':
+//grab info from form.anti_injection()
+$board_name = anti_injection($_POST['board_name']);
+$description = anti_injection($_POST['description']);
+$readaccess = anti_injection($_POST['readaccess']);
+$writeaccess = anti_injection($_POST['writeaccess']);
+$replyaccess = anti_injection($_POST['replyaccess']);
+$voteaccess = anti_injection($_POST['voteaccess']);
+$pollaccess = anti_injection($_POST['pollaccess']);
+$editaccess = anti_injection($_POST['editaccess']);
+$deleteaccess = anti_injection($_POST['deleteaccess']);
+$importantaccess = anti_injection($_POST['importantaccess']);
+$catsel = anti_injection($_POST['catsel']);
+$html = anti_injection($_POST['html']);
+$bbcode = anti_injection($_POST['bbcode']);
+$smiles = anti_injection($_POST['smiles']);
+$img = anti_injection($_POST['img']);
+//do some error checking.
+if ($board_name == ""){
+echo "You didn't enter a board name.";
+exit();
+}
+if ($description == ""){
+echo "You didn't enter a description.";
+exit();
+}
+if ($readaccess == ""){
+echo "You didn't select a read access level.";
+exit();
+}
+if ($writeaccess == ""){
+echo "You didn't select a write access level.";
+exit();
+}
+if($replyaccess == ""){
+echo "You didn't select a reply access level.";
+exit();
+}
+if($voteaccess == ""){
+echo "You didn't set a vote access level.";
+exit();
+}
+if($pollaccess == ""){
+echo "You didn't set a poll casting level.";
+exit();
+}
+if($editaccess == ""){
+echo "You didn't set a edit post access level";
+exit();
+}
+if($deleteaccess == ""){
+echo "You didn't set a delete post access level.";
+exit();
+}
+if($importantaccess == ""){
+echo "You didn't set a important posting access level.";
+exit();
+}
+if ($catsel == ""){
+echo "You didn't select a category.";
+exit();
+}
+if ($html == ""){
+echo "You didn't select a html option.";
+exit();
+}
+if ($bbcode == ""){
+echo "You didn't select a bbcode option.";
+exit();
+}
+if ($smiles == ""){
+echo "You didn't select a smile option.";
+exit();
+}
+if ($img == ""){
+echo "You didn't select a [img] tag option.";
+exit();
+}
+if(strlen($board_name) > 50){
+echo "The board name is too long.";
+exit();
+}
+if(strlen($description) > 255){
+echo "The bnoard description is too long.";
+exit();
+}
+//process the query.
+mysql_query("insert into ebb_boards (Board, Description, Category, HTML, Smiles, BBcode, Image, B_Order) values ('$board_name', '$description', '$catsel', '$html', '$smiles', '$bbcode', '$img', '1')") or die('could not add new board.<br>'. mysql_error());
+//get data for permission table.
+$q = mysql_query("SELECT id FROM ebb_boards order by id DESC LIMIT 1") or die('Could not select id for board.<br>'. mysql_error());
+$r = mysql_fetch_array($q);
+//process permission query.
+mysql_query("insert into ebb_board_access (B_Read, B_Post, B_Reply, B_Vote, B_Poll, B_Delete, B_Edit, B_Important, B_id) values ('$readaccess', '$writeaccess', '$replyaccess', '$voteaccess', '$pollaccess', '$deleteaccess', '$editaccess', '$importantaccess', '$r[id]')") or die('Could not enter in permissions for new board.<br>'. mysql_error());
+echo "New Board was sucessfully added! <a href=\"install.php?step=install_6\">Step 6</a>";
+  break;
+  case 'install_6':
+echo "<b>Step 6:</b>&nbsp;Removing Install files & finishing installation<br><br>";
+$delinstall = @unlink ('install.php');
+$delinstall2 = @unlink ('install.css');
+if (($delinstall) AND ($delinstall2)){
+echo "<br><br>Deleting install files...Success!<br><br>
+Elite Bulletin Board is now set-up and ready to go. Click <a href=\"index.php\">here</a> to go to your board.";
+}else{
+echo "<br><br>Deleting install files...<b>Failed!</b> didn't CHMOD folder 777.<br><br>
+<b>Delete install.php & install.css <u>immediately</u> to prevent someone from overwriting this install!!!!</b><br><br>
+Elite Bulletin Board is now set-up and ready to go. Click <a href=\"index.php\">here</a> to go to your board.";
+}
+  break;
+  case 'upgrade_1':
+echo "<b>Step 1:</b>&nbsp;Verify Adminstrative Account<br><br>
+Enter in your adminstrative info to verify that you wish to upgrade to version 1.0<br><br>";
+echo "<form method=\"post\" action=\"install.php?step=upgrade_1b\">
+<table border=\"0\" width=\"100%\" bgcolor=\"#0066CC\" cellspacing=\"1\" cellpadding=\"1\">
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Verify Adminstrative Account</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Username</td>
+<td class=\"td\" width=\"50%\"><input type=\"text\" name=\"user\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\" width=\"50%\">Password</td>
+<td class=\"td\" width=\"50%\"><input type=\"password\" name=\"pass\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\"><input type=\"submit\" value=\"Verify Login\" class=\"submit\"></td>
+</tr>
+</table>
+</form>";
+  break;
+  case 'upgrade_1b';
+//get login values.
+$user = anti_injection($_POST['user']);
+$pass = anti_injection($_POST['pass']);
+//error checking.
+if(($user == "") OR ($pass == "")){
+echo "Please enter in everything.";
+exit();
+}
+//start login check.
+$passmd5 = md5($pass);
+$login_sql = mysql_query("SELECT * FROM ebb_users WHERE Username='$user' AND Password='$passmd5'");
+$login_chk = mysql_num_rows($login_sql);
+if($login_chk == 1){
+//create ebb_board_access.
+mysql_query("CREATE TABLE `ebb_board_access` (
+  `B_Read` tinyint(1) NOT NULL default '0',
+  `B_Post` tinyint(1) NOT NULL default '0',
+  `B_Reply` tinyint(1) NOT NULL default '0',
+  `B_Vote` tinyint(1) NOT NULL default '0',
+  `B_Poll` tinyint(1) NOT NULL default '0',
+  `B_Delete` tinyint(1) NOT NULL default '0',
+  `B_Edit` tinyint(1) NOT NULL default '0',
+  `B_Important` tinyint(1) NOT NULL default '0',
+  `B_id` mediumint(8) unsigned NOT NULL default '0'
+) TYPE=MyISAM") or die("Could not add new table<br>". mysql_error());
+echo "You have verifed your account successfully. You may go onto <a href=\"install.php?step=upgrade_2\">Step 2a</a>";
+}else{
+echo "The username and/or password you used did not find a match, please try again.";
+exit();
+}
+  break;
+  case 'upgrade_2':
+echo "<b>Step 2a:</b>&nbsp;Database Setup: Board & Group Setup<br><br>";
+echo "Making changes to ebb_boards & ebb_groups tables.<br><br>";
+//changes to ebb_boards.
+mysql_query("ALTER TABLE `ebb_boards` DROP `B_Read`") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_boards` DROP `B_Write`") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_boards` DROP `Poll`") or die("Could not modify table<br>". mysql_error());
+$board_q = mysql_query("select * from ebb_boards") or die('could not select ebb_boards.<br>'. mysql_error());
+while($r = mysql_fetch_assoc($board_q)){
+//change all On's to 1's and off's to 0's
+mysql_query("update ebb_boards SET HTML=REPLACE(HTML, 'On', '1') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("update ebb_boards SET HTML=REPLACE(HTML, 'Off', '0') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("update ebb_boards SET Smiles=REPLACE(Smiles, 'On', '1') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("update ebb_boards SET Smiles=REPLACE(Smiles, 'Off', '0') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("update ebb_boards SET BBcode=REPLACE(BBcode, 'On', '1') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("update ebb_boards SET BBcode=REPLACE(BBcode, 'Off', '0') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("update ebb_boards SET Image=REPLACE(Image, 'On', '1') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("update ebb_boards SET Image=REPLACE(Image, 'Off', '0') Where id='$r[id]'") or die('could not convert over data.<br>'. mysql_error());
+//change all category name to the categorie's id.
+$cat_q = mysql_query("select * from ebb_category where Name='$r[Category]'") or die('could not get category info.<br>'. mysql_error());
+$cat_r = mysql_fetch_array($cat_q);
+mysql_query("update ebb_boards set Category=REPLACE(Category, '$cat_r[Category]', '$cat_r[id]') Where id='$r[id]'") or die('could not alter category data in ebb_boards.<br>'. mysql_error());
+#add permissions.
+mysql_query("insert into ebb_board_access (B_Read, B_Post, B_Reply, B_Vote, B_Poll, B_Delete, B_Edit, B_Important, B_id) values ('0', '3', '3', '3', '3', '3', '3', '2', '$r[id]')") or die('could not set permission for boards.<br>'. mysql_error());
+}
+mysql_query("ALTER TABLE `ebb_boards` CHANGE `Category` `Category` MEDIUMINT(8) UNSIGNED NOT NULL") or die("Could not modify table<br>". mysql_error());
+//changes to ebb_groups
+mysql_query("ALTER TABLE `ebb_groups` ADD `Limitation` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+echo "Part 1 of 4 Database setup complete. <a href=\"install.php?step=upgrade_2b\">Step 2b</a>.";
+  break;
+  case 'upgrade_2b':
+echo "<b>Step 2b:</b>&nbsp;Database Setup: Settings Setup<br><br>";
+echo "Making changes to ebb_settings table.<br><br>";
+//changes to ebb_settings
+$setting_q = mysql_query("select * from ebb_settings") or die('Could not get settings.<br>'. mysql_error());
+$setting_r = mysql_fetch_array($setting_q);
+//convert data based on current value.
+if($setting_r['Board_Status'] == "On"){
+mysql_query("update ebb_settings SET Board_Status=REPLACE(Board_Status, 'On', '1')") or die('could not convert over data.<br>'. mysql_error());
+}else{
+mysql_query("update ebb_settings SET Board_Status=REPLACE(Board_Status, 'Off', '0')") or die('could not convert over data.<br>'. mysql_error());
+}
+if($setting_r['Announcement_Status'] == "On"){
+mysql_query("update ebb_settings SET Announcement_Status=REPLACE(Announcement_Status, 'On', '1')") or die('could not convert over data.<br>'. mysql_error());
+}else{
+mysql_query("update ebb_settings SET Announcement_Status=REPLACE(Announcement_Status, 'Off', '0')") or die('could not convert over data.<br>'. mysql_error());
+}
+if($setting_r['TOS_Status'] == "On"){
+mysql_query("update ebb_settings SET TOS_Status=REPLACE(TOS_Status, 'On', '1')") or die('could not convert over data.<br>'. mysql_error());
+}else{
+mysql_query("update ebb_settings SET TOS_Status=REPLACE(TOS_Status, 'Off', '0')") or die('could not convert over data.<br>'. mysql_error());
+}
+if($setting_r['GZIP'] == "On"){
+mysql_query("update ebb_settings SET GZIP=REPLACE(GZIP, 'On', '1')") or die('could not convert over data.<br>'. mysql_error());
+}else{
+mysql_query("update ebb_settings SET GZIP=REPLACE(GZIP, 'Off', '0')") or die('could not convert over data.<br>'. mysql_error());
+}
+if($setting_r['Image_Verify'] == "On"){
+mysql_query("update ebb_settings SET Image_Verify=REPLACE(Image_Verify, 'On', '1')") or die('could not convert over data.<br>'. mysql_error());
+}else{
+mysql_query("update ebb_settings SET Image_Verify=REPLACE(Image_Verify, 'Off', '0')") or die('could not convert over data.<br>'. mysql_error());
+}
+if($setting_r['spell_checker'] == "On"){
+mysql_query("update ebb_settings SET spell_checker=REPLACE(spell_checker, 'On', '1')") or die('could not convert over data.<br>'. mysql_error());
+}else{
+mysql_query("update ebb_settings SET spell_checker=REPLACE(spell_checker, 'Off', '0')") or die('could not convert over data.<br>'. mysql_error());
+}
+$style_q = mysql_query("select * from ebb_style where Name='$setting_r[Default_Style]'") or die('could not get style info.<br>'. mysql_error());
+$style_r = mysql_fetch_array($style_q);
+mysql_query("update ebb_settings SET Default_Style=REPLACE(Default_Style, '$style_r[Name]', '$style_r[id]')") or die('could not convert over data.<br>'. mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` CHANGE `Board_Status` `Board_Status` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` CHANGE `Announcement_Status` `Announcement_Status` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` CHANGE `TOS_Status` `TOS_Status` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` CHANGE `GZIP` `GZIP` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` CHANGE `Image_Verify` `Image_Verify` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` CHANGE `spell_checker` `spell_checker` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` CHANGE `Default_Style` `Default_Style` MEDIUMINT(8) UNSIGNED NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `PM_Access` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `Profile_View` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `Group_Membership` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `Avatar_Usage` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `mail_type` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `smtp_server` VARCHAR(255) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `smtp_port` VARCHAR(5) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `smtp_user` VARCHAR(255) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_settings` ADD `smtp_pass` VARCHAR(255) NOT NULL") or die("Could not modify table<br>". mysql_error());
+echo "Part 2 of 4 Database setup complete. <a href=\"install.php?step=upgrade_2c\">Step 2c</a>.";
+  break;
+  case 'upgrade_2c':
+echo "<b>Step 2c:</b>&nbsp;Database Setup: Topic & Post Setup<br><br>";
+echo "Making changes to ebb_topics & ebb_posts table.<br><br>";
+//changes to ebb_posts
+mysql_query("ALTER TABLE `ebb_posts` ADD `disable_bbcode` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_posts` ADD `disable_smiles` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+//changes to ebb_topics
+mysql_query("ALTER TABLE `ebb_topics` ADD `disable_bbcode` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+mysql_query("ALTER TABLE `ebb_topics` ADD `disable_smiles` TINYINT(1) NOT NULL") or die("Could not modify table<br>". mysql_error());
+$topic_query = mysql_query("SELECT * FROM ebb_topics") or die("could not select anything from ebb_topics.<br>". mysql_error());
+while($row = mysql_fetch_assoc($topic_query)){
+mysql_query("update ebb_topics SET important=REPLACE(important, 'yes', '1') Where tid='$row[tid]'") or die("Could not modify table<br>". mysql_error());
+mysql_query("update ebb_topics SET important=REPLACE(important, 'no', '0') Where tid='$row[tid]'") or die("Could not modify table<br>". mysql_error());
+}
+echo "Part 3 of 4 Database setup complete. <a href=\"install.php?step=upgrade_2d\">Step 2d</a>.";
+  break;
+  case 'upgrade_2d':
+echo "<b>Step 2d:</b>&nbsp;Database Setup: User Setup<br><br>";
+echo "Making changes to ebb_users table.<br><br>";
+//changes to ebb_user
+$user_query = mysql_query("SELECT * FROM ebb_users") or die("could not select anything from ebb_users.<br>". mysql_error());
+while($row = mysql_fetch_assoc($user_query)){
+$style_query = mysql_query("select * from ebb_style where Name='$row[Style]'") or die('could not get style info.<br>'. mysql_error());
+$style_row = mysql_fetch_array($style_query);
+mysql_query("update ebb_users SET Style=REPLACE(Style, '$style_row[Name]', '$style_row[id]') Where id='$row[id]'") or die("Could not modify table<br>". mysql_error());
+}
+mysql_query("ALTER TABLE `ebb_users` CHANGE `Style` `Style` MEDIUMINT(8) UNSIGNED NOT NULL") or die("Could not modify table<br>". mysql_error());
+echo "Part 4 of 4 Database setup complete. <a href=\"install.php?step=upgrade_3\">Step 3</a>.";
+  break;
+  case 'upgrade_3':
+echo "<b>Step 3: Update Settings</b><br><br>";
+echo "Below is the settings currently set. Check to see everything is correct and also set items that has yet to be defined.<br><br>";
+
+$settings_q = mysql_query("select * from ebb_settings") or die("Could not perform query.<br>". mysql_error());
+$settings = mysql_fetch_array($settings_q);
+$timezone = timezone_select();
+$style_select = style_select();
+$lang = lang_select();
+//board status detection
+if($settings['Board_Status'] == 1){
+$board_status = "<input type=\"radio\" name=\"board_stat\" value=\"1\" class=\"text\" checked>On <input type=\"radio\" name=\"board_stat\" value=\"0\" class=\"text\">Off";
+}
+else{
+$board_status = "<input type=\"radio\" name=\"board_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"board_stat\" value=\"0\" class=\"text\" checked>Off";
+}
+//announcement status detection
+if($settings['Announcement_Status'] == 1){
+$announce_status = "<input type=\"radio\" name=\"announce_stat\" value=\"1\" class=\"text\" checked>On <input type=\"radio\" name=\"announce_stat\" value=\"0\" class=\"text\">Off";
+}
+else{
+$announce_status = "<input type=\"radio\" name=\"announce_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"announce_stat\" value=\"0\" class=\"text\" checked>Off";
+}
+//tos status detection
+if ($settings['TOS_Status'] == 1){
+$tos_stat = "<input type=\"radio\" name=\"term_stat\" value=\"1\" class=\"text\" checked>On <input type=\"radio\" name=\"term_stat\" value=\"0\" class=\"text\">Off";
+}
+else{
+$tos_stat = "<input type=\"radio\" name=\"term_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"term_stat\" value=\"0\" class=\"text\" checked>Off";
+}
+//gzip status detection
+if ($settings['GZIP'] == 1){
+$gzip_status = "<input type=\"radio\" name=\"gzip_stat\" value=\"1\" class=\"text\" checked>On <input type=\"radio\" name=\"gzip_stat\" value=\"0\" class=\"text\">Off";
+}
+else{
+$gzip_status = "<input type=\"radio\" name=\"gzip_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"gzip_stat\" value=\"0\" class=\"text\" checked>Off";
+}
+//security image detection
+if ($settings['Image_Verify'] == 1){
+$imagevert_status = "<input type=\"radio\" name=\"imagevert_stat\" value=\"1\" class=\"text\" checked>Low setting <input type=\"radio\" name=\"imagevert_stat\" value=\"2\" class=\"text\">High setting <input type=\"radio\" name=\"imagevert_stat\" value=\"0\" class=\"text\">Off";
+}elseif($settings['Image_Verify'] == 2){
+$imagevert_status = "<input type=\"radio\" name=\"imagevert_stat\" value=\"1\" class=\"text\">Low setting <input type=\"radio\" name=\"imagevert_stat\" value=\"2\" class=\"text\" checked>High setting <input type=\"radio\" name=\"imagevert_stat\" value=\"0\" class=\"text\">Off";
+}else{
+$imagevert_status = "<input type=\"radio\" name=\"imagevert_stat\" value=\"1\" class=\"text\">Low setting <input type=\"radio\" name=\"imagevert_stat\" value=\"2\" class=\"text\">High setting <input type=\"radio\" name=\"imagevert_stat\" value=\"0\" class=\"text\" checked>Off";
+}
+//spell checker detection
+if ($settings['spell_checker'] == 1){
+$spell_status = "<input type=\"radio\" name=\"spell_stat\" value=\"1\" class=\"text\" checked>On <input type=\"radio\" name=\"spell_stat\" value=\"0\" class=\"text\">Off";
+}else{
+$spell_status = "<input type=\"radio\" name=\"spell_stat\" value=\"1\" class=\"text\">On <input type=\"radio\" name=\"spell_stat\" value=\"0\" class=\"text\" checked>Off";
+}
+//activation detection
+if($settings['activation'] == "User"){
+$activate_status = "<input type=\"radio\" name=\"active_stat\" value=\"None\" class=\"text\">None <input type=\"radio\" name=\"active_stat\" value=\"User\" class=\"text\" checked>User <input type=\"radio\" name=\"active_stat\" value=\"Admin\" class=\"text\">Admin";
+}elseif($settings['activation'] == "Admin"){
+$activate_status = "<input type=\"radio\" name=\"active_stat\" value=\"None\" class=\"text\">None <input type=\"radio\" name=\"active_stat\" value=\"User\" class=\"text\">User <input type=\"radio\" name=\"active_stat\" value=\"Admin\" class=\"text\" checked>Admin";
+}else{
+$activate_status = "<input type=\"radio\" name=\"active_stat\" value=\"None\" class=\"text\" checked>None <input type=\"radio\" name=\"active_stat\" value=\"User\" class=\"text\">User <input type=\"radio\" name=\"active_stat\" value=\"Admin\" class=\"text\">Admin";
+}
+//ssl detection status
+if ($settings['cookie_secure'] == 1){
+$secure_status = "<input type=\"radio\" name=\"secure_stat\" value=\"1\" class=\"text\" checked>Enable <input type=\"radio\" name=\"secure_stat\" value=\"0\" class=\"text\">Disable";
+}
+else{
+$secure_status = "<input type=\"radio\" name=\"secure_stat\" value=\"1\" class=\"text\">Enable <input type=\"radio\" name=\"secure_stat\" value=\"0\" class=\"text\" checked>Disable";
+}
+echo "<form method=\"post\" action=\"install.php?step=upgrade_3b\">
+<table width=\"100%\" border=\"0\" bgcolor=\"#0066CC\" cellspacing=\"1\" cellpadding=\"1\">
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" class=\"td\" align=\"center\">Board Settings</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Name</td>
+<td class=\"td\"><input type=\"text\" name=\"board_name\" size=\"30\" value=\"$settings[Site_Title]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Site Address&nbsp;<b>(example: http://mysite.com)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"site_address\" size=\"30\" value=\"$settings[Site_Address]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Status</td>
+<td class=\"td\">$board_status</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Off Message</td>
+<td class=\"td\"><textarea name=\"off_msg\" rows=\"3\" cols=\"50\" wrap=\"soft\" class=\"text\">$settings[Off_Message]</textarea></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Address&nbsp;<b>(example: http://mysite.com/board)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"board_address\" size=\"30\" value=\"$settings[Board_Address]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Board Email</td>
+<td class=\"td\"><input type=\"text\" name=\"board_email\" size=\"30\" value=\"$settings[Board_Email]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Announcement Status</td>
+<td class=\"td\">$announce_status</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Announcement Message<br><b>(One announcement per line.)</b></td>
+<td class=\"td\"><textarea name=\"announce_msg\" rows=\"3\" cols=\"50\" wrap=\"soft\" class=\"text\">$settings[Announcements]</textarea></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Style</td>
+<td class=\"td\">$style_select</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Language</td>
+<td class=\"td\">$lang</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Term Status</td>
+<td class=\"td\">$tos_stat</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Terms</td>
+<td class=\"td\"><textarea name=\"term_msg\" rows=\"3\" cols=\"50\" wrap=\"soft\" class=\"text\">$settings[TOS_Rules]</textarea></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">GZIP Compression&nbsp;<b>(require php 4 or higher to run it.)</b></td>
+<td class=\"td\">$gzip_status</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Security Image Verify&nbsp;<b>(GD enabled for low & freetype enabled for high.)</b></td>
+<td class=\"td\">$imagevert_status</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Spell Checker&nbsp;<b>(require PSPELL to be enabled.)</b></td>
+<td class=\"td\">$spell_status</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">PM Quota</td>
+<td class=\"td\"><input type=\"text\" name=\"pm_quota\" size=\"5\" maxlength=\"4\" value=\"$settings[PM_Quota]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Activation Type</td>
+<td class=\"td\"><input type=\"radio\" name=\"active_stat\" value=\"None\" class=\"text\">None <input type=\"radio\" name=\"active_stat\" value=\"User\" class=\"text\">User</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Time Zone</td>
+<td class=\"td\">$timezone</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Default Time format&nbsp;<b>(select your time format by using the <a href=\"http://us2.php.net/manual/en/function.date.php\" target=\"_blank\" title=\"will open in new window\">date()</a> syntax from php.)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"default_time\" size=\"30\" value=\"$settings[Default_Time]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\">Cookie Options</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Cookie Domain&nbsp;<b>(example: mysite.com or board.mysite.com)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"cookie_domain\" size=\"30\" value=\"$settings[cookie_domain]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Cookie Path&nbsp;<b>(example: /board/)</b></td>
+<td class=\"td\"><input type=\"text\" name=\"cookie_path\" size=\"30\" value=\"$settings[cookie_path]\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Cookie Secure&nbsp;<b>(Must have SSL on your server to use this.)</b></td>
+<td class=\"td\">$secure_status</td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\">User Access Options</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to access PM System</td>
+<td class=\"td\"><input type=\"text\" name=\"pm_access\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to display user's profile</td>
+<td class=\"td\"><input type=\"text\" name=\"profile_view\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to join a group</td>
+<td class=\"td\"><input type=\"text\" name=\"group_membership\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Post required to use an avatar</td>
+<td class=\"td\"><input type=\"text\" name=\"avatar_usage\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\">Mail Settings</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">Mail Type</td>
+<td class=\"td\"><input type=\"radio\" name=\"mail_type\" value=\"0\" class=\"text\">SMTP <input type=\"radio\" name=\"mail_type\" value=\"1\" class=\"text\" checked>Mail() method</td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Host</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_host\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Port</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_port\" size=\"5\" class=\"text\" maxlength=\"4\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Username</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_user\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#EDF0F7\">
+<td class=\"td\">SMTP Password</td>
+<td class=\"td\"><input type=\"text\" name=\"smtp_pass\" size=\"30\" class=\"text\"></td>
+</tr>
+<tr bgcolor=\"#C4C8D4\">
+<td colspan=\"2\" align=\"center\" class=\"td\"><input type=\"submit\" value=\"Save Settings\" class=\"submit\"></td>
+</tr>
+<table>
+</form>";
+  break;
+  case 'upgrade_3b':
+//define form results.
+$board_name = anti_injection($_POST['board_name']);
+$site_address = anti_injection($_POST['site_address']);
+$board_stat = anti_injection($_POST['board_stat']);
+$off_msg = anti_injection($_POST['off_msg']);
+$board_address = anti_injection($_POST['board_address']);
+$board_email = anti_injection($_POST['board_email']);
+$announce_stat = anti_injection($_POST['announce_stat']);
+$announce_msg = anti_injection($_POST['announce_msg']);
+$dstyle = anti_injection($_POST['style']);
+$default_lang = anti_injection($_POST['default_lang']);
+$term_stat = anti_injection($_POST['term_stat']);
+$term_msg = anti_injection($_POST['term_msg']);
+$gzip_stat = anti_injection($_POST['gzip_stat']);
+$imagevert_stat = anti_injection($_POST['imagevert_stat']);
+$spell_stat = anti_injection($_POST['spell_stat']);
+$pm_quota = anti_injection($_POST['pm_quota']);
+$active_stat = anti_injection($_POST['active_stat']);
+$default_zone = anti_injection($_POST['time_zone']);
+$default_time = anti_injection($_POST['default_time']);
+$cookie_domain = anti_injection($_POST['cookie_domain']);
+$cookie_path = anti_injection($_POST['cookie_path']);
+$secure_stat = anti_injection($_POST['secure_stat']);
+$pm_access = anti_injection($_POST['pm_access']);
+$profile_view = anti_injection($_POST['profile_view']);
+$group_membership = anti_injection($_POST['group_membership']);
+$avatar_usage = anti_injection($_POST['avatar_usage']);
+$mail_type = anti_injection($_POST['mail_type']);
+$smtp_host = anti_injection($_POST['smtp_host']);
+$smtp_port = anti_injection($_POST['smtp_port']);
+$smtp_user = anti_injection($_POST['smtp_user']);
+$smtp_pass = anti_injection($_POST['smtp_pass']);
+//error checking.
+if ($board_name == ""){
+echo "You didn't set a name for the board.";
+exit();
+}
+if ($site_address == ""){
+echo "You didn't set a address to your website.";
+exit();
+}
+if (($board_stat == "Off") AND ($off_msg == "")){
+echo "You didn't set a off message.";
+exit();
+}
+if ($board_address == ""){
+echo "You didn't set the link for the board address.";
+exit();
+}
+if ($board_email == ""){
+echo "You didn't set an email address for the board.";
+exit();
+}
+if (($announce_stat == "On") AND ($announce_msg == "")){
+echo "You didn't place any announcements in the messagebox.";
+exit();
+}
+if ($dstyle == ""){
+echo "You didn't select a default style.";
+exit();
+}
+if ($default_lang == ""){
+echo "You didn't set a default language.";
+exit();
+}
+if (($term_stat == "On") AND ($term_msg == "")){
+echo "You didn't set any terms in the messagebox.";
+exit();
+}
+if ($gzip_stat == ""){
+echo "You didn't set the GZIP value.";
+exit();
+}
+if ($imagevert_stat == ""){
+echo "You didn't set the image verify value.";
+exit();
+}
+if ($spell_stat == ""){
+echo "You didn't set the spell check value.";
+exit();
+}
+if (($pm_quota == "") OR (!is_numeric($pm_quota))){
+echo "You didn't set a quota for the PM Inbox.";
+exit();
+}
+if($active_stat == ""){
+echo "You didn't set an activation type for the registration page.";
+exit();
+}
+if ($default_zone == ""){
+echo "You didn't set a default timezone.";
+exit();
+}
+if ($default_time == ""){
+echo "You didn't set a default time format.";
+exit();
+}
+if($cookie_domain == ""){
+echo "You didn't set a domain for the cookie.";
+exit();
+}
+if ($cookie_path == ""){
+echo "You didn't set a path for the cookie.";
+exit();
+}
+if ($secure_stat == ""){
+echo "You didn't set the secure value for the cookie.";
+exit();
+}
+if(strlen($board_name) > 50){
+echo "The Board name you wish to use is too long, please use a smaller name.";
+exit();
+}
+if(strlen($site_address) > 50){
+echo "The site address you entered is too long, please enter in a smaller link.";
+exit();
+}
+if(strlen($board_address) > 50){
+echo "The path to the board is too long, try to shorten it if possible.";
+exit();
+}
+if(strlen($board_email) > 255){
+echo "The email you entered is too long, please enter in a shorter one.";
+exit();
+}
+if(strlen($off_msg) > 255){
+echo "Your Off message reason is too long. Enter in a shorter reason.";
+exit();
+}
+if(strlen($announce_msg) > 255){
+echo "Your announcement is too long, please shorten it.";
+exit();
+}
+if(strlen($pm_quota) > 4){
+echo "Your PM Quota is set too high. Please set it to a lower number.";
+exit();
+}
+if(strlen($cookie_domain) > 50){
+echo "Your Domain for the cookie is too long, enter in a shorter domain. Remember: no http:// or anything else just the domain name.";
+exit();
+}
+if(strlen($cookie_path) > 50){
+echo "Your cookie path is too long. enter in a shorter one. Remember: /board/ will work just fine.";
+exit();
+}
+if($pm_access == ""){
+echo "No number was entered for the pm post rule.";
+exit();
+}
+if($profile_view == ""){
+echo "No number was entered for the profile rule.";
+exit();
+}
+if($group_membership == ""){
+echo "No number was entered for the group rule.";
+exit();
+}
+if($avatar_usage == ""){
+echo "No number was entered for the avatar rule.";
+exit();
+}
+if(strlen($pm_access) > 4){
+echo "The number you set for the pm rule is too high.";
+exit();
+}
+if(strlen($profile_view) > 4){
+echo "The number you set for the profile rule is too high.";
+exit();
+}
+if(strlen($group_membership) > 4){
+echo "The number you set for the group rule is too high.";
+exit();
+}
+if(strlen($avatar_usage) > 4){
+echo "The number you set for the avatar rule is too high.";
+exit();
+}
+if($mail_type == ""){
+echo "You did not select a mail method.";
+exit();
+}
+#check for smtp values.
+if($mail_type == 0){
+if($smtp_host == ""){
+echo "You did not enter the address to the smtp server.";
+exit();
+}
+if($smtp_port == ""){
+echo "No port was entered for the smtp server.";
+exit();
+}
+if($smtp_user == ""){
+echo "No username was entered for the smtp server.";
+exit();
+}
+if($smtp_pass == ""){
+echo "no password was entered for the smtp server.";
+exit();
+}
+if(strlen($smtp_host) > 255){
+echo "smtp server address is too long.";
+exit();
+}
+if(strlen($smtp_port) > 5){
+echo "smtp port number is too high.";
+exit();
+}
+if(strlen($smtp_user) > 255){
+echo "smtp username is too long.";
+exit();
+}
+if(strlen($smtp_pass) > 255){
+echo "smtp password is too long.";
+exit();
+}
+}
+//process query
+mysql_query("UPDATE ebb_settings SET Site_Title='$board_name', Site_Address='$site_address', Board_Status='$board_stat', Board_Address='$board_address', Board_Email='$board_email', Off_Message='$off_msg', Announcement_Status='$announce_stat', Announcements='$announce_msg', Default_Style='$dstyle', Default_Language='$default_lang', TOS_Status='$term_stat', TOS_Rules='$term_msg', GZIP='$gzip_stat', Image_Verify='$imagevert_stat', spell_checker='$spell_stat', PM_Quota='$pm_quota', activation='$active_stat', Default_Zone='$default_zone', Default_Time='$default_time', cookie_domain='$cookie_domain', cookie_path='$cookie_path', cookie_secure='$secure_stat', PM_Access='$pm_access', Profile_View='$profile_view', Group_Membership='$group_membership', Avatar_Usage='$avatar_usage', mail_type='$mail_type', smtp_server='$smtp_host', smtp_port='$smtp_port', smtp_user='$smtp_user', smtp_pass='$smtp_pass'") or die("Could not update settings.<br>". mysql_error());
+echo "Settings are now updated. Go to <a href=\"install.php?step=upgrade_5\">Step 5</a>.";
+  break;
+  case 'upgrade_5':
+echo "<b>Step 5: Remove install files & Finish upgrade.</b>";
+$delinstall = @unlink ('install.php');
+$delinstall2 = @unlink ('install.css');
+if (($delinstall) AND ($delinstall2)){
+echo "Deleting install files...Success!<br><br>
+Elite Bulletin Board is now upgraded. Click <a href=\"index.php\">here</a> to go to your board.";
+}else{
+echo "Deleting install files...<b>Failed!</b> didn't CHMOD folder 777.<br><br>
+<b>Delete install.php & install.css <u>immediately</u> to prevent someone from overwriting this install!!!!</b><br><br>
+Elite Bulletin Board is now upgraded. Click <a href=\"index.php\">here</a> to go to your board.";
+}
+  break;
+  default:
+echo "This is the install file that will install Elite Bulletin Board on your website. once this is complete, you will be able to enjoy this board on your site.<br><br>";
+echo "the installation will:<br>
+<ul>
+<li>check to see if a version of this is already installed.</li>
+<li>import all tables and default data into your database.</li>
+<li>setup the settings.</li>
+<li>register yourself on the Message board.</li>
+<li>add one category to your Message board.</li>
+<li>add one board to your Message board.</li>
+<li>delete the install files(if you chmoded this folder to 777).</li>
+</ul>
+
+[<a href=\"install.php?step=install_1\">Begin Installation</a>]<br>
+<hr>
+This File is also where you'll upgrade from the previous version. <b>Do NOT Click the upgrade link unles you already have a previous version installed.</b><br><br>
+
+The upgrade will:<br>
+
+<ul>
+<li>Ask for an administrative login.</li>
+<li>Update the table info and add new tables made for this version.</li>
+<li>Update any missing items that were added.</li>
+<li>delete the install files(if you chmoded this folder to 777).</li>
+</ul>
+
+[<a href=\"install.php?step=upgrade_1\">Begin Upgrade</a>]";
+}
+?>
+</body>
+</html>
+<? ob_end_flush(); ?>

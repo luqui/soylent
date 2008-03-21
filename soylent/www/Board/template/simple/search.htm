@@ -1,0 +1,20 @@
+<a href="index.php">{TITLE}</a> &#187; {LANG-TITLE}<br><br>
+{LANG-TEXT}
+<form method="post" action="Search.php?action=result">
+<br><table width="100%" align="center" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td class="td" width="50%">&nbsp;</td><td class="td" width="50%">&nbsp;</td>
+</tr><tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-KEYWORD}</td><td clas="td" width="50%"><input type="text" name="keyword" size="30" class="text"></td>
+</tr><tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-USERNAME}</td><td class="td" width="50%"><input type="text" name="poster" size="30" class="text"></td>
+</tr><tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-SELBOARD}</td>
+<td class="td" width="50%">{BOARDLIST}</td>
+</tr><tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TEXT2}</td><td class="td" width="50%"><input type="radio" name="search_type" value="topic">{LANG-TOPIC}<br><input type="radio" name="search_type" value="post">{LANG-POST}</td>
+</tr><tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td"><input type="submit" name="submit" value="{LANG-SEARCH}" class="submit"></td>
+</tr>
+</table>
+</form>

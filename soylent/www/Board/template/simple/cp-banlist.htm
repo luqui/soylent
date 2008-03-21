@@ -1,0 +1,67 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-BANLIST}<br><br>
+{LANG-TEXT}<br><br>
+<form method="post" action="CP.php?action=ban_add">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-EMAILBAN}</td></tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BANEMAILTXT}</td>
+<td class="td" width="50%"><input type="text" name="emailbanning" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-MATCHTYPETXT}</td>
+<td class="td" width="50%"><input type="radio" name="match_type" value="Exact" class="text">{LANG-EXACTMATCH}&nbsp;<input type="radio" name="match_type" value="Wildcard" class="text">{LANG-WILDCARDMATCH}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-SUBMIT}" class="submit"></td>
+</tr>
+</table>
+<input type="hidden" name="type" value="Email">
+</form>
+
+<form method="post" action="CP.php?action=ban_remove">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-UNBANEMAIL}</td></tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-UNBANEMAILTXT}</td>
+<td class="td" width="50%">{BANLIST-EMAIL}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-SUBMIT}" class="submit"></td>
+</tr>
+</table>
+<input type="hidden" name="type" value="Email">
+</form>
+
+<form method="post" action="CP.php?action=ban_add">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-BANIP}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BANIPTXT}</td>
+<td class="td" width="50%"><input type="text" name="ipbanning" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-SUBMIT}" class="submit"></td>
+</tr>
+</table>
+<input type="hidden" name="type" value="IP">
+</form>
+
+<form method="post" action="CP.php?action=ban_remove">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-UNBANIP}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-UNBANIPTXT}</td>
+<td class="td" width="50%">{BANLIST-IP}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-SUBMIT}" class="submit"></td>
+</tr>
+</table>
+<input type="hidden" name="type" value="IP">
+</form>

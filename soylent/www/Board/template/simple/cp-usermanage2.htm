@@ -1,0 +1,93 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-MANAGEUSER}<br><br>
+{LANG-TEXT}<br><br>
+
+<form method="post" action="CP.php?action=user_process">
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-MANAGEUSER}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-EMAIL}</td>
+<td class="td" width="50%"><input name="email" type="text" value="{EMAIL}" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-USERNAME}</td>
+<td class="td" width="50%">{USERNAME}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TIME}</td>
+<td class="td" width="50%">{TIME}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TIMEFORMAT}<br>{LANG-TIMEINFO}</td>
+<td class="td" width="50%"><input type="text" name="time_format" value="{TIMEFORMAT}" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-PMNOTIFY}</td>
+<td class="td" width="50%">{PMNOTIFY}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-SHOWEMAIL}</td>
+<td class="td" width="50%">{SHOWEMAIL}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-STYLE}</td>
+<td class="td" width="50%">{STYLE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-LANGUAGE}</td>
+<td class="td" width="50%">{LANGUAGE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-OPTIONAL}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-MSN}</td>
+<td class="td" width="50%"><input type="text" name="msn_messenger" class="text" value="{MSN}" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-AOL}</td>
+<td class="td" width="50%"><input type="text" name="aol_messenger" class="text" value="{AOL}" size="30"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-YIM}</td>
+<td class="td" width="50%"><input type="text" name="yim" class="text" size="30" value="{YIM}"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-ICQ}</td>
+<td class="td" width="50%"><input type="text" name="icq" class="text" size="30" value="{ICQ}"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-LOCATION}</td>
+<td class="td" width="50%"><input type="text" name="location" class="text" size="30" value="{LOCATION}"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-SIG}</td>
+<td class="td" width="50%"><textarea name="sig" rows="5" cols="40" class="text">{SIG}</textarea></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-WWW}</td>
+<td class="td" width="50%"><input type="text" name="site" class="text" size="30" value="{WWW}"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-ADMINTOOLS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-ACTIVEUSER}</td>
+<td class="td" width="50%">{ACTIVEUSER}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BANUSER}</td>
+<td class="td" width="50%">{BANUSER}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-DELUSER}</td>
+<td class="td" width="50%"><input type="checkbox" name="deluser" class="text" value="yes">{LANG-TICKDELETE}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">
+<input type="hidden" name="user" value="{USERNAME}">
+<input type="submit" value="{SUBMIT}" class="submit"></td>
+</tr>
+</table>
+</form>

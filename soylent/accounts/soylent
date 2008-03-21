@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<gnc-v2>
+<gnc:count-data cd:type="book">1</gnc:count-data>
+<gnc:book version="2.0.0">
+<book:id type="guid">e4a1deec8600c7d1e05c7ae1a15f0433</book:id>
+<gnc:count-data cd:type="account">10</gnc:count-data>
+<gnc:count-data cd:type="transaction">3</gnc:count-data>
+<gnc:account version="2.0.0">
+  <act:name>Assets</act:name>
+  <act:id type="guid">95a59b520b76ebffd1280712182bdda4</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Paypal</act:name>
+  <act:id type="guid">836c597c6c6bc3c6a73b35f7fdb70da7</act:id>
+  <act:type>BANK</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">95a59b520b76ebffd1280712182bdda4</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Income</act:name>
+  <act:id type="guid">892403aaf03094fe7f5963bd34c8570e</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Donations</act:name>
+  <act:id type="guid">56e851374278af266b09ff1acadb49e1</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">892403aaf03094fe7f5963bd34c8570e</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Expenses</act:name>
+  <act:id type="guid">f7f8c28c0f44e92dd76bf71e382f196d</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Paypal Fees</act:name>
+  <act:id type="guid">68d57958510c9e8f1f69f1e4430c3299</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">f7f8c28c0f44e92dd76bf71e382f196d</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Salaries</act:name>
+  <act:id type="guid">41d0499ce84c834099214813cac8e71d</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">f7f8c28c0f44e92dd76bf71e382f196d</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Luke</act:name>
+  <act:id type="guid">eac63d97ef36809aba262b214db4fb23</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">41d0499ce84c834099214813cac8e71d</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Namaste</act:name>
+  <act:id type="guid">8be1b8bc5b3bfbe59e0593d2c24ad741</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">false</slot:value>
+    </slot>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string"></slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">41d0499ce84c834099214813cac8e71d</act:parent>
+</gnc:account>
+<gnc:transaction version="2.0.0">
+  <trn:id type="guid">33a5f440b3afe3a64ea21fe0a74aee38</trn:id>
+  <trn:currency>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </trn:currency>
+  <trn:date-posted>
+    <ts:date>2006-04-03 00:00:00 +0000</ts:date>
+  </trn:date-posted>
+  <trn:date-entered>
+    <ts:date>2006-04-06 23:45:29 +0000</ts:date>
+  </trn:date-entered>
+  <trn:description>Donation from Nguyen Thu Trieu (HUYNH TUAN KHANH) (17690173NM809203S)</trn:description>
+  <trn:splits>
+    <trn:split>
+      <split:id type="guid">5d712d6ba1b02ad5678623056eb2ed73</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>147/100</split:value>
+      <split:quantity>147/100</split:quantity>
+      <split:account type="guid">68d57958510c9e8f1f69f1e4430c3299</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">835550a30dc46ca21a22885f0db6f423</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>2853/100</split:value>
+      <split:quantity>2853/100</split:quantity>
+      <split:account type="guid">836c597c6c6bc3c6a73b35f7fdb70da7</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">2cb8fb955e56172bd295b4b42d276cf4</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>-3000/100</split:value>
+      <split:quantity>-3000/100</split:quantity>
+      <split:account type="guid">56e851374278af266b09ff1acadb49e1</split:account>
+    </trn:split>
+  </trn:splits>
+</gnc:transaction>
+<gnc:transaction version="2.0.0">
+  <trn:id type="guid">cefe4f847bee94ee4b1c660e8f935ff2</trn:id>
+  <trn:currency>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </trn:currency>
+  <trn:date-posted>
+    <ts:date>2006-04-03 00:00:00 +0000</ts:date>
+  </trn:date-posted>
+  <trn:date-entered>
+    <ts:date>2006-04-06 23:47:18 +0000</ts:date>
+  </trn:date-entered>
+  <trn:description>Donation from Andrew McNown (7H843341CE124805Y)</trn:description>
+  <trn:splits>
+    <trn:split>
+      <split:id type="guid">1298e60758504c50d3dc471b5674bda4</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>59/100</split:value>
+      <split:quantity>59/100</split:quantity>
+      <split:account type="guid">68d57958510c9e8f1f69f1e4430c3299</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">c035e25e677a1c2cde571a61a9705c7e</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>941/100</split:value>
+      <split:quantity>941/100</split:quantity>
+      <split:account type="guid">836c597c6c6bc3c6a73b35f7fdb70da7</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">b4e3074f851844e5acbe31efe288efbb</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>-1000/100</split:value>
+      <split:quantity>-1000/100</split:quantity>
+      <split:account type="guid">56e851374278af266b09ff1acadb49e1</split:account>
+    </trn:split>
+  </trn:splits>
+</gnc:transaction>
+<gnc:transaction version="2.0.0">
+  <trn:id type="guid">7dc21d1922135ab9ed68e700bcfa4028</trn:id>
+  <trn:currency>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </trn:currency>
+  <trn:date-posted>
+    <ts:date>2006-04-26 00:00:00 +0000</ts:date>
+  </trn:date-posted>
+  <trn:date-entered>
+    <ts:date>2006-04-26 08:11:36 +0000</ts:date>
+  </trn:date-entered>
+  <trn:description>ess.tv payment</trn:description>
+  <trn:splits>
+    <trn:split>
+      <split:id type="guid">173eea122abd11185936acd25451cacc</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>500/100</split:value>
+      <split:quantity>500/100</split:quantity>
+      <split:account type="guid">eac63d97ef36809aba262b214db4fb23</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">41401d48c17eb1d9f44b5f9813a4c248</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>-500/100</split:value>
+      <split:quantity>-500/100</split:quantity>
+      <split:account type="guid">836c597c6c6bc3c6a73b35f7fdb70da7</split:account>
+    </trn:split>
+  </trn:splits>
+</gnc:transaction>
+</gnc:book>
+</gnc-v2>
+
+<!-- Local variables: -->
+<!-- mode: xml        -->
+<!-- End:             -->

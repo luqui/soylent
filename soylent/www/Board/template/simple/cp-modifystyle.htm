@@ -1,0 +1,45 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-MODIFYSTYLE}<br><br>
+{LANG-TEXT}<br><br>
+<form method="post" action="CP.php?action=style_modify&amp;id={ID}">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-MODIFYSTYLE}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-STYLENAME}</td>
+<td class="td" width="50%"><input type="text" name="style_name" maxlength="50" size="30" value="{STYLENAME}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BACKGROUND}<br>{LANG-BGCOLORRULE}</td>
+<td class="td" width="50%"><input type="text" name="background" maxlength="7" size="30" value="{BACKGROUND}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TEXTCOLOR}</td>
+<td class="td" width="50%"><input type="text" name="text_color" maxlength="7" size="30" value="{TEXTCOLOR}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-LINKCOLOR}</td>
+<td class="td" width="50%"><input type="text" name="link_color" maxlength="7" size="30" value="{LINKCOLOR}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-VLINKCOLOR}</td>
+<td class="td" width="50%"><input type="text" name="vlink_color" maxlength="7" size="30" value="{VLINKCOLOR}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TABLE1COLOR}</td>
+<td class="td" width="50%"><input type="text" name="table_1" maxlength="7" size="30" value="{TABLE1COLOR}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TABLE2COLOR}</td>
+<td class="td" width="50%"><input type="text" name="table_2" maxlength="7" size="30" value="{TABLE2COLOR}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-FONT}</td>
+<td class="td" width="50%"><input type="text" name="font_face" maxlength="50" size="30" value="{FONT}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BORDERCOLOR}</td>
+<td class="td" width="50%"><input type="text" name="border_color" maxlength="7" size="30" value="{BORDERCOLOR}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-IMAGEPATH}<br>{LANG-IMAGERULE}</td>
+<td class="td" width="50%"><input type="text" name="image_path" maxlength="80" size="30" value="{IMAGESPATH}" class="text"></td>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-TEMPLATEPATH}<br>{LANG-TEMPLATERULE}</td>
+<td class="td" width="50%"><input type="text" name="template_path" maxlength="80" size="30" value="{TEMPLATEPATH}" class="text"></td>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-MODIFYSTYLE}" class="submit"></td>
+</tr>
+</table>
+</form>

@@ -1,0 +1,27 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="Profile.php">{LANG-TITLE}</a> &#187; {LANG-EDITSIG}<br><br>
+{LANG-TEXT}
+<script language='JavaScript'>
+
+  <!--
+  function bbcode(which) {
+  document.forum.signature.value = document.forum.signature.value + which;
+  }
+  //-->
+</script>
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td class="td">{LANG-CURRENTSIG}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td">{CURRENTSIG}</td>
+</tr>
+</table><br>
+<form method="post" action="Profile.php?mode=sig_process" name="forum">
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td align="center" class="td"><textarea name="signature" rows="5" cols="50" wrap="soft" class="text">{SIGNATURE}</textarea></td>
+<tr bgcolor="{TABLE1}">
+<td align="center" class="td"><input type="submit" value="{LANG-SAVESIG}" class="submit"></td>
+</tr>
+</table>
+</form>

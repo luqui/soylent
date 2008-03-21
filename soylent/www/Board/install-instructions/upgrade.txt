@@ -1,0 +1,66 @@
+Upgrading to 1.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here is where you'll see what Files were updated/added. This will help those who are upgrading, and will let you know what files were modified to faster upgrading.
+
+files that are new will be marked as *
+
+the php files:
+
+most of the php files were modified so just reupload every php file.
+
+changes in the lang folder.
+
+English.lang.php
+English.email.php
+
+changes in the template files.
+
+new files will be marked as *
+
+cp-activateusers.htm*
+cp-mainmenu.htm
+cp-modifyboard.htm
+cp-modifygroup.htm
+cp-newboard.htm
+cp-newgroup.htm
+cp-pendinglist.htm
+cp-prune.htm
+editpost.htm
+editpost-spell.htm
+editsubscription.htm
+edittopic.htm
+edittopic-spell.htm
+footer.htm
+header.htm
+instantreply.htm
+instantreply-spell.htm
+login.htm
+postnewpoll-spell.htm
+postnewtopic-spell.htm
+postreply.htm
+postreply-spell.htm
+report-post.htm*
+report-topic.htm*
+spell_checker.css
+viewboard.htm
+viewprofile.htm
+viewtopic.htm
+
+below are all of the images that have been add/modified
+
+new items are marked as *
+
+delete.gif
+deletetopic.gif
+edit.gif
+lock.gif
+locked.gif
+move.gif
+newpoll.gif
+newtopic.gif
+pm.gif
+profile.gif
+reply.gif
+report.gif*
+unlock.gif
+viewbanlist.gif

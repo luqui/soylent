@@ -1,0 +1,54 @@
+I think three military unit types will be in the game:  Cavalry, Swordsmen,
+and Pikemen.  Following is the fighting table.  It is expressed as one of
+the letters W,S,E (Weak,Strong,Equal) of the thing on the left against the
+thing on the top. 
+
+      |  C  |  S  |  P  |
+    --+-----+-----+-----+
+    C |  E  |  S  |  W  |
+    S |  W  |  E  |  S  |
+    P |  S  |  W  |  E  |
+
+For example, a pikeman is strong against a cavalry (third row, first column).
+E = 50%, S > 50%, W = 100% - S  (eg., 50%, 85%, and 15%).
+
+Each unit has a set of abilities different from the others, too:
+
+    Cavalry move 5x as fast as swordsmen and pikemen, but cannot travel
+        through forest.
+    Pikemen are stronger in numbers.
+    Swordsmen are equally strong on all sides (there is no advantage to
+        attacking them from behind).
+
+Units can gain experience, which makes them stronger in battle.  The difference
+in experience skews the probabilities toward asymptotes.  The asymptotes for
+a particular matchup in the table above are:
+
+    W --> E
+    E --> S
+    S --> 100%
+
+For example, a very strong swordsman will still never be 50% against a
+first-level cavalry, but it can get arbitrarily close.  Also, a very strong
+pikeman can never get above S (eg. 85%) against another pikemen, no matter how
+strong.  This means that proper unit choice is a strong defense, and experience
+can only skew the primary result.
+
+Units can gain experience either by killing enemy units (one experience per
+kill) or by training more (which costs $$$).  An experience 2 unit costs twice
+as much as the experience 1 unit of the same type (and takes twice as long to
+train), and so on.  The idea is that it is expensive to pay for experience, so
+letting units gain it in battle is often a better way to go, but not the only
+way to go.
+
+You have a fixed population to work with, divided up into your work force and
+your army.  The more work force you have, the faster and better armor weapons,
+and boats are made.  But if you need more soldiers, you need to draw from your
+work force.  If you need more work force, you need to trim down your army.  If
+a bunch of people get slaughtered by the enemy, it might be worthwhile to give
+surrender.
+
+Units don't have health bars.  If you get your arm sliced off in battle, it
+is doubtful that you'd still be able to fight.  However, we could allow the
+concept of a wounded unit that you can take back to the hospital and prepare
+for working or battle again.

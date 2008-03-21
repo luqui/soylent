@@ -1,0 +1,20 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="PM.php">{LANG-TITLE}</a> &#187; {LANG-BANUSER}<br><br>
+{TEXT}
+<form method="post" action="PM.php?action=ban_process">
+<table border="0" bgcolor="{BORDER}" align="center" width="100%" cellpadding="1" cellspacing="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td">{LANG-BANUSER}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-USERNAME}</td>
+<td class="td" width="50%">{USERNAME}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-BAN}</td>
+<td class="td" width="50%"><input type="text" name="banned_user" value="{BAN}" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" align="center" class="td"><input type="submit" value="{LANG-SUBMIT}" class="submit"></td>
+</tr>
+</table>
+</form>

@@ -1,0 +1,36 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="CP.php">{LANG-TITLE}</a> &#187; {LANG-MODIFYGROUP}<br><br>
+
+<form method="post" action="CP.php?action=modify_group_process&id={ID}">
+<table border="0" width="100%" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center">{LANG-MODIFYGROUP}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-GROUPNAME}</td>
+<td class="td" width="50%"><input type="text" name="group" size="30" class="text" value="{GROUPNAME}" maxlength="50"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-GROUPDESCRIPTION}</td>
+<td class="td" width="50%"><textarea name="description" rows="3" cols="50" wrap="soft" class="text">{GROUPDESCRIPTION}</textarea></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-GROUPLEADER}</td>
+<td class="td" width="50%"><input type="text" name="leader" size="30" class="text" value="{GROUPLEADER}" maxlength="50"></td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-GROUPSTATUS}</td>
+<td class="td" width="50%">{GROUPSTATUS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-GROUPACCESS}</td>
+<td class="td" width="50%">{GROUPACCESS}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{LANG-LIMITATIONS}</td>
+<td class="td" width="50%">{LIMITATIONS}</td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td colspan="2" class="td" align="center"><input type="submit" value="{LANG-MODIFYGROUP}" class="submit"></td>
+</tr>
+</table>
+</form>

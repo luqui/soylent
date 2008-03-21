@@ -1,0 +1,30 @@
+<a href="index.php">{TITLE}</a> &#187; <a href="Profile.php">{LANG-TITLE}</a> &#187; {LANG-EDITAVATAR}<br><br>
+{LANG-TEXT}
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td class="td" align="center">{LANG-CURRENTAVATAR}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" align="center"><img src="{CURRENTAVATAR}" alt="{LANG-CURRENTAVATAR}"></td>
+</tr>
+</table><br>
+<form method="post" action="?mode=avatar_process">
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td class="td" colspan="2" align="center">{LANG-AVATARLINK}</td>
+</tr>
+<tr bgcolor="{TABLE2}">
+<td class="td" width="50%">{ALLOWEDTYPES}</td>
+<td class="td" width="50%"><input type="text" name="avatar_img" size="30" class="text"></td>
+</tr>
+<tr bgcolor="{TABLE1}">
+<td class="td" colspan="2" align="center"><input type="submit" value="{LANG-SAVEAVATAR}" class="submit"></td>
+</tr>
+</table>
+</form>
+<table width="100%" border="0" bgcolor="{BORDER}" cellspacing="1" cellpadding="1">
+<tr bgcolor="{TABLE1}">
+<td class="td" width="50%">{LANG-SELAVATAR}</td>
+<td class="td" width="50%">[<a href="Gallery.php">{LANG-GALLERY}</a>]</td>
+</tr>
+</table>

@@ -1,0 +1,26 @@
+The goal is to create a system with simple-minded, but semi-realistic
+social AI simulation.
+
+There is a set of characters C.
+
+A _world model_ A assigns to each character:
+    * A set of _resources_        R
+    * A weighted set of _desires_ D
+    * A world model               W
+    * A _location_                L
+
+With an idempotence property:
+
+    A(c).W = A(c).W(c).W
+
+That is, in c's world model in c's world model is just c's world model
+(you know that you know everything you know).
+
+An _action_ is a function from world models to world models.  The following
+are actions:
+    * Resource transformation r, satisfying the the following laws:
+        if r(W) = W' then
+            * W(c).L /= W(d).L => W(c) = W(d)
+            * W(c).D = W(d).d
+
+An action is _silly_ iff the result of the action is complicated.
