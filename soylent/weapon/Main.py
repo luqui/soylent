@@ -29,7 +29,7 @@ class GameMain:
         self.world = pygame.Surface((self.worldWidth, self.worldHeight))
         
         """Create the background"""
-        self.background = pygame.Surface(self.screen.get_size())
+        self.background = pygame.Surface(self.world.get_size())
         self.background = self.background.convert()
         self.background.fill((0,0,0))
 
@@ -47,7 +47,6 @@ class GameMain:
 
 
     def MainLoop(self):
-
         while 1:
             self.EventHandler()
             self.hero.Update()
@@ -56,18 +55,13 @@ class GameMain:
             pygame.time.wait(25)
             
     def DrawAll(self):
-
-        translation = self.hero.GetTranslation(self.screen)
+        translation = self.hero.GetTranslation(self.world)
         self.world.blit(self.background, (0, 0))
         self.hero.Draw(self.world)
         self.enemy_sprites.draw(self.world)
-        #self.screen.blit(self.world, (0,0))
-        #self.screen.blit(pygame.transform.chop(self.world, self.screen.rect), (0,0))
-        self.screen.blit(pygame.transform.chop(self.world, self.hero.GetTranslation(self.screen)), (0,0))
-        self.hero.GesDraw(self.screen)
+        self.screen.blit(self.world, (0, 0), self.hero.GetTranslation(self.screen))
 
         pygame.display.flip()
-        
         
     def CheckCollisions(self):
         """enemies colliding with hero"""

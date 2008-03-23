@@ -31,8 +31,6 @@ class Hero(pygame.sprite.Sprite):
         else: surface.blit(self.image, self.rect)
         for p in self.payloads:
             p.Draw(surface)
-        
-    def GesDraw(self, surface):
         self.ges.Draw(surface)
             
     def Update(self):
@@ -103,7 +101,9 @@ class Hero(pygame.sprite.Sprite):
                 
     def GetTranslation(self, screen):
         rect = screen.get_rect()
-        return self.rect.move((-rect.centerx, -rect.centery))
+        rect.center = self.rect.center
+        return rect
+        #return rect.move((-self.rect.left, -self.rect.top)\
             
 class Drag:
     def __init__(self):
