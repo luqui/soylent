@@ -44,9 +44,6 @@ class GameMain:
         """create timer user event""" 
         seed()
         pygame.time.set_timer(pygame.USEREVENT, 2000)
-        
-        """create gesture"""
-        self.ges = Gesture()
 
 
     def MainLoop(self):
@@ -67,6 +64,7 @@ class GameMain:
         #self.screen.blit(self.world, (0,0))
         #self.screen.blit(pygame.transform.chop(self.world, self.screen.rect), (0,0))
         self.screen.blit(pygame.transform.chop(self.world, self.hero.GetTranslation(self.screen)), (0,0))
+        self.hero.GesDraw(self.screen)
 
         pygame.display.flip()
     def CheckCollisions(self):
