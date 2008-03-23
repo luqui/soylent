@@ -73,8 +73,8 @@ class Hero(pygame.sprite.Sprite):
             self.y_mo += yMove
         
         """friction"""
-        self.x_mo *= 0.91
-        self.y_mo *= 0.91
+        self.x_mo *= 0.93
+        self.y_mo *= 0.93
             
         self.rect.move_ip(self.x_mo, self.y_mo)
         
@@ -108,12 +108,12 @@ class Drag:
 
 class Payload(pygame.sprite.Sprite):
     
-    def __init__(self, position, direction, hero_pos):
+    def __init__(self, position, direction, orb_pos):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images/orb1.png")
         self.rect = self.image.get_rect()
         self.position = position
-        self.initial_speed = ((sqrt((hero_pos[0] - position[0])**2 + (hero_pos[1] - position[1])**2)+1) / 300)*10+5
+        self.initial_speed = ((sqrt((orb_pos[0] - position[0])**2 + (orb_pos[1] - position[1])**2)+1) / 300)*10+5
         self.mass = 1 / self.initial_speed
         self.velocity = map(lambda x: x * self.initial_speed, direction)
         self.rect.center = position
