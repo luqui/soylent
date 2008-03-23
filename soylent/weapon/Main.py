@@ -55,11 +55,13 @@ class GameMain:
             pygame.time.wait(25)
             
     def DrawAll(self):
-        translation = self.hero.GetTranslation(self.world)
         self.world.blit(self.background, (0, 0))
         self.hero.Draw(self.world)
         self.enemy_sprites.draw(self.world)
-        self.screen.blit(self.world, (0, 0), self.hero.GetTranslation(self.screen))
+        s_rect = self.screen.get_rect()
+        s_rect.center = self.hero.rect.center
+        self.screen.blit(self.world, (0, 0), s_rect)
+        self.hero.GesDraw(self.screen)
 
         pygame.display.flip()
         

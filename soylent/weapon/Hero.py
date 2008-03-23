@@ -31,6 +31,8 @@ class Hero(pygame.sprite.Sprite):
         else: surface.blit(self.image, self.rect)
         for p in self.payloads:
             p.Draw(surface)
+        
+    def GesDraw(self, surface):
         self.ges.Draw(surface)
             
     def Update(self):
@@ -92,18 +94,12 @@ class Hero(pygame.sprite.Sprite):
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 for i in range(len(self.ges.orblist)):
-                    x = float(self.ges.orblist[i][0]) - self.rect.center[0]
-                    y = float(self.ges.orblist[i][1]) - self.rect.center[1]
+                    x = float(self.ges.orblist[i][0]) - pygame.display.get_surface().get_rect().centerx
+                    y = float(self.ges.orblist[i][1]) - pygame.display.get_surface().get_rect().centery
                     mag = sqrt(x*x + y*y)
                     self.payloads.append(Payload(self.rect.center, (x/mag, y/mag), (self.ges.orblist[i][0], self.ges.orblist[i][1])))
                 self.ges.orblist = []
                 self.ges.power = 2
-                
-    def GetTranslation(self, screen):
-        rect = screen.get_rect()
-        rect.center = self.rect.center
-        return rect
-        #return rect.move((-self.rect.left, -self.rect.top)\
             
 class Drag:
     def __init__(self):
@@ -169,7 +165,7 @@ class Gesture:
         ticks = pygame.time.get_ticks()
         
         if event.type == pygame.MOUSEBUTTONDOWN:
-            self.startpos = pygame.mouse.get_pos()
+            self.startpos = (x1, y1)
             if event.button == 1:
                 self.leftDrag_Flag = True
                 self.starttime = ticks
