@@ -6,6 +6,7 @@ from pygame import *
 from Globals import *
 
 class Hero(pygame.sprite.Sprite):
+    
     def __init__(self, position):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images/ship1.png")
@@ -44,7 +45,6 @@ class Hero(pygame.sprite.Sprite):
 
         
     def Move(self):
-        
         xMove = 0;
         yMove = 0;
         
@@ -68,8 +68,6 @@ class Hero(pygame.sprite.Sprite):
                 yMove = self.impulse / sqrt(2) 
             else:
                 yMove = self.impulse
-
-
         if sqrt(self.x_mo**2 + self.y_mo**2) < 8:
             self.x_mo += xMove 
             self.y_mo += yMove
@@ -91,7 +89,6 @@ class Hero(pygame.sprite.Sprite):
         
     def MouseEvent(self, event):
         self.ges.MouseEvent(event)
-        
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 for i in range(len(self.ges.orblist)):
@@ -103,12 +100,14 @@ class Hero(pygame.sprite.Sprite):
                 self.ges.power = 2
             
 class Drag:
+    
     def __init__(self):
         self.pos = []
         self.time = []
         self.length = []
 
 class Payload(pygame.sprite.Sprite):
+    
     def __init__(self, position, direction, hero_pos):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images/orb1.png")
@@ -136,6 +135,7 @@ class Payload(pygame.sprite.Sprite):
                        
         
 class Gesture:
+    
     def __init__(self):
         self.dragpoints = Drag()
         self.power = 2

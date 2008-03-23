@@ -43,7 +43,7 @@ class GameMain:
         
         """create timer user event""" 
         seed()
-        pygame.time.set_timer(pygame.USEREVENT, 2000)
+        pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 
     def MainLoop(self):
@@ -98,8 +98,7 @@ class GameMain:
                     
                     """timer event"""
             if event.type == pygame.USEREVENT:
-                #self.enemies.append(Enemy(Rect(randrange(50, self.width - 50, 1),randrange(50, self.height- 50, 1),24,24)))
-                self.enemy_sprites.add(Enemy(Rect(randrange(50, self.width - 50, 1),randrange(50, self.height- 50, 1),24,24)))
+                self.enemy_sprites.add(Enemy(Rect(randrange(50, self.worldWidth - 50, 1),randrange(50, self.worldHeight- 50, 1),24,24)))
 
             
 if __name__ == "__main__":
