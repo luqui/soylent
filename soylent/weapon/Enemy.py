@@ -8,7 +8,7 @@ class Enemy(pygame.sprite.Sprite):
     
     def __init__(self, rect=None):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images\enemy1.png")
+        self.image = pygame.image.load("images/enemy1.png")
         self.rect = self.image.get_rect()
         self.rect.center = rect.center
         self.hp = 100

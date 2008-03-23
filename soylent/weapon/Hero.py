@@ -8,8 +8,8 @@ from Globals import *
 class Hero(pygame.sprite.Sprite):
     def __init__(self, position):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images\ship1.png")
-        self.jumpimage = pygame.image.load("images\ship1_jump.png")
+        self.image = pygame.image.load("images/ship1.png")
+        self.jumpimage = pygame.image.load("images/ship1_jump.png")
         self.rect = self.image.get_rect()
         self.rect.move_ip(position)
         self.modules = []
@@ -111,7 +111,7 @@ class Drag:
 class Payload(pygame.sprite.Sprite):
     def __init__(self, position, direction, hero_pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images\orb1.png")
+        self.image = pygame.image.load("images/orb1.png")
         self.rect = self.image.get_rect()
         self.position = position
         self.initial_speed = ((sqrt((hero_pos[0] - position[0])**2 + (hero_pos[1] - position[1])**2)+1) / 300)*10+5
