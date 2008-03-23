@@ -67,6 +67,8 @@ class GameMain:
         self.hero.GesDraw(self.screen)
 
         pygame.display.flip()
+        
+        
     def CheckCollisions(self):
         """enemies colliding with hero"""
         lstCols = pygame.sprite.spritecollide(self.hero, self.enemy_sprites, True)
