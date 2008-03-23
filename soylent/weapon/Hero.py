@@ -5,17 +5,17 @@ from random import *
 from pygame import *
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, position):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images\ship1.png")
         self.jumpimage = pygame.image.load("images\ship1_jump.png")
         self.rect = self.image.get_rect()
+        self.rect.move_ip(position)
         self.modules = []
         self.damage = 1
         self.agility = 1
         self.velocity = (0,0)
         self.acceleration = (0,0)
-        self.position = (5000, 5000)
         self.shield = 100
         self.hp = 1000        
         self.impulse = 1
@@ -24,15 +24,17 @@ class Hero(pygame.sprite.Sprite):
         self.ges = Gesture()
         self.payloads = []
         self.airtime = 280 ##duration of jump
-        self.isJumping = False
+        self.isJumping = False        
         
     def Draw(self, surface):
         if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
         else: surface.blit(self.image, self.rect)
-        self.ges.Draw(surface)
         for p in self.payloads:
             p.Draw(surface)
-
+        
+    def GesDraw(self, surface):
+        self.ges.Draw(surface)
+            
     def Update(self):
         if self.isJumping and pygame.time.get_ticks() - self.startjump >= self.airtime:
             self.isJumping = False 
@@ -91,15 +93,17 @@ class Hero(pygame.sprite.Sprite):
         
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
-                #self.payloads = []
                 for i in range(len(self.ges.orblist)):
                     x = float(self.ges.orblist[i][0]) - self.rect.center[0]
                     y = float(self.ges.orblist[i][1]) - self.rect.center[1]
                     mag = sqrt(x*x + y*y)
                     self.payloads.append(Payload(self.rect.center, (x/mag, y/mag), (self.ges.orblist[i][0], self.ges.orblist[i][1])))
-                    #self.payloads.append(Payload(self.rect.center, 1, (x/mag, y/mag) ))
                 self.ges.orblist = []
                 self.ges.power = 2
+                
+    def GetTranslation(self, screen):
+        rect = screen.get_rect()
+        return self.rect.move((-rect.centerx, -rect.centery))
             
 class Drag:
     def __init__(self):

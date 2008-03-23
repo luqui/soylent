@@ -21,9 +21,12 @@ class GameMain:
         """Set the window Size"""
         self.width = width
         self.height = height
+        self.worldWidth = 2000
+        self.worldHeight =1500
         
         """Create the Screen"""
         self.screen = pygame.display.set_mode((self.width, self.height))
+        self.world = pygame.Surface((self.worldWidth, self.worldHeight))
         
         """Create the background"""
         self.background = pygame.Surface(self.screen.get_size())
@@ -32,7 +35,7 @@ class GameMain:
 
 
         """create the Hero"""    
-        self.hero = Hero()
+        self.hero = Hero(self.world.get_rect().center)
         self.hero_sprites = pygame.sprite.RenderPlain((self.hero))
         
         """create the enemies"""
@@ -55,12 +58,14 @@ class GameMain:
             pygame.time.wait(25)
             
     def DrawAll(self):
-        self.screen.blit(self.background, (0, 0))
-        self.hero.Draw(self.screen)   
-        self.enemy_sprites.draw(self.screen)
-        #for e in self.enemies:
-            #e.Draw(self.screen)
-
+        translation = self.hero.GetTranslation(self.screen)
+        self.world.blit(self.background, (0, 0))
+        self.hero.Draw(self.world)
+        self.enemy_sprites.draw(self.world)
+        #self.screen.blit(self.world, (0,0))
+        #self.screen.blit(pygame.transform.chop(self.world, self.screen.rect), (0,0))
+        self.screen.blit(pygame.transform.chop(self.world, self.hero.GetTranslation(self.screen)), (0,0))
+        self.hero.GesDraw(self.screen)
         pygame.display.flip()
         
     def EventHandler(self):
