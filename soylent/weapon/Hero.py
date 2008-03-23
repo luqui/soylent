@@ -3,6 +3,7 @@ import pygame
 from math import sqrt, sin, cos, pi
 from random import *
 from pygame import *
+from Globals import *
 
 class Hero(pygame.sprite.Sprite):
     def __init__(self, position):
@@ -94,8 +95,8 @@ class Hero(pygame.sprite.Sprite):
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 for i in range(len(self.ges.orblist)):
-                    x = float(self.ges.orblist[i][0]) - pygame.display.get_surface().get_rect().centerx
-                    y = float(self.ges.orblist[i][1]) - pygame.display.get_surface().get_rect().centery
+                    x = float(self.ges.orblist[i][0]) - g_screenWidth/2 
+                    y = float(self.ges.orblist[i][1]) - g_screenHeight/2
                     mag = sqrt(x*x + y*y)
                     self.payloads.append(Payload(self.rect.center, (x/mag, y/mag), (self.ges.orblist[i][0], self.ges.orblist[i][1])))
                 self.ges.orblist = []

@@ -14,13 +14,13 @@ class GameMain:
     """The Main Game Class - This class handles the main 
     initialization and creating of the Game."""
     
-    def __init__(self, width=1024,height=768):
+    def __init__(self):
         """Initialize PyGame"""
         pygame.init()
         
         """Set the window Size"""
-        self.width = width
-        self.height = height
+        self.width = g_screenWidth
+        self.height = g_screenHeight
         self.worldWidth = 2000
         self.worldHeight =1500
         
