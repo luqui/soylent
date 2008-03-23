@@ -33,7 +33,6 @@ class GameMain:
         self.background = self.background.convert()
         self.background.fill((0,0,0))
 
-
         """create the Hero"""    
         self.hero = Hero(self.world.get_rect().center)
         self.hero_sprites = pygame.sprite.RenderPlain((self.hero))
@@ -42,10 +41,11 @@ class GameMain:
         self.enemies = []
         self.enemy_sprites = pygame.sprite.Group()
         
+        """create timer user event""" 
         seed()
         pygame.time.set_timer(pygame.USEREVENT, 2000)
         
-        self.leftDrag_Flag = False
+        """create gesture"""
         self.ges = Gesture()
 
 
@@ -54,10 +54,12 @@ class GameMain:
         while 1:
             self.EventHandler()
             self.hero.Update()
+            self.CheckCollisions()
             self.DrawAll()
             pygame.time.wait(25)
             
     def DrawAll(self):
+
         translation = self.hero.GetTranslation(self.screen)
         self.world.blit(self.background, (0, 0))
         self.hero.Draw(self.world)
@@ -65,9 +67,14 @@ class GameMain:
         #self.screen.blit(self.world, (0,0))
         #self.screen.blit(pygame.transform.chop(self.world, self.screen.rect), (0,0))
         self.screen.blit(pygame.transform.chop(self.world, self.hero.GetTranslation(self.screen)), (0,0))
-        self.hero.GesDraw(self.screen)
+
         pygame.display.flip()
-        
+    def CheckCollisions(self):
+        """enemies colliding with hero"""
+        lstCols = pygame.sprite.spritecollide(self.hero, self.enemy_sprites, True)
+        for e in lstCols:
+            e.Collide(self.hero)
+            
     def EventHandler(self):
         for event in pygame.event.get():
 
@@ -95,7 +102,7 @@ class GameMain:
                     
                     """timer event"""
             if event.type == pygame.USEREVENT:
-                self.enemies.append(Enemy(Rect(randrange(50, self.width - 50, 1),randrange(50, self.height- 50, 1),24,24)))
+                #self.enemies.append(Enemy(Rect(randrange(50, self.width - 50, 1),randrange(50, self.height- 50, 1),24,24)))
                 self.enemy_sprites.add(Enemy(Rect(randrange(50, self.width - 50, 1),randrange(50, self.height- 50, 1),24,24)))
 
             
