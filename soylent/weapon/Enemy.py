@@ -17,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
     #def Draw(self, screen):
         #screen.blit(self.image, self.rect)
     def Collide (self, target):
-        print "Collsion!"
+        self.kill()
         
     def Update(self):
         print "yay"

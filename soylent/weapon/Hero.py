@@ -16,7 +16,8 @@ class Hero(pygame.sprite.Sprite):
         self.modules = []
         self.damage = 1
         self.agility = 1
-        self.velocity = (0,0)
+        self.velocity = (0.0,0.0)
+        self.max_speed = 24
         self.acceleration = (0,0)
         self.shield = 100
         self.hp = 1000        
@@ -34,15 +35,18 @@ class Hero(pygame.sprite.Sprite):
         for p in self.payloads:
             p.Draw(surface)
         
-    def GesDraw(self, surface):
-        self.ges.Draw(surface)
+    #def GesDraw(self, surface):
+        #self.ges.Draw(surface)
             
     def Update(self):
         if self.isJumping and pygame.time.get_ticks() - self.startjump >= self.airtime:
             self.isJumping = False 
         self.ges.Update()
         self.Move()
-
+        for i in self.payloads:
+            i.Update()
+            if i.isDead():
+                self.payloads.remove(i)
         
     def Move(self):
         xMove = 0;
@@ -68,20 +72,15 @@ class Hero(pygame.sprite.Sprite):
                 yMove = self.impulse / sqrt(2) 
             else:
                 yMove = self.impulse
-        if sqrt(self.x_mo**2 + self.y_mo**2) < 8:
-            self.x_mo += xMove 
-            self.y_mo += yMove
-        
-        """friction"""
-        self.x_mo *= 0.93
-        self.y_mo *= 0.93
-            
-        self.rect.move_ip(self.x_mo, self.y_mo)
-        
-        for i in self.payloads:
-            i.Update()
-            if i.isDead():
-                self.payloads.remove(i)
+                
+#        if sqrt(self.velocity[0]**2 + self.velocity[0]**2) < self.max_speed: #cap speed
+
+        friction = 0.92
+        self.velocity = (self.velocity[0] + xMove)*friction ,(self.velocity[1] + yMove)*friction
+
+        self.rect.move_ip(self.velocity)
+
+
                 
     def Jump(self):
         self.startjump = pygame.time.get_ticks()
@@ -95,7 +94,7 @@ class Hero(pygame.sprite.Sprite):
                     x = float(self.ges.orblist[i][0]) - g_screenWidth/2 
                     y = float(self.ges.orblist[i][1]) - g_screenHeight/2
                     mag = sqrt(x*x + y*y)
-                    self.payloads.append(Payload(self.rect.center, (x/mag, y/mag), (self.ges.orblist[i][0], self.ges.orblist[i][1])))
+                    self.payloads.append(Payload(self.rect.center, (x/mag, y/mag), mag, self.velocity))
                 self.ges.orblist = []
                 self.ges.power = 2
             
@@ -108,14 +107,18 @@ class Drag:
 
 class Payload(pygame.sprite.Sprite):
     
-    def __init__(self, position, direction, orb_pos):
+    def __init__(self, position, direction, orb_distance, hero_velocity):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images/orb1.png")
         self.rect = self.image.get_rect()
         self.position = position
-        self.initial_speed = ((sqrt((orb_pos[0] - position[0])**2 + (orb_pos[1] - position[1])**2)+1) / 300)*10+5
+        """make payload speed a function of orb's distance from hero"""
+        self.initial_speed = (orb_distance / 10)+5
+        """cap the the payload's speed"""
+        if self.initial_speed > 75: self.initial_speed = 75 
         self.mass = 1 / self.initial_speed
         self.velocity = map(lambda x: x * self.initial_speed, direction)
+        self.velocity = (self.velocity[0] + hero_velocity[0], self.velocity[1] + hero_velocity[1])
         self.rect.center = position
         self.life = 100.0
         self.lifespan = 1500
@@ -171,11 +174,13 @@ class Gesture:
                 self.leftDrag_Flag = True
                 self.starttime = ticks
                 self.prevsample = self.starttime
+                """initialize the drag"""
                 self.dragpoints.pos.append(self.startpos)
                 self.dragpoints.length.append(0)
+                self.dragpoints.time.append(ticks)
+                """place 2 orbs at the beginning of the drag"""
                 self.orblist = [self.startpos]
                 self.orblist.append(self.startpos)
-                self.dragpoints.time.append(ticks)
                 self.prevsample = ticks      
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:

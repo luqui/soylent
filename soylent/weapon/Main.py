@@ -33,9 +33,9 @@ class GameMain:
         self.background = self.background.convert()
         self.background.fill((0,0,0))
 
-        """create the Hero"""    
+        """create the Hero and friendly sprite group"""    
         self.hero = Hero(self.world.get_rect().center)
-        self.hero_sprites = pygame.sprite.RenderPlain((self.hero))
+        self.friendly_sprites = pygame.sprite.RenderPlain((self.hero))
         
         """create the enemies"""
         self.enemies = []
@@ -61,13 +61,14 @@ class GameMain:
         s_rect = self.screen.get_rect()
         s_rect.center = self.hero.rect.center
         self.screen.blit(self.world, (0, 0), s_rect)
-        self.hero.GesDraw(self.screen)
+        """draw the gesture last"""
+        self.hero.ges.Draw(self.screen)
 
         pygame.display.flip()
         
     def CheckCollisions(self):
         """enemies colliding with hero"""
-        lstCols = pygame.sprite.spritecollide(self.hero, self.enemy_sprites, True)
+        lstCols = pygame.sprite.spritecollide(self.hero, self.enemy_sprites, False)
         for e in lstCols:
             e.Collide(self.hero)
             
