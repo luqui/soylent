@@ -13,15 +13,16 @@ class Hero(pygame.sprite.Sprite):
         self.jumpimage = pygame.image.load("images/ship1_jump.png")
         self.rect = self.image.get_rect()
         self.rect.move_ip(position)
+        self.friendly_sprites = pygame.sprite.Group()
         self.modules = []
         self.damage = 1
         self.agility = 1
         self.velocity = (0.0,0.0)
         self.max_speed = 24
-        self.acceleration = (0,0)
+        #self.acceleration = (0,0)
         self.shield = 100
         self.hp = 1000        
-        self.impulse = 1
+        self.impulse = 1 ##keystroke's impulse on velocity
         self.x_mo = 0
         self.y_mo = 0
         self.ges = Gesture()
@@ -32,11 +33,9 @@ class Hero(pygame.sprite.Sprite):
     def Draw(self, surface):
         if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
         else: surface.blit(self.image, self.rect)
-        for p in self.payloads:
-            p.Draw(surface)
-        
-    #def GesDraw(self, surface):
-        #self.ges.Draw(surface)
+        self.friendly_sprites.draw(surface)
+        #for p in self.payloads:
+            #p.Draw(surface)
             
     def Update(self):
         if self.isJumping and pygame.time.get_ticks() - self.startjump >= self.airtime:
@@ -75,35 +74,46 @@ class Hero(pygame.sprite.Sprite):
                 
 #        if sqrt(self.velocity[0]**2 + self.velocity[0]**2) < self.max_speed: #cap speed
 
-        friction = 0.92
-        self.velocity = (self.velocity[0] + xMove)*friction ,(self.velocity[1] + yMove)*friction
-
+        self.velocity = (self.velocity[0] + xMove)*g_friction ,(self.velocity[1] + yMove)*g_friction
         self.rect.move_ip(self.velocity)
 
-
-                
     def Jump(self):
         self.startjump = pygame.time.get_ticks()
         self.isJumping = True
         
+    def Collide(self, enemy_sprites):
+        """enemies colliding with hero"""
+        collision_lst = pygame.sprite.spritecollide(self,enemy_sprites, False)
+        for e in collision_lst:
+            e.Collide(self)
+        """friendlies colliding with enemies"""
+        collision_dict = pygame.sprite.groupcollide(self.friendly_sprites, enemy_sprites, False, False).iteritems()
+        for friend,enemy in collision_dict:
+            friend.Collide(enemy)
+        
     def MouseEvent(self, event):
         self.ges.MouseEvent(event)
         if event.type == pygame.MOUSEBUTTONUP:
+            """create the payloads"""
             if event.button == 1:
                 for i in range(len(self.ges.orblist)):
                     x = float(self.ges.orblist[i][0]) - g_screenWidth/2 
                     y = float(self.ges.orblist[i][1]) - g_screenHeight/2
                     mag = sqrt(x*x + y*y)
-                    self.payloads.append(Payload(self.rect.center, (x/mag, y/mag), mag, self.velocity))
+                    p = Payload(self.rect.center, (x/mag, y/mag), mag, self.velocity)
+                    self.payloads.append(p)
+                    self.friendly_sprites.add(p)
                 self.ges.orblist = []
                 self.ges.power = 2
-            
+"""end class Hero"""
+
 class Drag:
     
     def __init__(self):
         self.pos = []
         self.time = []
         self.length = []
+"""end class Drag"""
 
 class Payload(pygame.sprite.Sprite):
     
@@ -116,7 +126,7 @@ class Payload(pygame.sprite.Sprite):
         self.initial_speed = (orb_distance / 10)+5
         """cap the the payload's speed"""
         if self.initial_speed > 75: self.initial_speed = 75 
-        self.mass = 1 / self.initial_speed
+        self.mass = 300 / self.initial_speed
         self.velocity = map(lambda x: x * self.initial_speed, direction)
         self.velocity = (self.velocity[0] + hero_velocity[0], self.velocity[1] + hero_velocity[1])
         self.rect.center = position
@@ -125,8 +135,12 @@ class Payload(pygame.sprite.Sprite):
         self.age = 0
         self.timeborn = pygame.time.get_ticks()
 
-    def Draw(self, surface):
-        surface.blit(self.image, self.rect)
+    #def Draw(self, surface):
+        #surface.blit(self.image, self.rect)
+        
+    def Collide(self, targets):
+        targets[0].Impact(self.mass, self.velocity)
+        self.kill()
         
     def Update(self):
         self.position = (self.position[0] + self.velocity[0], self.position[1] + self.velocity[1])
@@ -134,8 +148,12 @@ class Payload(pygame.sprite.Sprite):
         self.age = (pygame.time.get_ticks() - self.timeborn)
     
     def isDead(self):
-        return self.age > self.lifespan
-                       
+        if self.age > self.lifespan: 
+            self.kill()
+            return True
+        else: return False
+    
+"""end class Payload"""                       
         
 class Gesture:
     
@@ -222,3 +240,4 @@ class Gesture:
                         self.orblist.append((x1, y1))                    
                     self.orblist[c] = (self.dragpoints.pos[i][0] + diff * vect[0], self.dragpoints.pos[i][1] + diff * vect[1])
                     c+=1
+"""end class Gesture"""

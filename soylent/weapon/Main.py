@@ -38,7 +38,6 @@ class GameMain:
         self.friendly_sprites = pygame.sprite.RenderPlain((self.hero))
         
         """create the enemies"""
-        self.enemies = []
         self.enemy_sprites = pygame.sprite.Group()
         
         """create timer user event""" 
@@ -50,14 +49,16 @@ class GameMain:
         while 1:
             self.EventHandler()
             self.hero.Update()
+            for e in self.enemy_sprites:
+                e.Update()
             self.CheckCollisions()
             self.DrawAll()
             pygame.time.wait(25)
             
     def DrawAll(self):
         self.world.blit(self.background, (0, 0))
-        self.hero.Draw(self.world)
         self.enemy_sprites.draw(self.world)
+        self.hero.Draw(self.world)
         s_rect = self.screen.get_rect()
         s_rect.center = self.hero.rect.center
         self.screen.blit(self.world, (0, 0), s_rect)
@@ -67,10 +68,9 @@ class GameMain:
         pygame.display.flip()
         
     def CheckCollisions(self):
-        """enemies colliding with hero"""
-        lstCols = pygame.sprite.spritecollide(self.hero, self.enemy_sprites, False)
-        for e in lstCols:
-            e.Collide(self.hero)
+        """friendlys colliding with enemies"""
+        self.hero.Collide(self.enemy_sprites)
+
             
     def EventHandler(self):
         for event in pygame.event.get():
@@ -100,7 +100,7 @@ class GameMain:
                     """timer event"""
             if event.type == pygame.USEREVENT:
                 self.enemy_sprites.add(Enemy(Rect(randrange(50, self.worldWidth - 50, 1),randrange(50, self.worldHeight- 50, 1),24,24)))
-
+"""end class GameMain"""
             
 if __name__ == "__main__":
     MainWindow = GameMain()
