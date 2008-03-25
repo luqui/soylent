@@ -64,14 +64,12 @@ class GameMain:
         self.screen.blit(self.world, (0, 0), s_rect)
         """draw the gesture last"""
         self.hero.ges.Draw(self.screen)
-
         pygame.display.flip()
         
     def CheckCollisions(self):
         """friendlys colliding with enemies"""
         self.hero.Collide(self.enemy_sprites)
 
-            
     def EventHandler(self):
         for event in pygame.event.get():
 

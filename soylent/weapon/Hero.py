@@ -15,9 +15,11 @@ class Hero(pygame.sprite.Sprite):
         self.rect.move_ip(position)
         self.friendly_sprites = pygame.sprite.Group()
         self.modules = []
-        self.damage = 1
+        self.damage = 10
         self.agility = 1
         self.velocity = (0.0,0.0)
+        self.mass = 200
+        self.armor = 10
         self.max_speed = 24
         #self.acceleration = (0,0)
         self.shield = 100
@@ -83,13 +85,19 @@ class Hero(pygame.sprite.Sprite):
         
     def Collide(self, enemy_sprites):
         """enemies colliding with hero"""
-        collision_lst = pygame.sprite.spritecollide(self,enemy_sprites, False)
-        for e in collision_lst:
-            e.Collide(self)
+        if not self.isJumping:
+            collision_lst = pygame.sprite.spritecollide(self,enemy_sprites, False)
+            for e in collision_lst:
+                e.HitHero(self)
+                e.Impact(self.mass, self.velocity, self.damage)
+            
         """friendlies colliding with enemies"""
         collision_dict = pygame.sprite.groupcollide(self.friendly_sprites, enemy_sprites, False, False).iteritems()
         for friend,enemy in collision_dict:
             friend.Collide(enemy)
+            
+    def TakeDamage(self, damage):
+        self.hp -= damage / self.armor
         
     def MouseEvent(self, event):
         self.ges.MouseEvent(event)
@@ -134,12 +142,13 @@ class Payload(pygame.sprite.Sprite):
         self.lifespan = 1500
         self.age = 0
         self.timeborn = pygame.time.get_ticks()
+        self.damage = 25
 
     #def Draw(self, surface):
         #surface.blit(self.image, self.rect)
         
     def Collide(self, targets):
-        targets[0].Impact(self.mass, self.velocity)
+        targets[0].Impact(self.mass, self.velocity, self.damage)
         self.kill()
         
     def Update(self):
