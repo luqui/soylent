@@ -8,7 +8,7 @@ from pygame import *
 from Hero import *
 from Enemy import *
 
-toggle_full_screen = False
+
 
 class GameMain:
     """The Main Game Class - This class handles the main 
@@ -23,7 +23,7 @@ class GameMain:
         self.height = g_screenHeight
         self.worldWidth = 2000
         self.worldHeight =1500
-        
+        self.toggle_full_screen = False
         """Create the Screen"""
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.world = pygame.Surface((self.worldWidth, self.worldHeight))
@@ -96,11 +96,11 @@ class GameMain:
                 """keyboard event"""
             elif event.type == pygame.KEYDOWN:
                 if event.key == K_F1:
-                    if toggle_full_screen:
-                        pygame.display.set_mode((self.width, self.height),pygame.FULLSCREEN)
+                    if self.toggle_full_screen:
+                        pygame.display.set_mode((g_screenWidth, g_screenHeight),pygame.FULLSCREEN)
                     else:
-                        pygame.display.set_mode((self.width, self.height))
-                    toggle_full_screen = not toggle_full_screen
+                        pygame.display.set_mode((g_screenWidth, g_screenHeight))
+                    self.toggle_full_screen = not self.toggle_full_screen
                 elif event.key == K_ESCAPE:
                     sys.exit()
                 elif event.key == K_SPACE:

@@ -35,9 +35,9 @@ class Hero(pygame.sprite.Sprite):
     def Draw(self, surface):
         if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
         else: surface.blit(self.image, self.rect)
-        self.friendly_sprites.draw(surface)
-        #for p in self.payloads:
-            #p.Draw(surface)
+        #self.friendly_sprites.draw(surface)
+        for p in self.payloads:
+            p.Draw(surface)
             
     def Update(self):
         if self.isJumping and pygame.time.get_ticks() - self.startjump >= self.airtime:
@@ -107,7 +107,8 @@ class Hero(pygame.sprite.Sprite):
                 for i in range(len(self.ges.orblist)):
                     x = float(self.ges.orblist[i][0]) - g_screenWidth/2 
                     y = float(self.ges.orblist[i][1]) - g_screenHeight/2
-                    mag = sqrt(x*x + y*y)
+                    """the constant is to avoid devision by zero"""
+                    mag = sqrt(x*x + y*y) + 0.0001
                     p = Payload(self.rect.center, (x/mag, y/mag), mag, self.velocity)
                     self.payloads.append(p)
                     self.friendly_sprites.add(p)
@@ -138,17 +139,20 @@ class Payload(pygame.sprite.Sprite):
         self.velocity = map(lambda x: x * self.initial_speed, direction)
         self.velocity = (self.velocity[0] + hero_velocity[0], self.velocity[1] + hero_velocity[1])
         self.rect.center = position
+        """make the draw radius proportionate to the mass"""
+        self.radius = 2 + self.mass / 5
         self.life = 100.0
         self.lifespan = 5000
         self.age = 0
         self.timeborn = pygame.time.get_ticks()
-        self.damage = 25
+        self.damage = 5
 
-    #def Draw(self, surface):
+    def Draw(self, surface):
+        pygame.draw.circle(surface, (255,255,255,), self.position, self.radius, 1)        
         #surface.blit(self.image, self.rect)
         
     def Collide(self, targets):
-        targets[0].Impact(self.mass, self.velocity, self.damage)
+        targets[0].Impact(self.mass, self.velocity, self.mass)
         self.kill()
         
     def Update(self):

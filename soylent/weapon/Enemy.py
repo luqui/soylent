@@ -12,7 +12,7 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.image.load("images/enemy1.png")
         self.rect = self.image.get_rect()
         self.rect.center = rect.center
-        self.hp = 100
+        self.hp = 1000
         self.armor = 1
         self.minions = []
         self.mass = 100
@@ -20,8 +20,9 @@ class Enemy(pygame.sprite.Sprite):
         self.damage = 10
         
     def Impact(self, mass, velocity, damage):
+        self.hp -= mass * sqrt((self.velocity[0] - velocity[0])**2 + (self.velocity[1] - velocity[1])**2)
         self.velocity = self.velocity[0] + (mass/self.mass) * velocity[0], self.velocity[1] + (mass/self.mass) * velocity[1]
-        self.hp -= damage / self.armor
+        #self.hp -= (damage / self.armor)
     
     def HitHero(self, hero):
         hero.TakeDamage(self.damage)
