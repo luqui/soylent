@@ -177,7 +177,9 @@ class Gesture:
         self.prevsample = 0
         self.currentlength = 0
         self.orblist = []
-        self.chargetime = 350
+        
+        """time for power to increase by 1"""
+        self.chargetime = 100
         
     def Draw(self, screen):
         if len(self.dragpoints.pos) > 0:
