@@ -29,9 +29,10 @@ class GameMain:
         self.world = pygame.Surface((self.worldWidth, self.worldHeight))
         
         """Create the background"""
-        self.background = pygame.Surface(self.world.get_size())
-        self.background = self.background.convert()
-        self.background.fill((0,0,0))
+        self.background = pygame.image.load("images/floor1.png")
+        #self.background = pygame.Surface(self.world.get_size())
+        #self.background = self.background.convert()
+        #self.background.fill((0,0,0))
 
         """create the Hero and friendly sprite group"""    
         self.hero = Hero(self.world.get_rect().center)
