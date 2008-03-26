@@ -139,7 +139,7 @@ class Payload(pygame.sprite.Sprite):
         self.velocity = (self.velocity[0] + hero_velocity[0], self.velocity[1] + hero_velocity[1])
         self.rect.center = position
         self.life = 100.0
-        self.lifespan = 1500
+        self.lifespan = 5000
         self.age = 0
         self.timeborn = pygame.time.get_ticks()
         self.damage = 25

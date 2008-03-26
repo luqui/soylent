@@ -30,9 +30,18 @@ class GameMain:
         
         """Create the background"""
         self.background = pygame.image.load("images/floor1.png")
-        #self.background = pygame.Surface(self.world.get_size())
-        #self.background = self.background.convert()
-        #self.background.fill((0,0,0))
+        self.background = self.background.convert()
+        
+        """Create a blank fill region"""
+        self.blank = pygame.Surface(self.screen.get_size())
+        self.blank = self.blank.convert()
+        self.blank.fill((0,0,0))
+        
+        """Create a surface used for a fade effect"""
+        self.fade = pygame.Surface(self.world.get_size())
+        self.fade = self.fade.convert()
+        self.fade.fill((0,0,0))
+        self.fade.set_alpha(50)
 
         """create the Hero and friendly sprite group"""    
         self.hero = Hero(self.world.get_rect().center)
@@ -57,7 +66,9 @@ class GameMain:
             pygame.time.wait(25)
             
     def DrawAll(self):
-        self.world.blit(self.background, (0, 0))
+        self.world.blit(self.fade, (0, 0))
+        #self.world.blit(self.background, (0, 0))
+        self.screen.blit(self.blank, (0, 0))
         self.enemy_sprites.draw(self.world)
         self.hero.Draw(self.world)
         s_rect = self.screen.get_rect()
