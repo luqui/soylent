@@ -36,8 +36,7 @@ class Hero(pygame.sprite.Sprite):
         if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
         else: surface.blit(self.image, self.rect)
         #self.friendly_sprites.draw(surface)
-        for p in self.payloads:
-            p.Draw(surface)
+        self.friendly_sprites.draw(surface)
             
     def Update(self):
         if self.isJumping and pygame.time.get_ticks() - self.startjump >= self.airtime:
