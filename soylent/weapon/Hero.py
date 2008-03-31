@@ -35,7 +35,6 @@ class Hero(pygame.sprite.Sprite):
     def Draw(self, surface):
         if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
         else: surface.blit(self.image, self.rect)
-        #self.friendly_sprites.draw(surface)
         self.friendly_sprites.draw(surface)
             
     def Update(self):

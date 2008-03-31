@@ -29,7 +29,10 @@ class GameMain:
         self.world = pygame.Surface((self.worldWidth, self.worldHeight))
         
         """Create the background"""
-        self.background = pygame.image.load("images/floor1.png")
+        #self.background = pygame.image.load("images/floor1.png")
+        #self.background = self.background.convert()
+        self.background = pygame.Surface((self.worldWidth, self.worldHeight))
+        self.background.fill((0,0,0))
         self.background = self.background.convert()
         
         """Create a blank fill region"""
@@ -61,7 +64,6 @@ class GameMain:
             
     def DrawAll(self):
         self.world.blit(self.background, (0, 0))
-        self.screen.blit(self.blank, (0, 0))
         self.enemy_sprites.draw(self.world)
         self.hero.Draw(self.world)
         s_rect = self.screen.get_rect()
