@@ -1,47 +1,41 @@
 #! /usr/bin/env python
 
 import os, sys
-import pygame
+#import pygame
 from math import sqrt, sin, cos, pi
 from random import *
 from pygame import *
 from Hero import *
 from Enemy import *
+from OpenGL.GL import *
+from OpenGL.GLU import *
 
-
+rtri = rquad = 0.0
 
 class GameMain:
     """The Main Game Class - This class handles the main 
     initialization and creating of the Game."""
     
     def __init__(self):
-        """Initialize PyGame"""
-        pygame.init()
-        
         """Set the window Size"""
         self.width = g_screenWidth
         self.height = g_screenHeight
-        self.worldWidth = 2000
-        self.worldHeight =1500
+        self.worldWidth = g_worldWidth
+        self.worldHeight = g_worldHeight
+        self.worldRect = pygame.Rect((0, 0), (self.worldWidth, self.worldHeight))
         self.toggle_full_screen = False
-        """Create the Screen"""
-        self.screen = pygame.display.set_mode((self.width, self.height))
-        self.world = pygame.Surface((self.worldWidth, self.worldHeight))
         
-        """Create the background"""
-        #self.background = pygame.image.load("images/floor1.png")
-        #self.background = self.background.convert()
-        self.background = pygame.Surface((self.worldWidth, self.worldHeight))
-        self.background.fill((0,0,0))
-        self.background = self.background.convert()
-        
-        """Create a blank fill region"""
-        self.blank = pygame.Surface(self.screen.get_size())
-        self.blank = self.blank.convert()
-        self.blank.fill((0,0,0))
+        """Initialize PyGame"""
+        video_flags = OPENGL|DOUBLEBUF
+    
+        pygame.init()
+        pygame.display.set_mode((self.width,self.height), video_flags)
 
-        """create the Hero and friendly sprite group"""    
-        self.hero = Hero(self.world.get_rect().center)
+        self.resize((self.width, self.height))
+        self.init()
+        
+        """create the hero and friends"""
+        self.hero = Hero(self.worldRect.center)
         self.friendly_sprites = pygame.sprite.RenderPlain((self.hero))
         
         """create the enemies"""
@@ -51,7 +45,27 @@ class GameMain:
         seed()
         pygame.time.set_timer(pygame.USEREVENT, 1000)
 
-
+    def resize(self, (width, height)):
+        if height==0:
+            height=1
+        glViewport(0, 0, width, height)
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(45, 1.0*width/height, 0.1, 1000.0)
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+    
+    def init(self):
+        glEnable(GL_TEXTURE_2D)
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glShadeModel(GL_SMOOTH)
+        glClearColor(0.0, 0.0, 0.0, 0.0)
+        glClearDepth(1.0)
+        glEnable(GL_DEPTH_TEST)
+        glDepthFunc(GL_LEQUAL)
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST)
+    
     def MainLoop(self):
         frames = 0
         ticks = pygame.time.get_ticks()
@@ -70,15 +84,26 @@ class GameMain:
                 ticks = pygame.time.get_ticks()
             
     def DrawAll(self):
-        self.world.blit(self.background, (0, 0))
-        self.enemy_sprites.draw(self.world)
-        self.hero.Draw(self.world)
-        s_rect = self.screen.get_rect()
-        s_rect.center = self.hero.rect.center
-        self.screen.blit(self.world, (0, 0), s_rect)
-        """draw the gesture last"""
-        self.hero.ges.Draw(self.screen)
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+    
+        glTranslatef(-self.hero.rect.centerx, -self.hero.rect.centery, -1000.0)
+        for enemy in self.enemy_sprites:
+            enemy.Draw()
+        self.hero.Draw()
+        #self.hero.ges.Draw
+        
         pygame.display.flip()
+
+#        self.world.blit(self.background, (0, 0))
+#        self.enemy_sprites.draw(self.world)
+#        self.hero.Draw(self.world)
+#        s_rect = self.screen.get_rect()
+#        s_rect.center = self.hero.rect.center
+#        self.screen.blit(self.world, (0, 0), s_rect)
+#        """draw the gesture last"""
+#        self.hero.ges.Draw(self.screen)
+#        pygame.display.flip()
         
     def CheckCollisions(self):
         """friendlys colliding with enemies"""
@@ -111,7 +136,7 @@ class GameMain:
                     
                     """timer event"""
             if event.type == pygame.USEREVENT:
-                self.enemy_sprites.add(Enemy(Rect(randrange(50, self.worldWidth - 50, 1),randrange(50, self.worldHeight- 50, 1),24,24)))
+                self.enemy_sprites.add(Enemy(Rect((randrange(50, self.worldWidth - 50, 1), randrange(50, self.worldHeight - 50, 1)) ,(24,24))))
 """end class GameMain"""
             
 if __name__ == "__main__":

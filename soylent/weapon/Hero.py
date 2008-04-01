@@ -9,9 +9,9 @@ class Hero(pygame.sprite.Sprite):
     
     def __init__(self, position):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/ship1.png")
-        self.jumpimage = pygame.image.load("images/ship1_jump.png")
-        self.rect = self.image.get_rect()
+        """Load the Hero texture"""
+        self.texture = g_HeroTexture
+        self.rect = LoadTexture("images/ship1.png", self.texture)
         self.rect.move_ip(position)
         self.friendly_sprites = pygame.sprite.Group()
         self.modules = []
@@ -32,11 +32,23 @@ class Hero(pygame.sprite.Sprite):
         self.airtime = 280 ##duration of jump
         self.isJumping = False        
         
-    def Draw(self, surface):
+    def Draw(self):
+        glBindTexture(GL_TEXTURE_2D, self.texture)
+        glPushMatrix()
+        glTranslatef(self.rect.centerx, self.rect.centery, 0.0)
+        glScalef(self.rect.width, self.rect.height, 0.0)
+        glBegin(GL_QUADS)
+        glTexCoord2f(0.0, 0.0); glVertex3f(-1.0, -1.0,  1.0)    # Bottom Left Of The Texture and Quad
+        glTexCoord2f(1.0, 0.0); glVertex3f( 1.0, -1.0,  1.0)    # Bottom Right Of The Texture and Quad
+        glTexCoord2f(1.0, 1.0); glVertex3f( 1.0,  1.0,  1.0)    # Top Right Of The Texture and Quad
+        glTexCoord2f(0.0, 1.0); glVertex3f(-1.0,  1.0,  1.0)    # Top Left Of The Texture and Quad
+        glEnd()
+        glPopMatrix()
+        
         """if jumping, draw the jumping image, otherwise draw the standard image"""
-        if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
-        else: surface.blit(self.image, self.rect)
-        self.friendly_sprites.draw(surface)
+#        if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
+#        else: surface.blit(self.image, self.rect)
+#        self.friendly_sprites.draw(surface)
             
     def Update(self):
         if self.isJumping and pygame.time.get_ticks() - self.startjump >= self.airtime:
@@ -64,14 +76,14 @@ class Hero(pygame.sprite.Sprite):
                 xMove = self.impulse
         if pygame.key.get_pressed()[K_w]:
             if pygame.key.get_pressed()[K_a] or pygame.key.get_pressed()[K_d]:
-                yMove = -self.impulse / sqrt(2) 
-            else:
-                yMove = -self.impulse
-        if pygame.key.get_pressed()[K_s]:
-            if pygame.key.get_pressed()[K_a] or pygame.key.get_pressed()[K_d]:
                 yMove = self.impulse / sqrt(2) 
             else:
                 yMove = self.impulse
+        if pygame.key.get_pressed()[K_s]:
+            if pygame.key.get_pressed()[K_a] or pygame.key.get_pressed()[K_d]:
+                yMove = -self.impulse / sqrt(2) 
+            else:
+                yMove = -self.impulse
                 
 #        if sqrt(self.velocity[0]**2 + self.velocity[0]**2) < self.max_speed: #cap speed
 

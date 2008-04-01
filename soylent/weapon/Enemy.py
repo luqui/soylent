@@ -9,8 +9,8 @@ class Enemy(pygame.sprite.Sprite):
     
     def __init__(self, rect=None):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/enemy1.png")
-        self.rect = self.image.get_rect()
+        self.texture = g_EnemyTexture
+        self.rect = LoadTexture("images/enemy1.png", self.texture)
         self.rect.center = rect.center
         self.hp = 5000
         self.armor = 1
@@ -18,6 +18,19 @@ class Enemy(pygame.sprite.Sprite):
         self.mass = 100.0
         self.velocity = (0,0)
         self.damage = 10
+        
+    def Draw(self):
+        glBindTexture(GL_TEXTURE_2D, self.texture)
+        glPushMatrix()
+        glTranslatef(self.rect.centerx, self.rect.centery, 0)
+        glScalef(100, 100, 0)
+        glBegin(GL_QUADS)
+        glTexCoord2f(0.0, 0.0); glVertex3f(-1.0, -1.0,  1.0)    # Bottom Left Of The Texture and Quad
+        glTexCoord2f(1.0, 0.0); glVertex3f( 1.0, -1.0,  1.0)    # Bottom Right Of The Texture and Quad
+        glTexCoord2f(1.0, 1.0); glVertex3f( 1.0,  1.0,  1.0)    # Top Right Of The Texture and Quad
+        glTexCoord2f(0.0, 1.0); glVertex3f(-1.0,  1.0,  1.0)    # Top Left Of The Texture and Quad
+        glEnd()
+        glPopMatrix()
         
     def Impact(self, mass, velocity, damage):
         self.hp -= mass * sqrt((self.velocity[0] - velocity[0])**2 + (self.velocity[1] - velocity[1])**2)
