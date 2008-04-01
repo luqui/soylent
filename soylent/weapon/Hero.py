@@ -118,6 +118,7 @@ class Hero(pygame.sprite.Sprite):
     def MouseEvent(self, event):
         self.ges.MouseEvent(event)
         if event.type == pygame.MOUSEBUTTONUP:
+            print (event.button)
             """create the payloads"""
             if event.button == 1:
                 for i in range(len(self.ges.orblist)):

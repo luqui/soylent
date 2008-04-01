@@ -24,6 +24,7 @@ class GameMain:
         self.worldHeight = g_worldHeight
         self.worldRect = pygame.Rect((0, 0), (self.worldWidth, self.worldHeight))
         self.toggle_full_screen = False
+        self.zoom = -1500
         
         """Initialize PyGame"""
         video_flags = OPENGL|DOUBLEBUF
@@ -51,7 +52,7 @@ class GameMain:
         glViewport(0, 0, width, height)
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
-        gluPerspective(45, 1.0*width/height, 0.1, 1000.0)
+        gluPerspective(45, 1.0*width/height, 0.1, 2000.0)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
     
@@ -87,7 +88,7 @@ class GameMain:
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
     
-        glTranslatef(-self.hero.rect.centerx, -self.hero.rect.centery, -1000.0)
+        glTranslatef(-self.hero.rect.centerx, -self.hero.rect.centery, self.zoom)
         for enemy in self.enemy_sprites:
             enemy.Draw()
         self.hero.Draw()
@@ -119,7 +120,12 @@ class GameMain:
                 """mouse event"""
             elif (event.type == pygame.MOUSEBUTTONDOWN) or (event.type == pygame.MOUSEBUTTONUP) or (event.type == pygame.MOUSEMOTION):
                 self.hero.MouseEvent(event)
-                
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    """zoom in and out on mouse wheel"""
+                    if event.button == 4: self.zoom += 100
+                    if event.button == 5: self.zoom -= 100
+                    if self.zoom < -2000:
+                        self.zoom = -2000
                 """keyboard event"""
             elif event.type == pygame.KEYDOWN:
                 if event.key == K_F1:
