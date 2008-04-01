@@ -12,10 +12,10 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.image.load("images/enemy1.png")
         self.rect = self.image.get_rect()
         self.rect.center = rect.center
-        self.hp = 1000
+        self.hp = 5000
         self.armor = 1
         self.minions = []
-        self.mass = 100
+        self.mass = 100.0
         self.velocity = (0,0)
         self.damage = 10
         

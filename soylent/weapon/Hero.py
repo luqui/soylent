@@ -18,7 +18,7 @@ class Hero(pygame.sprite.Sprite):
         self.damage = 10
         self.agility = 1
         self.velocity = (0.0,0.0)
-        self.mass = 200
+        self.mass = 200.0
         self.armor = 10
         self.max_speed = 24
         #self.acceleration = (0,0)
@@ -33,6 +33,7 @@ class Hero(pygame.sprite.Sprite):
         self.isJumping = False        
         
     def Draw(self, surface):
+        """if jumping, draw the jumping image, otherwise draw the standard image"""
         if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
         else: surface.blit(self.image, self.rect)
         self.friendly_sprites.draw(surface)
@@ -88,7 +89,9 @@ class Hero(pygame.sprite.Sprite):
             for e in collision_lst:
                 e.HitHero(self)
                 e.Impact(self.mass, self.velocity, self.damage)
-            
+                #print (float((e.mass/self.mass) * (self.velocity[0] - e.velocity[0])),float((e.mass/self.mass) * (self.velocity[1] - e.velocity[1])))
+                self.velocity = (e.mass/self.mass) * (self.velocity[0] - e.velocity[0]),(e.mass/self.mass) * (self.velocity[1] - e.velocity[1])
+        
         """friendlies colliding with enemies"""
         collision_dict = pygame.sprite.groupcollide(self.friendly_sprites, enemy_sprites, False, False).iteritems()
         for friend,enemy in collision_dict:
@@ -241,16 +244,15 @@ class Gesture:
             segment_length = self.currentlength / (self.power - 1)
             self.orblist[-1] = (x1, y1)
             c = 1
+            """evenly place orbs along gesture"""
             for i in range(1, len(self.dragpoints.length)):
                 while self.dragpoints.length[i] >= (segment_length * c):
                     diff = self.dragpoints.length[i] - segment_length * c
                     vect = (float(self.dragpoints.pos[i - 1][0] - self.dragpoints.pos[i][0]),
                             (self.dragpoints.pos[i - 1][1] - self.dragpoints.pos[i][1]))
                     mag = sqrt(vect[0]*vect[0] + vect[1]*vect[1])
-                    if mag != 0:
-                        vect = (vect[0]/mag, vect[1]/mag)
-                    if c >= len(self.orblist):
-                        self.orblist.append((x1, y1))                    
+                    if mag != 0: vect = (vect[0]/mag, vect[1]/mag)
+                    if c >= len(self.orblist): self.orblist.append((x1, y1))                    
                     self.orblist[c] = (self.dragpoints.pos[i][0] + diff * vect[0], self.dragpoints.pos[i][1] + diff * vect[1])
                     c+=1
 """end class Gesture"""
