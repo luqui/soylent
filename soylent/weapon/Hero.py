@@ -190,7 +190,7 @@ class Gesture:
         if len(self.dragpoints.pos) > 0:
             """Draw evenly spaced circles""" 
             for pos in self.orblist:
-                pygame.draw.circle(screen, (100,100,100), pos, 10, 3)        
+                pygame.draw.circle(screen, (100,100,100), (int(pos[0]), int(pos[1])), 10, 3)        
 
             """draw red line"""
             if len(self.dragpoints.pos) > 1:
