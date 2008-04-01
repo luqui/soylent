@@ -53,6 +53,8 @@ class GameMain:
 
 
     def MainLoop(self):
+        frames = 0
+        ticks = pygame.time.get_ticks()
         while 1:
             self.EventHandler()
             self.hero.Update()
@@ -60,7 +62,12 @@ class GameMain:
                 e.Update()
             self.CheckCollisions()
             self.DrawAll()
-            pygame.time.wait(25)
+            pygame.time.wait(10)
+            frames = frames + 1
+            if pygame.time.get_ticks() - ticks > 1000:
+                print "fps:  %d" % ((frames*1000)/(pygame.time.get_ticks()-ticks))
+                frames = 0
+                ticks = pygame.time.get_ticks()
             
     def DrawAll(self):
         self.world.blit(self.background, (0, 0))
