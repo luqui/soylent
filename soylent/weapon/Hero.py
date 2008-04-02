@@ -122,8 +122,8 @@ class Hero(pygame.sprite.Sprite):
             """create the payloads"""
             if event.button == 1:
                 for i in range(len(self.ges.orblist)):
-                    x = float(self.ges.orblist[i][0]) - g_screenWidth/2 
-                    y = float(self.ges.orblist[i][1]) - g_screenHeight/2
+                    x = float(self.ges.orblist[i][0])
+                    y = float(self.ges.orblist[i][1])
                     """the constant is to avoid devision by zero"""
                     mag = sqrt(x*x + y*y) + 0.0001
                     p = Payload(self.rect.center, (x/mag, y/mag), mag, self.velocity)
@@ -203,19 +203,25 @@ class Gesture:
         self.chargetime = 100
         
     def Draw(self, screen):
+        glPushMatrix()
         if len(self.dragpoints.pos) > 0:
             """Draw evenly spaced circles""" 
             for pos in self.orblist:
+                
                 pygame.draw.circle(screen, (100,100,100), (int(pos[0]), int(pos[1])), 10, 3)        
 
             """draw red line"""
             if len(self.dragpoints.pos) > 1:
                 listpoints = []
                 pygame.draw.lines(screen, (0,100,0), False, self.dragpoints.pos, 1)
+                
+        glPopMatrix()
 
     def MouseEvent(self, event):
         """handle mouse input"""
         (x1,y1) = pygame.mouse.get_pos()
+        x1 = x1 - g_screenWidth/2
+        y1 = g_screenHeight/2 - y1
         ticks = pygame.time.get_ticks()
         
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -240,7 +246,7 @@ class Gesture:
         elif event.type == pygame.MOUSEMOTION:
             if self.leftDrag_Flag:    
                 if ticks - self.prevsample > 10:
-                    self.dragpoints.pos.append((x1,y1))
+                    self.dragpoints.pos.append((x1, y1))
                     self.dragpoints.time.append(ticks)
                     self.prevsample = ticks                               
                     if len(self.dragpoints.pos) > 1:
@@ -252,6 +258,8 @@ class Gesture:
                         
     def Update(self):
         (x1,y1) = pygame.mouse.get_pos()
+        x1 = x1 - g_screenWidth/2
+        y1 = g_screenHeight/2 - y1
         ticks = pygame.time.get_ticks()
         if self.leftDrag_Flag:
             if (ticks - self.starttime) / self.chargetime > self.power - 2:
@@ -265,7 +273,7 @@ class Gesture:
                 while self.dragpoints.length[i] >= (segment_length * c):
                     diff = self.dragpoints.length[i] - segment_length * c
                     vect = (float(self.dragpoints.pos[i - 1][0] - self.dragpoints.pos[i][0]),
-                            (self.dragpoints.pos[i - 1][1] - self.dragpoints.pos[i][1]))
+                            float(self.dragpoints.pos[i - 1][1] - self.dragpoints.pos[i][1]))
                     mag = sqrt(vect[0]*vect[0] + vect[1]*vect[1])
                     if mag != 0: vect = (vect[0]/mag, vect[1]/mag)
                     if c >= len(self.orblist): self.orblist.append((x1, y1))                    

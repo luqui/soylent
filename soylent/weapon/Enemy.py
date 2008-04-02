@@ -23,7 +23,7 @@ class Enemy(pygame.sprite.Sprite):
         glBindTexture(GL_TEXTURE_2D, self.texture)
         glPushMatrix()
         glTranslatef(self.rect.centerx, self.rect.centery, 0)
-        glScalef(100, 100, 0)
+        glScalef(self.rect.width, self.rect.height, 0)
         glBegin(GL_QUADS)
         glTexCoord2f(0.0, 0.0); glVertex3f(-1.0, -1.0,  1.0)    # Bottom Left Of The Texture and Quad
         glTexCoord2f(1.0, 0.0); glVertex3f( 1.0, -1.0,  1.0)    # Bottom Right Of The Texture and Quad
