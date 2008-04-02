@@ -33,25 +33,15 @@ class Hero(pygame.sprite.Sprite):
         self.isJumping = False        
         
     def Draw(self):
-        glBindTexture(GL_TEXTURE_2D, self.texture)
-        glPushMatrix()
-        glTranslatef(self.rect.centerx, self.rect.centery, 0.0)
         if self.isJumping:
-            glScalef(self.rect.width + 32, self.rect.height + 32, 0.0)
+            size = (self.rect.width + 32, self.rect.height + 32)
         else:
-            glScalef(self.rect.width, self.rect.height, 0.0)
-        glBegin(GL_QUADS)
-        glTexCoord2f(0.0, 0.0); glVertex3f(-1.0, -1.0,  1.0)    # Bottom Left Of The Texture and Quad
-        glTexCoord2f(1.0, 0.0); glVertex3f( 1.0, -1.0,  1.0)    # Bottom Right Of The Texture and Quad
-        glTexCoord2f(1.0, 1.0); glVertex3f( 1.0,  1.0,  1.0)    # Top Right Of The Texture and Quad
-        glTexCoord2f(0.0, 1.0); glVertex3f(-1.0,  1.0,  1.0)    # Top Left Of The Texture and Quad
-        glEnd()
-        glPopMatrix()
+            size = self.rect.size
+            
+        DrawTexture(self.texture, self.rect.center, size)
         
-        """if jumping, draw the jumping image, otherwise draw the standard image"""
-#        if self.isJumping: surface.blit(self.jumpimage, self.rect.move(-16,-16))
-#        else: surface.blit(self.image, self.rect)
-#        self.friendly_sprites.draw(surface)
+        for orb in self.payloads:
+            orb.Draw()
             
     def Update(self):
         if self.isJumping and pygame.time.get_ticks() - self.startjump >= self.airtime:
@@ -145,8 +135,8 @@ class Payload(pygame.sprite.Sprite):
     
     def __init__(self, position, direction, orb_distance, hero_velocity):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/orb1.png")
-        self.rect = self.image.get_rect()
+        self.texture = g_OrbTexture
+        self.rect = LoadTexture("images/orb1.png", self.texture)
         self.position = position
         """make payload speed a function of orb's distance from hero"""
         self.initial_speed = (orb_distance / 10)+5
@@ -159,13 +149,14 @@ class Payload(pygame.sprite.Sprite):
         """make the draw radius proportionate to the mass"""
         self.radius = 2 + self.mass / 5
         self.life = 100.0
-        self.lifespan = 5000
+        self.lifespan = 2000
         self.age = 0
         self.timeborn = pygame.time.get_ticks()
         self.damage = 5
 
-    def Draw(self, surface):
-        pygame.draw.circle(surface, (255,255,255,), self.position, self.radius, 1)        
+    def Draw(self):
+        DrawTexture(self.texture, self.rect.center, self.rect.size)
+        #pygame.draw.circle(surface, (255,255,255,), self.position, self.radius, 1)        
         #surface.blit(self.image, self.rect)
         
     def Collide(self, targets):
