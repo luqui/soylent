@@ -1,24 +1,50 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="9.00"
 	Name="Emergency"
 	ProjectGUID="{36853143-5F94-43E9-908D-644A9C281C3C}"
-	SccProjectName=""
-	SccLocalPath="">
+	TargetFrameworkVersion="131072"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\Debug"
 			IntermediateDirectory=".\Debug"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/sdl_pongeroids.tlb"
+				HeaderFileName=""
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions=""
@@ -28,7 +54,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				RuntimeTypeInfo="TRUE"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough=""
 				PrecompiledHeaderFile=".\Debug/emergency.pch"
@@ -37,59 +63,88 @@
 				ProgramDataBaseFileName=".\Debug/emergency.pdb"
 				BrowseInformation="1"
 				WarningLevel="2"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="SDLmain.lib SDL.lib glu32.lib opengl32.lib soylib.lib"
-				OutputFile="emergency.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="..\..\open\soylib\Debug"
-				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/emergency.pdb"
-				SubSystem="2"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/sdl_pongeroids.tlb"
-				HeaderFileName=""/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
+				Culture="1033"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCLinkerTool"
+				AdditionalOptions=""
+				AdditionalDependencies="SDLmain.lib SDL.lib glu32.lib opengl32.lib soylib.lib kernel32.lib user32.lib gdi32.lib advapi32.lib"
+				OutputFile="emergency.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="..\..\open\soylib\Debug"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\Debug/emergency.pdb"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\Release"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/sdl_pongeroids.tlb"
+				HeaderFileName=""
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions=""
@@ -97,58 +152,64 @@
 				InlineFunctionExpansion="2"
 				AdditionalIncludeDirectories="..\common\manymouse"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_STLP_EXPOSE_GLOBALS_IMPLEMENTATION;_STLP_NEW_PLATFORM_SDK"
-				StringPooling="FALSE"
+				StringPooling="false"
 				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="FALSE"
-				RuntimeTypeInfo="TRUE"
+				EnableFunctionLevelLinking="false"
+				RuntimeTypeInfo="true"
 				PrecompiledHeaderFile=".\Release/emergency.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/emergency.pdb"
 				BrowseInformation="1"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
 				AdditionalDependencies="SDLmain.lib SDL.lib glu32.lib opengl32.lib soylib.lib"
 				OutputFile="emergency.exe"
 				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
+				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\open\soylib\Release"
 				ProgramDatabaseFile=""
 				SubSystem="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\Release/sdl_pongeroids.tlb"
-				HeaderFileName=""/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -156,71 +217,92 @@
 	<Files>
 		<Filter
 			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+			>
 		</Filter>
 		<Filter
 			Name="Source Files"
-			Filter="h;hpp;hxx;hm;inl;cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			Filter="h;hpp;hxx;hm;inl;cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+			>
 			<File
-				RelativePath=".\config.h">
+				RelativePath=".\config.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ControlRole.h">
+				RelativePath=".\ControlRole.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GenerationalRule.h">
+				RelativePath=".\GenerationalRule.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Library.h">
+				RelativePath=".\Library.h"
+				>
 			</File>
 			<File
-				RelativePath=".\main.cpp">
+				RelativePath=".\main.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\MainGame.h">
+				RelativePath=".\MainGame.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Player.h">
+				RelativePath=".\Player.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Sandbox.h">
+				RelativePath=".\Sandbox.h"
+				>
 			</File>
 			<File
-				RelativePath=".\SelectorRole.h">
+				RelativePath=".\SelectorRole.h"
+				>
 			</File>
 			<File
-				RelativePath=".\TwoPlayerStarWarsRule.h">
+				RelativePath=".\TwoPlayerStarWarsRule.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Universe.h">
+				RelativePath=".\Universe.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Utils.h">
+				RelativePath=".\Utils.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ViewBox.h">
+				RelativePath=".\ViewBox.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="ManyMouse"
-			Filter="">
+			>
 			<File
-				RelativePath="..\common\manymouse\linux_evdev.c">
+				RelativePath="..\common\manymouse\linux_evdev.c"
+				>
 			</File>
 			<File
-				RelativePath="..\common\manymouse\macosx_hidmanager.c">
+				RelativePath="..\common\manymouse\macosx_hidmanager.c"
+				>
 			</File>
 			<File
-				RelativePath="..\common\manymouse\manymouse.c">
+				RelativePath="..\common\manymouse\manymouse.c"
+				>
 			</File>
 			<File
-				RelativePath="..\common\manymouse\manymouse.h">
+				RelativePath="..\common\manymouse\manymouse.h"
+				>
 			</File>
 			<File
-				RelativePath="..\common\manymouse\windows_wminput.c">
+				RelativePath="..\common\manymouse\windows_wminput.c"
+				>
 			</File>
 			<File
-				RelativePath="..\common\manymouse\x11_xinput.c">
+				RelativePath="..\common\manymouse\x11_xinput.c"
+				>
 			</File>
 		</Filter>
 	</Files>
