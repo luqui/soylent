@@ -6,6 +6,8 @@
 #include "soy/Viewport.h"
 #include "soy/vec2.h"
 
+#define M_PI 3.14159265358979323846
+
 inline double randrange(double a, double b) {
 	return double(rand()) / RAND_MAX * (b - a) + a;
 }

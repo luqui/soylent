@@ -7,7 +7,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include <SDL/SDL_ttf.h>
+#include <SDL_ttf.h>
 #include <string>
 
 class Font {
