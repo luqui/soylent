@@ -8,6 +8,8 @@
 #include "SDL.h"
 #include "chipmunk.h"
 
+#include "avatar.h"
+
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
@@ -15,6 +17,8 @@ const int SCREEN_HEIGHT = 600;
 int ticks = 0;
 cpSpace *space;
 cpBody *staticBody;
+
+Avatar *avatar;
 
 void init()
 {
@@ -65,7 +69,7 @@ void setup()
 	//we are making polygons (pentagons)
 	cpVect verts[NUM_VERTS];
 	for(int i=0; i<NUM_VERTS; i++){
-		cpFloat angle = -2*M_PI*i/((cpFloat) NUM_VERTS);
+		cpFloat angle = -2*(cpFloat)M_PI*i/((cpFloat) NUM_VERTS);
 		verts[i] = cpv(10*cos(angle), 10*sin(angle));
 	}
 
@@ -81,7 +85,8 @@ void setup()
 		cpSpaceAddShape(space, shape);
 	}
 
-
+	body->p = cpv(0, 0);
+	avatar = new Avatar(space, body, shape);
 }
 
 //Handle Keyboard and Mouse events.
@@ -90,16 +95,31 @@ int event_loop()
 	SDL_Event e;
 	while(SDL_PollEvent(&e))
 	{
+		SDLKey key = e.key.keysym.sym;
 		switch(e.type) 
 		{
 		case SDL_KEYDOWN:
-			if(e.key.keysym.sym == SDLK_ESCAPE) return 0;
+			if(key == SDLK_ESCAPE) return 0;
+			else if(key == SDLK_w)
+			{
+			}
+			else if(key == SDLK_s)
+			{
+			}
+			else if(key == SDLK_a)
+			{}
+			else if(key == SDLK_d) {}
 			break;
 		default:
 			break;
 		}
 	}
 	return 1;
+}
+
+void logic ()
+{
+
 }
 
 static void
@@ -208,6 +228,9 @@ void run()
 		//process events
 		if(event_loop() == 0) return;
 
+		//perform game logic
+		logic();
+
 		//update the simulation
 		update();
 
@@ -216,10 +239,21 @@ void run()
 	}
 }
 
+void quit()
+{
+	cpSpaceFreeChildren(space);
+	cpSpaceFree(space);
+	
+	cpBodyFree(staticBody);
+
+	delete avatar;
+}
+
 int main(int argc, char **argv)
 {
 	init();
 	setup();
 	run();
+	//quit();
 	return 0;
 }
