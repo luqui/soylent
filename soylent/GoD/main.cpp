@@ -29,7 +29,7 @@ void init()
 	SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_OPENGL);
 	
 	glClearColor(1.0, 1.0, 1.0, 0.0);
-	/*glPointSize(3.0);
+	glPointSize(2.5);
 	
     glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POINT_SMOOTH);
@@ -37,12 +37,11 @@ void init()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
     glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
-    glLineWidth(2.5f);*/
+    glLineWidth(2.5f);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(-SCREEN_WIDTH/2.0, SCREEN_WIDTH/2.0, -SCREEN_HEIGHT/2.0, SCREEN_HEIGHT/2.0);
-	//don't think we need this: glTranslatef(0.5, 0.5, 0.0);
 }
 
 #define NUM_VERTS 5
@@ -53,7 +52,8 @@ void setup()
 	cpResetShapeIdCounter();
 	space = cpSpaceNew();
 	space->iterations = 10;//default is 10
-	space->gravity = cpv(0, -100);
+	space->damping = 0.5;
+	//space->gravity = cpv(0, -100);
 
 	//The spatial hashes used by Chipmunk’s collision detection are fairly size sensitive. 
 	//dim is the size of the hash cells. Setting dim to the average objects size is likely to give the best performance.
@@ -102,13 +102,20 @@ int event_loop()
 			if(key == SDLK_ESCAPE) return 0;
 			else if(key == SDLK_w)
 			{
+				avatar->MoveUp();
 			}
 			else if(key == SDLK_s)
 			{
+				avatar->MoveDown();
 			}
 			else if(key == SDLK_a)
-			{}
-			else if(key == SDLK_d) {}
+			{
+				avatar->MoveLeft();
+			}
+			else if(key == SDLK_d) 
+			{
+				avatar->MoveRight();
+			}
 			break;
 		default:
 			break;
@@ -125,9 +132,17 @@ void logic ()
 static void
 eachBody(cpBody *body, void *unused)
 {
-	if(body->p.y < -260 || fabsf(body->p.x) > 340){
-		cpFloat x = rand()/(cpFloat)RAND_MAX*640 - 320;
-		body->p = cpv(x, 260);
+	if(body->p.x > SCREEN_WIDTH/2.0) {
+		body->p.x = -SCREEN_WIDTH/2.0;
+	}
+	if(body->p.x < -SCREEN_WIDTH/2.0) {
+		body->p.x = SCREEN_WIDTH/2.0;
+	}
+	if(body->p.y > SCREEN_HEIGHT/2.0) {
+		body->p.y = -SCREEN_HEIGHT/2.0;
+	}
+	if(body->p.y < -SCREEN_HEIGHT/2.0) {
+		body->p.y = SCREEN_HEIGHT/2.0;
 	}
 }
 
@@ -192,10 +207,11 @@ void drawPolyShape(cpShape *shape)
 	} glEnd();
 }
 
-void drawObject(void *ptr, void *unused)
+static void 
+drawObject(void *ptr, void *unused)
 {
 	cpShape *shape = (cpShape *)ptr;
-	switch(shape->type){
+	switch(shape->klass->type){
 		case CP_CIRCLE_SHAPE:
 			drawCircleShape(shape);
 			break;
