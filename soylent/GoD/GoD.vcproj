@@ -186,6 +186,10 @@
 				RelativePath=".\avatar.h"
 				>
 			</File>
+			<File
+				RelativePath=".\input_manager.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

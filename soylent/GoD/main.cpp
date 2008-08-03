@@ -13,6 +13,7 @@
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
+const int FRAME_CAP = 60;
 
 int ticks = 0;
 cpSpace *space;
@@ -52,7 +53,7 @@ void setup()
 	cpResetShapeIdCounter();
 	space = cpSpaceNew();
 	space->iterations = 10;//default is 10
-	space->damping = 0.5;
+	space->damping = 0.9;
 	//space->gravity = cpv(0, -100);
 
 	//The spatial hashes used by Chipmunk’s collision detection are fairly size sensitive. 
@@ -73,11 +74,11 @@ void setup()
 		verts[i] = cpv(10*cos(angle), 10*sin(angle));
 	}
 
-	for(int i=0; i<3; i++){
+	const int NUM_POLYS = 3;
+	for(int i=0; i<NUM_POLYS; i++){
 		body = cpBodyNew(1.0, cpMomentForPoly(1.0, NUM_VERTS, verts, cpvzero));
 //		body = cpBodyNew(1.0, cpMomentForCircle(1.0, 0.0, 10.0, cpvzero));
-		cpFloat x = rand()/(cpFloat)RAND_MAX*640 - 320;
-		body->p = cpv(x, 350);
+		body->p = cpv((i+1)*SCREEN_WIDTH/(NUM_POLYS+1) - SCREEN_WIDTH/2, SCREEN_HEIGHT/6);
 		cpSpaceAddBody(space, body);
 		shape = cpPolyShapeNew(body, NUM_VERTS, verts, cpvzero);
 //		shape = cpCircleShapeNew(body, 10.0, cpvzero);
@@ -85,7 +86,10 @@ void setup()
 		cpSpaceAddShape(space, shape);
 	}
 
-	body->p = cpv(0, 0);
+	body = cpBodyNew(1.0, cpMomentForPoly(1.0, NUM_VERTS, verts, cpvzero));
+	body->p = cpv(0, -SCREEN_HEIGHT/6);
+	shape = cpPolyShapeNew(body, NUM_VERTS, verts, cpvzero);
+	shape->e = 0.0; shape->u = 0.04;
 	avatar = new Avatar(space, body, shape);
 }
 
@@ -96,29 +100,29 @@ int event_loop()
 	while(SDL_PollEvent(&e))
 	{
 		SDLKey key = e.key.keysym.sym;
-		switch(e.type) 
+		if(e.type == SDL_KEYDOWN || e.type == SDL_KEYUP)
 		{
-		case SDL_KEYDOWN:
 			if(key == SDLK_ESCAPE) return 0;
 			else if(key == SDLK_w)
 			{
-				avatar->MoveUp();
+				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(0.0, 1.0));
+				else avatar->StopThrusting();
 			}
 			else if(key == SDLK_s)
 			{
-				avatar->MoveDown();
+				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(0.0, -1.0));
+				else avatar->StopThrusting();
 			}
 			else if(key == SDLK_a)
 			{
-				avatar->MoveLeft();
+				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(-1.0, 0.0));
+				else avatar->StopThrusting();
 			}
 			else if(key == SDLK_d) 
 			{
-				avatar->MoveRight();
+				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(1.0, 0.0));
+				else avatar->StopThrusting();
 			}
-			break;
-		default:
-			break;
 		}
 	}
 	return 1;
@@ -132,6 +136,10 @@ void logic ()
 static void
 eachBody(cpBody *body, void *unused)
 {
+	if(body->data != NULL) {
+		if(body->data == avatar) avatar->Update();
+	}
+
 	if(body->p.x > SCREEN_WIDTH/2.0) {
 		body->p.x = -SCREEN_WIDTH/2.0;
 	}
@@ -239,8 +247,14 @@ void draw()
 
 void run()
 {
+	int dt = SDL_GetTicks();
 	while(true)
-	{	
+	{
+		//cap the FPS
+		dt = SDL_GetTicks() - dt;
+		int delay = 1000/FRAME_CAP - dt;
+		if(delay > 0) SDL_Delay(delay);
+
 		//process events
 		if(event_loop() == 0) return;
 

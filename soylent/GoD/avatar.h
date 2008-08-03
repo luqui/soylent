@@ -9,35 +9,43 @@ public:
 	Avatar(cpSpace *space, cpBody *body, cpShape *shape) 
 	{
 		myBody = body;
-		cpSpaceAddBody(space, body);
+		myBody->data = this;
+		cpSpaceAddBody(space, myBody);
 		cpSpaceAddShape(space, shape);
+
+		thrust = 900.0;
+		uFrict = 0.03;
 	}
 	~Avatar() {}
 
-#define MAG 10.0
-	void MoveUp()
+	void Update()
 	{
-		Move(cpv(0.0, MAG));
+		ApplyFriction();
 	}
 
-	void MoveDown()
+	void Thrust(cpVect dir, cpVect offset = cpv(0.0, 0.0))
 	{
-		Move(cpv(0.0, -MAG));
+		cpBodyApplyForce(myBody, cpvmult(dir, thrust), offset);
 	}
 
-	void MoveLeft()
+	void StopThrusting()
 	{
-		Move(cpv(-MAG, 0.0));
+		cpBodyResetForces(myBody);
 	}
-
-	void MoveRight()
-	{
-		Move(cpv(MAG, 0.0));
-	}
-
 
 private:
 	cpBody* myBody;
+	cpFloat thrust;
+	cpFloat uFrict;
+
+	void ApplyFriction()
+	{
+		cpVect vel = myBody->v;
+		cpVect dir = cpvnormalize(cpvneg(vel));
+		cpFloat mag = cpvlength(vel) * uFrict; 
+		
+		if(mag != 0) Move(cpvmult(dir, mag));
+	}
 
 	void Move(cpVect force, cpVect offset = cpv(0.0, 0.0))
 	{
