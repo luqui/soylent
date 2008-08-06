@@ -232,11 +232,12 @@ void draw()
 
 void run()
 {
-	int dt = SDL_GetTicks();
+    Uint32 lastTicks = SDL_GetTicks();
 	while(true)
 	{
 		//cap the FPS
-		dt = SDL_GetTicks() - dt;
+		Uint32 dt = SDL_GetTicks() - lastTicks;
+        lastTicks = SDL_GetTicks();
 		int delay = 1000/FRAME_CAP - dt;
 		if(delay > 0) SDL_Delay(delay);
 
