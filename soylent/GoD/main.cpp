@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <iostream>
 
 #include <windows.h>
 #include <GL/gl.h>
@@ -20,6 +21,7 @@ cpSpace *space;
 cpBody *staticBody;
 
 Avatar *avatar;
+Input_Manager *inputManager;
 
 void init()
 {
@@ -43,6 +45,8 @@ void init()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(-SCREEN_WIDTH/2.0, SCREEN_WIDTH/2.0, -SCREEN_HEIGHT/2.0, SCREEN_HEIGHT/2.0);
+
+	inputManager = new Input_Manager();
 }
 
 #define NUM_VERTS 5
@@ -53,7 +57,7 @@ void setup()
 	cpResetShapeIdCounter();
 	space = cpSpaceNew();
 	space->iterations = 10;//default is 10
-	space->damping = 0.9;
+	space->damping = 0.9f;
 	//space->gravity = cpv(0, -100);
 
 	//The spatial hashes used by Chipmunk’s collision detection are fairly size sensitive. 
@@ -78,54 +82,32 @@ void setup()
 	for(int i=0; i<NUM_POLYS; i++){
 		body = cpBodyNew(1.0, cpMomentForPoly(1.0, NUM_VERTS, verts, cpvzero));
 //		body = cpBodyNew(1.0, cpMomentForCircle(1.0, 0.0, 10.0, cpvzero));
-		body->p = cpv((i+1)*SCREEN_WIDTH/(NUM_POLYS+1) - SCREEN_WIDTH/2, SCREEN_HEIGHT/6);
+		body->p = cpv((i+1)*SCREEN_WIDTH/float(NUM_POLYS+1) - SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/6.0f);
 		cpSpaceAddBody(space, body);
 		shape = cpPolyShapeNew(body, NUM_VERTS, verts, cpvzero);
 //		shape = cpCircleShapeNew(body, 10.0, cpvzero);
-		shape->e = 0.0; shape->u = 0.04;
+		shape->e = 0.0f; shape->u = 0.04f;
 		cpSpaceAddShape(space, shape);
 	}
 
 	body = cpBodyNew(1.0, cpMomentForPoly(1.0, NUM_VERTS, verts, cpvzero));
 	body->p = cpv(0, -SCREEN_HEIGHT/6);
 	shape = cpPolyShapeNew(body, NUM_VERTS, verts, cpvzero);
-	shape->e = 0.0; shape->u = 0.04;
+	shape->e = 0.0f; shape->u = 0.04f;
 	avatar = new Avatar(space, body, shape);
-}
 
-//Handle Keyboard and Mouse events.
-int event_loop()
-{
-	SDL_Event e;
-	while(SDL_PollEvent(&e))
-	{
-		SDLKey key = e.key.keysym.sym;
-		if(e.type == SDL_KEYDOWN || e.type == SDL_KEYUP)
-		{
-			if(key == SDLK_ESCAPE) return 0;
-			else if(key == SDLK_w)
-			{
-				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(0.0, 1.0));
-				else avatar->StopThrusting();
-			}
-			else if(key == SDLK_s)
-			{
-				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(0.0, -1.0));
-				else avatar->StopThrusting();
-			}
-			else if(key == SDLK_a)
-			{
-				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(-1.0, 0.0));
-				else avatar->StopThrusting();
-			}
-			else if(key == SDLK_d) 
-			{
-				if(e.type == SDL_KEYDOWN) avatar->Thrust(cpv(1.0, 0.0));
-				else avatar->StopThrusting();
-			}
-		}
+	const int numEvents = 8;
+	SDL_Event events[numEvents];
+	events[0].key.keysym.sym = events[4].key.keysym.sym = SDLK_w;
+	events[1].key.keysym.sym = events[5].key.keysym.sym = SDLK_s;
+	events[2].key.keysym.sym = events[6].key.keysym.sym = SDLK_a;
+	events[3].key.keysym.sym = events[7].key.keysym.sym = SDLK_d;
+	for(int i = 0; i < numEvents; i++) {
+		events[i].type = (i < 4) ? events[i].type = SDL_KEYDOWN : events[i].type = SDL_KEYUP;
 	}
-	return 1;
+
+	Thrust_Command *thruster = new Thrust_Command(avatar, events, numEvents);
+	inputManager->Register(thruster);
 }
 
 void logic ()
@@ -256,7 +238,7 @@ void run()
 		if(delay > 0) SDL_Delay(delay);
 
 		//process events
-		if(event_loop() == 0) return;
+		if(inputManager->Manage() == 0) return;
 
 		//perform game logic
 		logic();
