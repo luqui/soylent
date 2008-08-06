@@ -1,5 +1,8 @@
 #INCLUDE_DIRECTORIES(${CHIPMUNK_SOURCE_DIR}/include)
 
+SET(CMAKE_C_FLAGS_RELEASE "-O3 -ffast-math -std=gnu99")
+SET (CMAKE_BUILD_TYPE Release)
+
 SET(chipmunk_includes
 	chipmunk.h
 	cpArbiter.h
