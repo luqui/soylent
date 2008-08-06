@@ -25,6 +25,11 @@ struct Input_Command
 
 	SDL_Event *events;
 	int numEvents;
+
+private:
+    // no copying!
+    Input_Command(const Input_Command&);
+    Input_Command& operator= (const Input_Command&);
 };
 
 class Input_Manager
@@ -41,6 +46,10 @@ public:
 	}
 	~Input_Manager() 
 	{
+        for (int i = 0; i < SDLK_LAST; i++) {
+            delete keyDown_Bindings[i];
+            delete keyUp_Bindings[i];
+        }
 		delete[] keyDown_Bindings;
 		delete[] keyUp_Bindings;
 	}
@@ -51,9 +60,14 @@ public:
 			switch(command->events[i].type)
 			{
 			case SDL_KEYDOWN:
+                // maybe instead of unregistering the previous callback
+                // we could assign it a new "Combination_Command" instance
+                // which combines the effects of two commands.
+                delete keyDown_Bindings[command->events[i].key.keysym.sym];
 				keyDown_Bindings[command->events[i].key.keysym.sym] = command;
 				break;
 			case SDL_KEYUP:
+                delete keyUp_Bindings[command->events[i].key.keysym.sym];
 				keyUp_Bindings[command->events[i].key.keysym.sym] = command;
 				break;
 			default:
@@ -90,6 +104,9 @@ private:
 	Input_Command **keyDown_Bindings;
 	Input_Command **keyUp_Bindings;
 
+    // no copying!
+    Input_Manager(const Input_Manager&);
+    Input_Manager& operator= (const Input_Manager&);
 };
 
 #endif
