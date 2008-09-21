@@ -9,8 +9,11 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <FTGL/ftgl.h>
 #include "SDL.h"
 #include "chipmunk.h"
+#include <string>
+#include <sstream>
 
 #include "avatar.h"
 
@@ -25,6 +28,9 @@ cpBody *staticBody;
 
 Avatar *avatar;
 Input_Manager *inputManager;
+
+FTFont *font;
+int fps;
 
 void init()
 {
@@ -50,6 +56,10 @@ void init()
 	gluOrtho2D(-SCREEN_WIDTH/2.0, SCREEN_WIDTH/2.0, -SCREEN_HEIGHT/2.0, SCREEN_HEIGHT/2.0);
 
 	inputManager = new Input_Manager();
+
+	font = new FTBufferFont("Resources/zrnic___.ttf");
+	font->FaceSize(30);
+    font->CharMap(ft_encoding_unicode);
 }
 
 #define NUM_VERTS 5
@@ -221,11 +231,22 @@ drawObject(void *ptr, void *unused)
 
 void draw()
 {
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT);
-
 	glColor3f(0.0, 0.0, 0.0);
+
 	cpSpaceHashEach(space->activeShapes, &drawObject, NULL);
 	cpSpaceHashEach(space->staticShapes, &drawObject, NULL);
+
+	glLoadIdentity();
+	glTranslatef(-SCREEN_WIDTH/2.1f, -SCREEN_HEIGHT/2.1f, 0.0f);
+	std::string text;
+	std::stringstream ss;
+	ss << fps;
+	ss >> text;
+	text.append(" fps");
+	font->Render(text.c_str());
 	
 	SDL_GL_SwapBuffers();
 }
@@ -233,6 +254,8 @@ void draw()
 void run()
 {
     Uint32 lastTicks = SDL_GetTicks();
+	int frame_counter = 0;
+	Uint32 frame_timer = SDL_GetTicks();
 	while(true)
 	{
 		//cap the FPS
@@ -240,6 +263,14 @@ void run()
         lastTicks = SDL_GetTicks();
 		int delay = 1000/FRAME_CAP - dt;
 		if(delay > 0) SDL_Delay(delay);
+
+		//calculate FPS
+		frame_counter++;
+		if(SDL_GetTicks() - frame_timer > 250) {
+			fps = frame_counter / ((SDL_GetTicks() - frame_timer) / 1000.0);
+			frame_counter = 0;
+			frame_timer = SDL_GetTicks();
+		}
 
 		//process events
 		if(inputManager->Manage() == 0) return;
@@ -262,7 +293,10 @@ void quit()
 	
 	cpBodyFree(staticBody);
 
+	SDL_Quit();
+
 	delete avatar;
+
 }
 
 int main(int argc, char **argv)
@@ -270,6 +304,6 @@ int main(int argc, char **argv)
 	init();
 	setup();
 	run();
-	//quit();
+	quit();
 	return 0;
 }

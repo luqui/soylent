@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sdl.lib sdlmain.lib opengl32.lib glu32.lib chipmunk.obj cpArbiter.obj cpArray.obj cpBB.obj cpBody.obj cpCollision.obj cpHashSet.obj cpJoint.obj cpPolyShape.obj cpShape.obj cpSpace.obj cpSpaceHash.obj cpVect.obj"
+				AdditionalDependencies="sdl.lib sdlmain.lib ftgl.lib opengl32.lib glu32.lib chipmunk.obj cpArbiter.obj cpArray.obj cpBB.obj cpBody.obj cpCollision.obj cpHashSet.obj cpJoint.obj cpPolyShape.obj cpShape.obj cpSpace.obj cpSpaceHash.obj cpVect.obj"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -133,7 +133,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sdl.lib sdlmain.lib opengl32.lib chipmunk.obj cpArbiter.obj cpArray.obj cpBB.obj cpBody.obj cpCollision.obj cpHashSet.obj cpJoint.obj cpPolyShape.obj cpShape.obj cpSpace.obj cpSpaceHash.obj cpVect.obj"
+				AdditionalDependencies="sdl.lib sdlmain.lib ftgl.lib opengl32.lib glu32.lib chipmunk.obj cpArbiter.obj cpArray.obj cpBB.obj cpBody.obj cpCollision.obj cpHashSet.obj cpJoint.obj cpPolyShape.obj cpShape.obj cpSpace.obj cpSpaceHash.obj cpVect.obj"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
