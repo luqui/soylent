@@ -142,7 +142,7 @@ eachBody(cpBody *body, void *unused)
 void update()
 {
 	int steps = 1;
-	cpFloat dt = 1.0/60.0/(cpFloat)steps;
+	cpFloat dt = 1.0/FRAME_CAP/(cpFloat)steps;
 	
 	for(int i=0; i<steps; i++){
 		cpSpaceStep(space, dt);
