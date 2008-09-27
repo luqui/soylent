@@ -5,6 +5,10 @@
 
 #include "SDL.h"
 
+/*int G_LastMouseX;
+int G_LastMouseY;*/
+Uint32 G_MM_Update = SDL_GetTicks();
+
 struct Input_Command
 { 
 	Input_Command(SDL_Event *theEvents, int eventCount)
@@ -85,6 +89,7 @@ public:
 			SDLKey key = e.key.keysym.sym;
 			switch(e.type)
 			{
+			//keyboard
 			case SDL_KEYDOWN:
 				if(key == SDLK_ESCAPE) return 0;
 				else if(keyDown_Bindings[key] != NULL) keyDown_Bindings[key]->handle(&e);
@@ -92,6 +97,20 @@ public:
 			case SDL_KEYUP:
 				if(keyUp_Bindings[key] != NULL) keyUp_Bindings[key]->handle(&e);
 				break;
+
+			//mouse
+			case SDL_MOUSEBUTTONDOWN:
+				if(e.button.button = SDL_BUTTON(1)){
+					G_MM_Update = SDL_GetTicks();
+				}
+			case SDL_MOUSEMOTION:
+				/*if(SDL_GetTicks() - G_MM_Timer > 100) {
+					G_LastMouseX = e.motion.x;
+					G_LastMouseY = e.motion.y;
+					G_MM_Timer = SDL_GetTicks();
+				}*/
+				break;
+
 			default:
 				break;
 			}

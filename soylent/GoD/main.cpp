@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
+#include <vector>
 
 #ifdef WIN32
 #include <windows.h>
@@ -103,6 +104,7 @@ void setup()
 		cpSpaceAddShape(space, shape);
 	}
 
+	//Avatar
 	body = cpBodyNew(1.0, cpMomentForPoly(1.0, NUM_VERTS, verts, cpvzero));
 	body->p = cpv(0, -SCREEN_HEIGHT/6);
 	shape = cpPolyShapeNew(body, NUM_VERTS, verts, cpvzero);
@@ -121,11 +123,43 @@ void setup()
 
 	Thrust_Command *thruster = new Thrust_Command(avatar, events, numEvents);
 	inputManager->Register(thruster);
+
 }
 
+int G_LastMouseX = 0;
+int G_LastMouseY = 0;
+extern Uint32 G_MM_Update;
 void logic ()
 {
+	float x_vel, y_vel;
+	int MouseX, MouseY;
 
+	if(SDL_GetTicks() - G_MM_Update > 10) {
+		G_MM_Update = SDL_GetTicks();
+
+		int state =	SDL_GetMouseState(&MouseX, &MouseY);
+		x_vel = -4*(G_LastMouseX - MouseX);
+		y_vel =  4*(G_LastMouseY - MouseY);
+
+		if(state & SDL_BUTTON(1)) {
+			cpBody *body;
+			cpShape *shape;
+
+			float radius = 3;
+			float mass = 0.0001;
+			
+			body = cpBodyNew(mass, cpMomentForCircle(mass, 0.0, radius, cpvzero));
+			body->p = cpv(MouseX - SCREEN_WIDTH / 2.0, -MouseY + SCREEN_HEIGHT / 2.0);
+			body->v = cpv(x_vel, y_vel);
+			cpSpaceAddBody(space, body);
+			shape = cpCircleShapeNew(body, radius, cpvzero);
+			shape->e = 0.0f; shape->u = 1.0f;
+			cpSpaceAddShape(space, shape);
+		}
+
+		G_LastMouseX = MouseX;
+		G_LastMouseY = MouseY;
+	}
 }
 
 static void
@@ -176,6 +210,7 @@ void drawCircle(cpFloat x, cpFloat y, cpFloat r, cpFloat a)
 
 void drawCircleShape(cpShape *shape)
 {
+	glColor3f(0.0, 1.0, 0.0);
 	cpBody *body = shape->body;
 	cpCircleShape *circle = (cpCircleShape *)shape;
 	cpVect c = cpvadd(body->p, cpvrotate(circle->c, body->rot));
@@ -197,6 +232,7 @@ void drawSegmentShape(cpShape *shape)
 
 void drawPolyShape(cpShape *shape)
 {
+	glColor3f(0.0, 0.0, 0.0);
 	cpBody *body = shape->body;
 	cpPolyShape *poly = (cpPolyShape *)shape;
 	
@@ -234,11 +270,11 @@ void draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(0.0, 0.0, 0.0);
 
 	cpSpaceHashEach(space->activeShapes, &drawObject, NULL);
 	cpSpaceHashEach(space->staticShapes, &drawObject, NULL);
 
+	glColor3f(0.0, 0.0, 0.0);
 	glLoadIdentity();
 	glTranslatef(-SCREEN_WIDTH/2.1f, -SCREEN_HEIGHT/2.1f, 0.0f);
 	std::string text;
@@ -261,12 +297,12 @@ void run()
 		//cap the FPS
 		Uint32 dt = SDL_GetTicks() - lastTicks;
         lastTicks = SDL_GetTicks();
-		int delay = 1000/FRAME_CAP - dt;
+		int delay = 1000.0/(FRAME_CAP + 1) - dt;
 		if(delay > 0) SDL_Delay(delay);
 
 		//calculate FPS
 		frame_counter++;
-		if(SDL_GetTicks() - frame_timer > 250) {
+		if(SDL_GetTicks() - frame_timer > 500) {
 			fps = frame_counter / ((SDL_GetTicks() - frame_timer) / 1000.0);
 			frame_counter = 0;
 			frame_timer = SDL_GetTicks();
