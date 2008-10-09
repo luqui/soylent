@@ -154,6 +154,7 @@ void logic ()
 			cpSpaceAddBody(space, body);
 			shape = cpCircleShapeNew(body, radius, cpvzero);
 			shape->e = 0.0f; shape->u = 1.0f;
+			shape->group = 1;
 			cpSpaceAddShape(space, shape);
 		}
 
@@ -210,7 +211,7 @@ void drawCircle(cpFloat x, cpFloat y, cpFloat r, cpFloat a)
 
 void drawCircleShape(cpShape *shape)
 {
-	glColor3f(0.0, 1.0, 0.0);
+	glColor4f(0.0, 1.0, 0.0, 0.5);
 	cpBody *body = shape->body;
 	cpCircleShape *circle = (cpCircleShape *)shape;
 	cpVect c = cpvadd(body->p, cpvrotate(circle->c, body->rot));
