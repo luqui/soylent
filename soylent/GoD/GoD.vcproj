@@ -187,6 +187,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\entity.h"
+				>
+			</File>
+			<File
 				RelativePath=".\input_manager.h"
 				>
 			</File>

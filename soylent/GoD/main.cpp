@@ -41,7 +41,7 @@ void init()
 	
 	SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_OPENGL);
 	
-	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glPointSize(2.5);
 	
     glEnable(GL_LINE_SMOOTH);
@@ -71,7 +71,7 @@ void setup()
 	cpResetShapeIdCounter();
 	space = cpSpaceNew();
 	space->iterations = 10;//default is 10
-	space->damping = 0.9f;
+	//space->damping = 0.9f;
 	//space->gravity = cpv(0, -100);
 
 	//The spatial hashes used by Chipmunk’s collision detection are fairly size sensitive. 
@@ -138,15 +138,15 @@ void logic ()
 		G_MM_Update = SDL_GetTicks();
 
 		int state =	SDL_GetMouseState(&MouseX, &MouseY);
-		x_vel = -4*(G_LastMouseX - MouseX);
-		y_vel =  4*(G_LastMouseY - MouseY);
+		x_vel = -4.0f*(G_LastMouseX - MouseX);
+		y_vel =  4.0f*(G_LastMouseY - MouseY);
 
 		if(state & SDL_BUTTON(1)) {
 			cpBody *body;
 			cpShape *shape;
 
 			float radius = 3;
-			float mass = 0.0001;
+			float mass = 0.0001f;
 			
 			body = cpBodyNew(mass, cpMomentForCircle(mass, 0.0, radius, cpvzero));
 			body->p = cpv(MouseX - SCREEN_WIDTH / 2.0, -MouseY + SCREEN_HEIGHT / 2.0);
@@ -211,7 +211,7 @@ void drawCircle(cpFloat x, cpFloat y, cpFloat r, cpFloat a)
 
 void drawCircleShape(cpShape *shape)
 {
-	glColor4f(0.0, 1.0, 0.0, 0.5);
+	glColor4f(0.0, 1.0, 0.0, 0.3);
 	cpBody *body = shape->body;
 	cpCircleShape *circle = (cpCircleShape *)shape;
 	cpVect c = cpvadd(body->p, cpvrotate(circle->c, body->rot));
@@ -233,7 +233,7 @@ void drawSegmentShape(cpShape *shape)
 
 void drawPolyShape(cpShape *shape)
 {
-	glColor3f(0.0, 0.0, 0.0);
+	glColor3f(1.0, 1.0, 1.0);
 	cpBody *body = shape->body;
 	cpPolyShape *poly = (cpPolyShape *)shape;
 	

@@ -7,53 +7,51 @@
 #include "SDL.h"
 #include "chipmunk.h"
 #include "input_manager.h"
+#include "entity.h"
 
-class Avatar
+class Avatar : public Entity
 {
 public:
 	Avatar(cpSpace *space, cpBody *body, cpShape *shape) 
+		: Entity(space, body, shape)
 	{
-		myBody = body;
-		myBody->data = this;
-		cpSpaceAddBody(space, myBody);
-		cpSpaceAddShape(space, shape);
-
 		thrust = 900.0;
 		uFrict = 0.03f;
 	}
 	~Avatar() {}
 
-	void Update()
+	/*void Update()
 	{
 		ApplyFriction();
-	}
+	}*/
 
 	void Thrust(cpVect dir)
 	{
 		cpBodyResetForces(myBody);
 		if(cpvlength(dir) != 0) {
-			cpBodyApplyForce(myBody, cpvmult(cpvnormalize(dir), thrust), cpvzero);
+			Move(cpvmult(cpvnormalize(dir), thrust));
+			//cpBodyApplyForce(myBody, cpvmult(cpvnormalize(dir), thrust), cpvzero);
 		}
 	}
 
 private:
-	cpBody* myBody;
+	/*cpBody* myBody;
 	cpFloat thrust;
-	cpFloat uFrict;
+	cpFloat uFrict;*/
 
-	void ApplyFriction()
+	/*void ApplyFriction()
 	{
 		cpVect vel = myBody->v;
 		cpVect dir = cpvnormalize(cpvneg(vel));
 		cpFloat mag = cpvlength(vel) * uFrict; 
 		
 		if(mag != 0) Move(cpvmult(dir, mag));
-	}
+	}*/
 
-	void Move(cpVect force)
+	/*void Move(cpVect force)
 	{
 		cpBodyApplyImpulse(myBody, force, cpvzero);
-	}
+	}*/
 
 };
 
