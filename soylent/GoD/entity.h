@@ -1,8 +1,11 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
+#include <iostream>
+
 #include "chipmunk.h"
 
+//An entity is an object with a shape and body which exists in a space. It applies friction to itself.
 class Entity
 {
 public:
@@ -13,7 +16,7 @@ public:
 		cpSpaceAddBody(space, myBody);
 		cpSpaceAddShape(space, shape);
 
-		thrust = 900.0;
+		thrust = 900.0f;
 		uFrict = 0.03f;
 	}
 	~Entity() {}
@@ -34,10 +37,10 @@ protected:
 		cpVect dir = cpvnormalize(cpvneg(vel));
 		cpFloat mag = cpvlength(vel) * uFrict; 
 		
-		if(mag != 0) Move(cpvmult(dir, mag));
+		if(mag != 0) Impulse(cpvmult(dir, mag));
 	}
 
-	void Move(cpVect force)
+	void Impulse(cpVect force)
 	{
 		cpBodyApplyImpulse(myBody, force, cpvzero);
 	}

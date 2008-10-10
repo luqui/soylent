@@ -3,6 +3,7 @@
 #include <math.h>
 #include <iostream>
 #include <vector>
+#include <list>
 
 #ifdef WIN32
 #include <windows.h>
@@ -28,6 +29,7 @@ cpSpace *space;
 cpBody *staticBody;
 
 Avatar *avatar;
+Entity **entities;
 Input_Manager *inputManager;
 
 FTFont *font;
@@ -102,6 +104,7 @@ void setup()
 //		shape = cpCircleShapeNew(body, 10.0, cpvzero);
 		shape->e = 0.0f; shape->u = 0.04f;
 		cpSpaceAddShape(space, shape);
+
 	}
 
 	//Avatar
@@ -275,7 +278,7 @@ void draw()
 	cpSpaceHashEach(space->activeShapes, &drawObject, NULL);
 	cpSpaceHashEach(space->staticShapes, &drawObject, NULL);
 
-	glColor3f(0.0, 0.0, 0.0);
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glLoadIdentity();
 	glTranslatef(-SCREEN_WIDTH/2.1f, -SCREEN_HEIGHT/2.1f, 0.0f);
 	std::string text;

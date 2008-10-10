@@ -15,43 +15,24 @@ public:
 	Avatar(cpSpace *space, cpBody *body, cpShape *shape) 
 		: Entity(space, body, shape)
 	{
-		thrust = 900.0;
+		thrust = 900.0f;
 		uFrict = 0.03f;
 	}
 	~Avatar() {}
 
-	/*void Update()
-	{
-		ApplyFriction();
-	}*/
-
 	void Thrust(cpVect dir)
 	{
+		//***this should be replaced with a more sophisticated function which just resets the thrust force
 		cpBodyResetForces(myBody);
+
+		thrustForce = cpvmult(cpvnormalize(dir), thrust);
 		if(cpvlength(dir) != 0) {
-			Move(cpvmult(cpvnormalize(dir), thrust));
-			//cpBodyApplyForce(myBody, cpvmult(cpvnormalize(dir), thrust), cpvzero);
+			cpBodyApplyForce(myBody, thrustForce, cpvzero);
 		}
 	}
 
 private:
-	/*cpBody* myBody;
-	cpFloat thrust;
-	cpFloat uFrict;*/
-
-	/*void ApplyFriction()
-	{
-		cpVect vel = myBody->v;
-		cpVect dir = cpvnormalize(cpvneg(vel));
-		cpFloat mag = cpvlength(vel) * uFrict; 
-		
-		if(mag != 0) Move(cpvmult(dir, mag));
-	}*/
-
-	/*void Move(cpVect force)
-	{
-		cpBodyApplyImpulse(myBody, force, cpvzero);
-	}*/
+	cpVect thrustForce;
 
 };
 
@@ -73,7 +54,7 @@ public:
 
 	void handle(SDL_Event *e)
 	{
-		bool keydown = e->type == SDL_KEYDOWN;
+		bool keydown = (e->type == SDL_KEYDOWN);
 		SDLKey key = e->key.keysym.sym;
 		
 		if(key == events[0].key.keysym.sym) {//up
