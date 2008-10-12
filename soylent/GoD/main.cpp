@@ -19,6 +19,7 @@
 
 #include "avatar.h"
 
+using namespace std;
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
@@ -29,7 +30,7 @@ cpSpace *space;
 cpBody *staticBody;
 
 Avatar *avatar;
-Entity **entities;
+list<Entity*> entities;
 Input_Manager *inputManager;
 
 FTFont *font;
@@ -86,6 +87,7 @@ void setup()
 
 	cpBody *body;
 	cpShape *shape;
+	Entity *entity;
 
 	//we are making polygons (pentagons)
 	cpVect verts[NUM_VERTS];
@@ -99,12 +101,15 @@ void setup()
 		body = cpBodyNew(1.0, cpMomentForPoly(1.0, NUM_VERTS, verts, cpvzero));
 //		body = cpBodyNew(1.0, cpMomentForCircle(1.0, 0.0, 10.0, cpvzero));
 		body->p = cpv((i+1)*SCREEN_WIDTH/float(NUM_POLYS+1) - SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/6.0f);
-		cpSpaceAddBody(space, body);
+		//cpSpaceAddBody(space, body);
 		shape = cpPolyShapeNew(body, NUM_VERTS, verts, cpvzero);
 //		shape = cpCircleShapeNew(body, 10.0, cpvzero);
 		shape->e = 0.0f; shape->u = 0.04f;
-		cpSpaceAddShape(space, shape);
+		//cpSpaceAddShape(space, shape);
+		
+		entity = new Entity(space, body, shape, 10);
 
+		entities.push_back(entity);
 	}
 
 	//Avatar
@@ -112,7 +117,8 @@ void setup()
 	body->p = cpv(0, -SCREEN_HEIGHT/6);
 	shape = cpPolyShapeNew(body, NUM_VERTS, verts, cpvzero);
 	shape->e = 0.0f; shape->u = 0.04f;
-	avatar = new Avatar(space, body, shape);
+	avatar = new Avatar(space, body, shape, 10);
+	entities.push_back(avatar);
 
 	const int numEvents = 8;
 	SDL_Event events[numEvents];
@@ -169,9 +175,9 @@ void logic ()
 static void
 eachBody(cpBody *body, void *unused)
 {
-	if(body->data != NULL) {
+	/*if(body->data != NULL) {
 		if(body->data == avatar) avatar->Update();
-	}
+	}*/
 
 	if(body->p.x > SCREEN_WIDTH/2.0) {
 		body->p.x = -SCREEN_WIDTH/2.0;
@@ -189,6 +195,12 @@ eachBody(cpBody *body, void *unused)
 
 void update()
 {
+	list<Entity*>::iterator it;
+	for( it=entities.begin(); it != entities.end(); it++ ) 
+	{
+		(*it)->Update();
+	}
+
 	int steps = 1;
 	cpFloat dt = 1.0/FRAME_CAP/(cpFloat)steps;
 	

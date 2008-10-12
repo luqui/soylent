@@ -12,9 +12,10 @@
 class Avatar : public Entity
 {
 public:
-	Avatar(cpSpace *space, cpBody *body, cpShape *shape) 
+	Avatar(cpSpace *space, cpBody *body, cpShape *shape, cpFloat radius) 
 		: Entity(space, body, shape)
 	{
+		myRadius = radius;
 		thrust = 900.0f;
 		uFrict = 0.03f;
 	}
