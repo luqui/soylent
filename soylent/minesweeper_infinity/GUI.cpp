@@ -159,20 +159,21 @@ class OptionsPage : public GUIPage {
 		}
 		// Implement the action function in ActionListener to recieve actions
 		// The eventId tells us which widget called the action function.
-		void OptionsActionListener::action(const std::string& eventId)
+		void action(const gcn::ActionEvent& eventId)
 		{
 			std::string str;
 			std::ostringstream os(str);
+            std::string eid = eventId.getId();
 			
-			if(eventId == "autocountCheckBox") {
+			if(eid == "autocountCheckBox") {
 				autocount = oPage->autocountCheckBox->isMarked();
 				refreshGameBoard(screenStack.top());
 			}
-			else if(eventId == "flagClearCheckBox")
+			else if(eid == "flagClearCheckBox")
 				flagClear = oPage->flagClearCheckBox->isMarked();
-			else if(eventId == "interfaceCheckBox")
+			else if(eid == "interfaceCheckBox")
 				rightClickInterface = oPage->interfaceCheckBox->isMarked();
-			else if(eventId == "OKButton")
+			else if(eid == "OKButton")
 				oPage->running = false;
 		}
 	};
@@ -193,7 +194,7 @@ protected:
 		checkBox->setMarked(checked);
 		checkBox->setFocusable(false);
 		checkBox->setPosition(x, y);
-		checkBox->setEventId(eventID);
+		// checkBox->setEventId(eventID);
 		checkBox->addActionListener(optionsActionListener);
 		top->add(checkBox);
 	}
@@ -237,7 +238,7 @@ public:
 		OKButton->setFont(optionsFont2);
 		OKButton->setSize(int(50*scaleFactor),int(50*scaleFactor));  // XXX 33?
 		OKButton->setPosition((top->getWidth()-OKButton->getWidth())/2, int(top->getHeight() - 60*scaleFactor));
-		OKButton->setEventId("OKButton");
+		OKButton->setActionEventId("OKButton");
 		OKButton->addActionListener(optionsActionListener);
 		//OKButton->setBaseColor(gcn::Color(162, 175, 242, 150));
 		OKButton->setBaseColor(gcn::Color(255, 255, 255, 0));
@@ -267,12 +268,12 @@ class HighScorePage : public GUIPage {
 		}
 		// Implement the action function in ActionListener to recieve actions
 		// The eventId tells us which widget called the action function.
-		void HighScoreActionListener::action(const std::string& eventId)
+		void action(const gcn::ActionEvent& eventId)
 		{
 			std::string str;
 			std::ostringstream os(str);
 			
-			if(eventId == "OKButton") {
+			if(eventId.getId() == "OKButton") {
 				hPage->running = false;
 			}
 		}
@@ -346,7 +347,7 @@ public:
 		OKButton->setFont(scoreFont2);
 		OKButton->setSize(int(60*scaleFactor),int(30*scaleFactor));
 		OKButton->setPosition((top->getWidth()-OKButton->getWidth())/2, int(top->getHeight() - OKButton->getHeight()));
-		OKButton->setEventId("OKButton");
+		OKButton->setActionEventId("OKButton");
 		OKButton->addActionListener(scoreActionListener);
 		/*if(OKButton->hasMouse()) {
 			OKButton->setBaseColor(gcn::Color(162, 175, 242, 150));
