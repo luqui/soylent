@@ -166,13 +166,13 @@ class OptionsPage : public GUIPage {
             std::string eid = eventId.getId();
 			
 			if(eid == "autocountCheckBox") {
-				autocount = oPage->autocountCheckBox->isMarked();
+				autocount = oPage->autocountCheckBox->isSelected();
 				refreshGameBoard(screenStack.top());
 			}
 			else if(eid == "flagClearCheckBox")
-				flagClear = oPage->flagClearCheckBox->isMarked();
+				flagClear = oPage->flagClearCheckBox->isSelected();
 			else if(eid == "interfaceCheckBox")
-				rightClickInterface = oPage->interfaceCheckBox->isMarked();
+				rightClickInterface = oPage->interfaceCheckBox->isSelected();
 			else if(eid == "OKButton")
 				oPage->running = false;
 		}
@@ -191,7 +191,7 @@ protected:
 
 	void MakeCheckBox(string text, bool checked, int x, int y, string eventID, gcn::CheckBox*& checkBox) {
 		checkBox = new gcn::CheckBox(text);
-		checkBox->setMarked(checked);
+		checkBox->setSelected(checked);
 		checkBox->setFocusable(false);
 		checkBox->setPosition(x, y);
 		// checkBox->setEventId(eventID);
@@ -204,9 +204,9 @@ protected:
 
 		if (event.type == SDL_KEYUP)
 		{
-			autocountCheckBox->setMarked(autocount);
-			flagClearCheckBox->setMarked(flagClear);
-			interfaceCheckBox->setMarked(rightClickInterface);
+			autocountCheckBox->setSelected(autocount);
+			flagClearCheckBox->setSelected(flagClear);
+			interfaceCheckBox->setSelected(rightClickInterface);
 		}
 	}
 
@@ -225,7 +225,7 @@ public:
 		titleLabel->setPosition(top->getWidth()/2-titleLabel->getWidth()/2,0);
 		top->add(titleLabel);
 
-		MakeCheckBox("(A)utocount", autocount, titleLabel->getBorderSize(), 
+		MakeCheckBox("(A)utocount", autocount, titleLabel->getFrameSize(), 
 					int(titleLabel->getHeight() + 20*scaleFactor), "autocountCheckBox", autocountCheckBox);
 
 		MakeCheckBox("(F)lag Clear", flagClear, autocountCheckBox->getX(), 
@@ -242,7 +242,7 @@ public:
 		OKButton->addActionListener(optionsActionListener);
 		//OKButton->setBaseColor(gcn::Color(162, 175, 242, 150));
 		OKButton->setBaseColor(gcn::Color(255, 255, 255, 0));
-		OKButton->setBorderSize(5);
+		OKButton->setFrameSize(5);
 		top->add(OKButton);						
 	}
 
@@ -354,7 +354,7 @@ public:
 		} else {*/
 			OKButton->setBaseColor(gcn::Color(255, 255, 255, 0));
 		//}
-		OKButton->setBorderSize(5);
+		OKButton->setFrameSize(5);
 		top->add(OKButton);						
 	}
 

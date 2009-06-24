@@ -35,10 +35,10 @@ struct HighScoreEntry {
 
 	bool operator < (const HighScoreEntry& o) const {
 		return score <  o.score
-			|| score == o.score && (
+			|| (score == o.score && (
 					date <  o.date ||
-					date == o.date && (
-						name < o.name));
+					(date == o.date && (
+						name < o.name))));
 	}	
 };
 

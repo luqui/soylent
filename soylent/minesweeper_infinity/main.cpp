@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ctime>
 #include <exception>
+#include <climits>
 #include "SDL.h"
 
 #ifdef __WINDOWS__

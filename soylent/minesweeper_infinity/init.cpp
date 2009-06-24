@@ -60,7 +60,7 @@ void initMinefield()
         
         // This is a pretty dumb approximation to the bailout,
         // but it should do for now.
-	bailout = (boardWidth * boardHeight * 10000) / (30);
+	//bailout = (boardWidth * boardHeight * 10000) / (30);
 };
 
 void resetTestChanges(){
